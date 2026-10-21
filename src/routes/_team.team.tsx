@@ -87,7 +87,7 @@ function Team() {
     qc.invalidateQueries({ queryKey: ["team"] });
   };
 
-  const Status = ({ ok, info, name }: { ok?: boolean; info?: string; name: string }) => (
+  const Status = ({ ok, info, name }: { ok: boolean | undefined; info: string | undefined; name: string }) => (
     <div className="flex items-center gap-2 rounded-lg border p-3 text-sm">
       {status.isFetching ? <span className="h-4 w-4 animate-pulse rounded-full bg-muted" /> : ok ? <CheckCircle2 className="h-4 w-4 text-chart-3" /> : <XCircle className="h-4 w-4 text-destructive" />}
       <b>{name}</b>
