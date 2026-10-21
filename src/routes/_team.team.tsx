@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { toast } from "sonner";
 import { CheckCircle2, Copy, Eye, EyeOff, Plug, Users, Webhook, XCircle } from "lucide-react";
 import { PageHeader } from "@/components/admin";
@@ -101,7 +101,7 @@ function Team() {
     </div>
   );
 
-  const Step = ({ n, title, desc, icon: I, children }: { n: number; title: string; desc: string; icon: typeof Plug; children: React.ReactNode }) => (
+  const Step = ({ n, title, desc, icon: I, children }: { n: number; title: string; desc: string; icon: typeof Plug; children: ReactNode }) => (
     <section className="overflow-hidden rounded-xl border bg-card shadow-card">
       <header className="flex items-start gap-3 border-b p-4">
         <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary text-sm font-bold text-primary-foreground">{n}</span>
