@@ -75,7 +75,7 @@ function Dashboard() {
   return (
     <div className="space-y-5">
       <div className="relative overflow-hidden rounded-2xl bg-sidebar p-5 text-sidebar-foreground shadow-elevated md:p-7">
-        <div className="absolute -start-16 -top-16 h-56 w-56 rounded-full bg-sidebar-primary/20 blur-3xl" />
+        <div className="absolute -start-16 -top-16 h-56 w-56 rounded-full bg-sidebar-primary/10 blur-3xl" />
         <div className="relative flex flex-col gap-4 sm:flex-row sm:items-end">
           <div className="min-w-0 flex-1">
             <p className="text-sm text-sidebar-foreground/70">{hello}، <span dir="ltr">{name}</span></p>

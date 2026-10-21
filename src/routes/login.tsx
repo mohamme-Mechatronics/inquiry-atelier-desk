@@ -57,7 +57,7 @@ function Login() {
   return (
     <div className="grid min-h-screen bg-background lg:grid-cols-2">
       <div className="relative hidden overflow-hidden bg-sidebar p-12 text-sidebar-foreground lg:flex lg:flex-col">
-        <div className="absolute -end-24 -top-24 h-96 w-96 rounded-full bg-sidebar-primary/20 blur-3xl" />
+        <div className="absolute -end-24 -top-24 h-96 w-96 rounded-full bg-sidebar-primary/10 blur-3xl" />
         <div className="absolute -bottom-32 -start-16 h-80 w-80 rounded-full bg-sidebar-accent blur-3xl" />
         <div className="relative flex items-center gap-3">
           <div className="rounded-xl bg-card p-1.5"><img src={logo.url} alt="تمكين" className="h-12 w-12 object-contain" /></div>
