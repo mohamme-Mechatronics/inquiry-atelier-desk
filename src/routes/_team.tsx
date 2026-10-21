@@ -127,7 +127,7 @@ function AppLayout() {
 
   const Brand = () => (
     <div className="flex items-center gap-3 px-1">
-      <div className="rounded-lg bg-card p-1"><img src={logo.url} alt="تمكين" className="h-9 w-9 object-contain" /></div>
+      <img src={logo.url} alt="تمكين" className="h-9 w-auto object-contain" />
       <div className="leading-tight">
         <div className="font-display text-base font-extrabold text-sidebar-foreground">تمكين</div>
         <div className="text-[11px] text-sidebar-foreground/60">منصة إدارة المبيعات</div>
@@ -178,7 +178,7 @@ function AppLayout() {
 
       <div className="flex min-w-0 flex-1 flex-col">
         <header className="sticky top-0 z-30 flex h-14 items-center gap-3 border-b bg-card/90 px-4 backdrop-blur md:h-16 md:px-6">
-          <img src={logo.url} alt="تمكين" className="h-8 w-8 rounded-md object-contain md:hidden" />
+          <img src={logo.url} alt="تمكين" className="h-8 w-auto object-contain md:hidden" />
           <div className="min-w-0 flex-1 leading-tight">
             <div className="flex items-center gap-1 text-[11px] text-muted-foreground max-md:hidden">
               تمكين <ChevronLeft className="h-3 w-3" /> {current?.label ?? "ملف العميل"}
