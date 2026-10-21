@@ -20,8 +20,13 @@ export const Route = createFileRoute("/api/public/bot-pdf")({
           headers.set("x-pdf-fallback", "1");
           headers.delete("host");
           headers.delete("content-length");
-          const r = await fetch(url, { method: "POST", headers, body: await backup.arrayBuffer() });
-          return r.ok ? new Response(r.body, { headers: r.headers }) : why;
+          try {
+            const r = await fetch(url, { method: "POST", headers, body: await backup.arrayBuffer() });
+            return r.ok ? new Response(r.body, { headers: r.headers }) : why;
+          } catch (error) {
+            console.error(error);
+            return why;
+          }
         };
 
         const token = process.env["BROWSERLESS_TOKEN"];
