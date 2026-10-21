@@ -34,6 +34,7 @@ describe('Combined bot document continuation', () => {
     it(`${label} skips a second send on Telegram and keeps WhatsApp sending`, () => {
       const connections = fixture.connections as Record<string, { main: { node: string }[][] }>;
       const gate = connections[`${label} Already Sent On Telegram?`];
+      if (!gate?.main[0] || !gate.main[1]) throw new Error('Missing document continuation branch');
       expect(gate.main[0].map(edge => edge.node)).toContain(next);
       expect(gate.main[0].map(edge => edge.node)).not.toContain(send);
       expect(gate.main[1].map(edge => edge.node)).toEqual([send]);
