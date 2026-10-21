@@ -10,33 +10,128 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApiPublicBotButtonLockRouteImport } from './routes/api/public/bot-button-lock'
+import { Route as ApiPublicBotCatalogRouteImport } from './routes/api/public/bot-catalog'
+import { Route as ApiPublicBotMediaRouteImport } from './routes/api/public/bot-media'
+import { Route as ApiPublicBotMessageRouteImport } from './routes/api/public/bot-message'
+import { Route as ApiPublicBotOrderRouteImport } from './routes/api/public/bot-order'
+import { Route as ApiPublicBotPausedRouteImport } from './routes/api/public/bot-paused'
+import { Route as ApiPublicBotTicketRouteImport } from './routes/api/public/bot-ticket'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicBotButtonLockRoute = ApiPublicBotButtonLockRouteImport.update({
+  id: '/api/public/bot-button-lock',
+  path: '/api/public/bot-button-lock',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicBotCatalogRoute = ApiPublicBotCatalogRouteImport.update({
+  id: '/api/public/bot-catalog',
+  path: '/api/public/bot-catalog',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicBotMediaRoute = ApiPublicBotMediaRouteImport.update({
+  id: '/api/public/bot-media',
+  path: '/api/public/bot-media',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicBotMessageRoute = ApiPublicBotMessageRouteImport.update({
+  id: '/api/public/bot-message',
+  path: '/api/public/bot-message',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicBotOrderRoute = ApiPublicBotOrderRouteImport.update({
+  id: '/api/public/bot-order',
+  path: '/api/public/bot-order',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicBotPausedRoute = ApiPublicBotPausedRouteImport.update({
+  id: '/api/public/bot-paused',
+  path: '/api/public/bot-paused',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicBotTicketRoute = ApiPublicBotTicketRouteImport.update({
+  id: '/api/public/bot-ticket',
+  path: '/api/public/bot-ticket',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/api/public/bot-button-lock': typeof ApiPublicBotButtonLockRoute
+  '/api/public/bot-catalog': typeof ApiPublicBotCatalogRoute
+  '/api/public/bot-media': typeof ApiPublicBotMediaRoute
+  '/api/public/bot-message': typeof ApiPublicBotMessageRoute
+  '/api/public/bot-order': typeof ApiPublicBotOrderRoute
+  '/api/public/bot-paused': typeof ApiPublicBotPausedRoute
+  '/api/public/bot-ticket': typeof ApiPublicBotTicketRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/api/public/bot-button-lock': typeof ApiPublicBotButtonLockRoute
+  '/api/public/bot-catalog': typeof ApiPublicBotCatalogRoute
+  '/api/public/bot-media': typeof ApiPublicBotMediaRoute
+  '/api/public/bot-message': typeof ApiPublicBotMessageRoute
+  '/api/public/bot-order': typeof ApiPublicBotOrderRoute
+  '/api/public/bot-paused': typeof ApiPublicBotPausedRoute
+  '/api/public/bot-ticket': typeof ApiPublicBotTicketRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/api/public/bot-button-lock': typeof ApiPublicBotButtonLockRoute
+  '/api/public/bot-catalog': typeof ApiPublicBotCatalogRoute
+  '/api/public/bot-media': typeof ApiPublicBotMediaRoute
+  '/api/public/bot-message': typeof ApiPublicBotMessageRoute
+  '/api/public/bot-order': typeof ApiPublicBotOrderRoute
+  '/api/public/bot-paused': typeof ApiPublicBotPausedRoute
+  '/api/public/bot-ticket': typeof ApiPublicBotTicketRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/api/public/bot-button-lock'
+    | '/api/public/bot-catalog'
+    | '/api/public/bot-media'
+    | '/api/public/bot-message'
+    | '/api/public/bot-order'
+    | '/api/public/bot-paused'
+    | '/api/public/bot-ticket'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/api/public/bot-button-lock'
+    | '/api/public/bot-catalog'
+    | '/api/public/bot-media'
+    | '/api/public/bot-message'
+    | '/api/public/bot-order'
+    | '/api/public/bot-paused'
+    | '/api/public/bot-ticket'
+  id:
+    | '__root__'
+    | '/'
+    | '/api/public/bot-button-lock'
+    | '/api/public/bot-catalog'
+    | '/api/public/bot-media'
+    | '/api/public/bot-message'
+    | '/api/public/bot-order'
+    | '/api/public/bot-paused'
+    | '/api/public/bot-ticket'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ApiPublicBotButtonLockRoute: typeof ApiPublicBotButtonLockRoute
+  ApiPublicBotCatalogRoute: typeof ApiPublicBotCatalogRoute
+  ApiPublicBotMediaRoute: typeof ApiPublicBotMediaRoute
+  ApiPublicBotMessageRoute: typeof ApiPublicBotMessageRoute
+  ApiPublicBotOrderRoute: typeof ApiPublicBotOrderRoute
+  ApiPublicBotPausedRoute: typeof ApiPublicBotPausedRoute
+  ApiPublicBotTicketRoute: typeof ApiPublicBotTicketRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +143,67 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/bot-button-lock': {
+      id: '/api/public/bot-button-lock'
+      path: '/api/public/bot-button-lock'
+      fullPath: '/api/public/bot-button-lock'
+      preLoaderRoute: typeof ApiPublicBotButtonLockRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/bot-catalog': {
+      id: '/api/public/bot-catalog'
+      path: '/api/public/bot-catalog'
+      fullPath: '/api/public/bot-catalog'
+      preLoaderRoute: typeof ApiPublicBotCatalogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/bot-media': {
+      id: '/api/public/bot-media'
+      path: '/api/public/bot-media'
+      fullPath: '/api/public/bot-media'
+      preLoaderRoute: typeof ApiPublicBotMediaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/bot-message': {
+      id: '/api/public/bot-message'
+      path: '/api/public/bot-message'
+      fullPath: '/api/public/bot-message'
+      preLoaderRoute: typeof ApiPublicBotMessageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/bot-order': {
+      id: '/api/public/bot-order'
+      path: '/api/public/bot-order'
+      fullPath: '/api/public/bot-order'
+      preLoaderRoute: typeof ApiPublicBotOrderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/bot-paused': {
+      id: '/api/public/bot-paused'
+      path: '/api/public/bot-paused'
+      fullPath: '/api/public/bot-paused'
+      preLoaderRoute: typeof ApiPublicBotPausedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/bot-ticket': {
+      id: '/api/public/bot-ticket'
+      path: '/api/public/bot-ticket'
+      fullPath: '/api/public/bot-ticket'
+      preLoaderRoute: typeof ApiPublicBotTicketRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ApiPublicBotButtonLockRoute: ApiPublicBotButtonLockRoute,
+  ApiPublicBotCatalogRoute: ApiPublicBotCatalogRoute,
+  ApiPublicBotMediaRoute: ApiPublicBotMediaRoute,
+  ApiPublicBotMessageRoute: ApiPublicBotMessageRoute,
+  ApiPublicBotOrderRoute: ApiPublicBotOrderRoute,
+  ApiPublicBotPausedRoute: ApiPublicBotPausedRoute,
+  ApiPublicBotTicketRoute: ApiPublicBotTicketRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
