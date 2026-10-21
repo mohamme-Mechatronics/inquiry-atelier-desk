@@ -6,7 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import logo from "@/assets/tamkeen-logo.png.asset.json";
+import logo from "@/assets/tamkeen-logo-clean.png.asset.json";
 
 export const Route = createFileRoute("/login")({
   head: () => ({

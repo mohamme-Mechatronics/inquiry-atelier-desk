@@ -11,7 +11,7 @@ import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import {
   DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import logo from "@/assets/tamkeen-logo.png.asset.json";
+import logo from "@/assets/tamkeen-logo-clean.png.asset.json";
 
 export const Route = createFileRoute("/_team")({ component: AppLayout });
 
