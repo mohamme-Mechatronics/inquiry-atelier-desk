@@ -6,4 +6,4 @@
 - [x] Telegram copy of the bot (full conversation like WhatsApp)
 - [x] Remix setup: re-enter BOT_SECRET, BROWSERLESS_TOKEN, TELEGRAM_BOT_TOKEN
 - [x] Remix setup: database tables in the new project
-- [ ] Repair Telegram quote, study, and SLD document continuation; deliver a tested combined n8n file
+- [x] Repair Telegram quote, study, and SLD document continuation; deliver combined v44 (13 regression tests passed; live n8n conversation not verified)
