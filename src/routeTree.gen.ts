@@ -13,6 +13,7 @@ import { Route as TeamRouteImport } from './routes/_team'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as TeamIndexRouteImport } from './routes/_team.index'
 import { Route as TeamCatalogRouteImport } from './routes/_team.catalog'
+import { Route as TeamChatsRouteImport } from './routes/_team.chats'
 import { Route as TeamCustomersRouteImport } from './routes/_team.customers'
 import { Route as TeamOrdersRouteImport } from './routes/_team.orders'
 import { Route as TeamQuotesRouteImport } from './routes/_team.quotes'
@@ -47,6 +48,11 @@ const TeamIndexRoute = TeamIndexRouteImport.update({
 const TeamCatalogRoute = TeamCatalogRouteImport.update({
   id: '/catalog',
   path: '/catalog',
+  getParentRoute: () => TeamRoute,
+} as any)
+const TeamChatsRoute = TeamChatsRouteImport.update({
+  id: '/chats',
+  path: '/chats',
   getParentRoute: () => TeamRoute,
 } as any)
 const TeamCustomersRoute = TeamCustomersRouteImport.update({
@@ -134,6 +140,7 @@ export interface FileRoutesByFullPath {
   '/': typeof TeamIndexRoute
   '/login': typeof LoginRoute
   '/catalog': typeof TeamCatalogRoute
+  '/chats': typeof TeamChatsRoute
   '/customers': typeof TeamCustomersRoute
   '/orders': typeof TeamOrdersRoute
   '/quotes': typeof TeamQuotesRoute
@@ -154,6 +161,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/catalog': typeof TeamCatalogRoute
+  '/chats': typeof TeamChatsRoute
   '/customers': typeof TeamCustomersRoute
   '/orders': typeof TeamOrdersRoute
   '/quotes': typeof TeamQuotesRoute
@@ -177,6 +185,7 @@ export interface FileRoutesById {
   '/_team': typeof TeamRouteWithChildren
   '/login': typeof LoginRoute
   '/_team/catalog': typeof TeamCatalogRoute
+  '/_team/chats': typeof TeamChatsRoute
   '/_team/customers': typeof TeamCustomersRoute
   '/_team/orders': typeof TeamOrdersRoute
   '/_team/quotes': typeof TeamQuotesRoute
@@ -201,6 +210,7 @@ export interface FileRouteTypes {
     | '/'
     | '/login'
     | '/catalog'
+    | '/chats'
     | '/customers'
     | '/orders'
     | '/quotes'
@@ -221,6 +231,7 @@ export interface FileRouteTypes {
   to:
     | '/login'
     | '/catalog'
+    | '/chats'
     | '/customers'
     | '/orders'
     | '/quotes'
@@ -243,6 +254,7 @@ export interface FileRouteTypes {
     | '/_team'
     | '/login'
     | '/_team/catalog'
+    | '/_team/chats'
     | '/_team/customers'
     | '/_team/orders'
     | '/_team/quotes'
@@ -305,6 +317,13 @@ declare module '@tanstack/react-router' {
       path: '/catalog'
       fullPath: '/catalog'
       preLoaderRoute: typeof TeamCatalogRouteImport
+      parentRoute: typeof TeamRoute
+    }
+    '/_team/chats': {
+      id: '/_team/chats'
+      path: '/chats'
+      fullPath: '/chats'
+      preLoaderRoute: typeof TeamChatsRouteImport
       parentRoute: typeof TeamRoute
     }
     '/_team/customers': {
@@ -424,6 +443,7 @@ declare module '@tanstack/react-router' {
 
 interface TeamRouteChildren {
   TeamCatalogRoute: typeof TeamCatalogRoute
+  TeamChatsRoute: typeof TeamChatsRoute
   TeamCustomersRoute: typeof TeamCustomersRoute
   TeamOrdersRoute: typeof TeamOrdersRoute
   TeamQuotesRoute: typeof TeamQuotesRoute
@@ -435,6 +455,7 @@ interface TeamRouteChildren {
 
 const TeamRouteChildren: TeamRouteChildren = {
   TeamCatalogRoute: TeamCatalogRoute,
+  TeamChatsRoute: TeamChatsRoute,
   TeamCustomersRoute: TeamCustomersRoute,
   TeamOrdersRoute: TeamOrdersRoute,
   TeamQuotesRoute: TeamQuotesRoute,
