@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "app.tamkeen.admin",
+        "sha256_cert_fingerprints": ["62:7C:0B:5F:27:43:1D:AF:B3:96:AD:8B:AD:2F:E3:52:4E:D0:E1:5D:DD:84:5E:8B:51:68:FA:63:1C:BD:75:36"]
+      }
+    }]
