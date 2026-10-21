@@ -32,7 +32,7 @@ function Login() {
     if (mode === "in") {
       const { error } = await supabase.auth.signInWithPassword({ email, password });
       setBusy(false);
-      if (error) return toast.error("البريد أو كلمة السر غير صحيحة");
+      if (error) { toast.error("البريد أو كلمة السر غير صحيحة"); return; }
       nav({ to: "/" });
     } else {
       const { error } = await supabase.auth.signUp({
@@ -41,7 +41,7 @@ function Login() {
         options: { emailRedirectTo: window.location.origin },
       });
       setBusy(false);
-      if (error) return toast.error(error.message);
+      if (error) { toast.error(error.message); return; }
       toast.success("تم إنشاء الحساب. افتح بريدك لتأكيد الحساب ثم سجّل الدخول.");
       setMode("in");
     }

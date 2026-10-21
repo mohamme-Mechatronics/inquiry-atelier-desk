@@ -34,7 +34,7 @@ function Customer() {
   });
   const update = async (patch: { status?: string; bot_paused?: boolean }) => {
     const { error } = await supabase.from("customers").update(patch).eq("phone", phone);
-    if (error) return toast.error("تعذر الحفظ");
+    if (error) { toast.error("تعذر الحفظ"); return; }
     toast.success("تم الحفظ");
     qc.invalidateQueries({ queryKey: ["customer", phone] });
     qc.invalidateQueries({ queryKey: ["customers"] });

@@ -35,7 +35,7 @@ function Customers() {
       <div className="flex flex-wrap gap-2">
         <Input placeholder="بحث بالاسم أو الرقم أو المدينة" value={q} onChange={(e) => setQ(e.target.value)} className="max-w-xs" />
         {[["all", "الكل"], ...Object.entries(STATUSES).map(([k, v]) => [k, v.label])].map(([k, l]) => (
-          <button key={k} onClick={() => setSt(k)} className={`rounded-full px-3 py-1 text-sm ${st === k ? "bg-primary text-primary-foreground" : "bg-muted"}`}>
+          <button key={k} onClick={() => setSt(k as string)} className={`rounded-full px-3 py-1 text-sm ${st === k ? "bg-primary text-primary-foreground" : "bg-muted"}`}>
             {l}
           </button>
         ))}

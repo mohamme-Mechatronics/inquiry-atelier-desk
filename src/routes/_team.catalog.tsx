@@ -38,7 +38,7 @@ function Catalog() {
       specs: f.specs.split("\n").map((s) => s.trim()).filter(Boolean),
       updated_at: new Date().toISOString(),
     });
-    if (error) return toast.error("تعذر الحفظ");
+    if (error) { toast.error("تعذر الحفظ"); return; }
     toast.success("تم حفظ الصنف");
     setF(empty);
     qc.invalidateQueries({ queryKey: ["catalog"] });

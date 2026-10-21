@@ -36,7 +36,7 @@ function Team() {
     await supabase.from("user_roles").delete().eq("user_id", user_id);
     if (role) {
       const { error } = await supabase.from("user_roles").insert({ user_id, role });
-      if (error) return toast.error("تعذر الحفظ");
+      if (error) { toast.error("تعذر الحفظ"); return; }
     }
     toast.success("تم التحديث");
     qc.invalidateQueries({ queryKey: ["team"] });
