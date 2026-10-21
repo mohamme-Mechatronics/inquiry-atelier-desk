@@ -78,7 +78,7 @@ async function sendMediaWithCaption(
       f.append("caption", html ? waToHtml(cap) : cap);
       if (html) f.append("parse_mode", "HTML");
     }
-    if (!longCap && extra.reply_markup) f.append("reply_markup", JSON.stringify(extra.reply_markup));
+    if (!longCap && extra["reply_markup"]) f.append("reply_markup", JSON.stringify(extra["reply_markup"]));
     return f;
   };
   let res: any;
