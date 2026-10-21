@@ -13,7 +13,7 @@ import { sendReply } from "@/lib/reply.functions";
 type Search = { p?: string };
 
 export const Route = createFileRoute("/_team/chats")({
-  validateSearch: (s: Record<string, unknown>): Search => (typeof s.p === "string" ? { p: s.p } : {}),
+  validateSearch: (s: Record<string, unknown>): Search => (typeof s["p"] === "string" ? { p: s["p"] as string } : {}),
   head: () => ({
     meta: [
       { title: "المحادثات — تمكين" },
@@ -145,7 +145,7 @@ function Conversation({ phone, onBack }: { phone: string; onBack: () => void }) 
 
   const togglePause = async (v: boolean) => {
     const { error } = await supabase.from("customers").update({ bot_paused: v }).eq("phone", phone);
-    if (error) return toast.error("تعذر الحفظ");
+    if (error) { toast.error("تعذر الحفظ"); return; }
     toast.success(v ? "تم إيقاف البوت لهذا العميل" : "تم تشغيل البوت");
     qc.invalidateQueries({ queryKey: ["chat", phone] });
     qc.invalidateQueries({ queryKey: ["customers"] });
