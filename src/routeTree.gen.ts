@@ -28,6 +28,7 @@ import { Route as ApiPublicBotPausedRouteImport } from './routes/api/public/bot-
 import { Route as ApiPublicBotPdfRouteImport } from './routes/api/public/bot-pdf'
 import { Route as ApiPublicBotSessionRouteImport } from './routes/api/public/bot-session'
 import { Route as ApiPublicBotTicketRouteImport } from './routes/api/public/bot-ticket'
+import { Route as ApiPublicTgGraphSplatRouteImport } from './routes/api/public/tg-graph.$'
 
 const TeamRoute = TeamRouteImport.update({
   id: '/_team',
@@ -123,6 +124,11 @@ const ApiPublicBotTicketRoute = ApiPublicBotTicketRouteImport.update({
   path: '/api/public/bot-ticket',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicTgGraphSplatRoute = ApiPublicTgGraphSplatRouteImport.update({
+  id: '/api/public/tg-graph/$',
+  path: '/api/public/tg-graph/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof TeamIndexRoute
@@ -143,6 +149,7 @@ export interface FileRoutesByFullPath {
   '/api/public/bot-pdf': typeof ApiPublicBotPdfRoute
   '/api/public/bot-session': typeof ApiPublicBotSessionRoute
   '/api/public/bot-ticket': typeof ApiPublicBotTicketRoute
+  '/api/public/tg-graph/$': typeof ApiPublicTgGraphSplatRoute
 }
 export interface FileRoutesByTo {
   '/login': typeof LoginRoute
@@ -163,6 +170,7 @@ export interface FileRoutesByTo {
   '/api/public/bot-pdf': typeof ApiPublicBotPdfRoute
   '/api/public/bot-session': typeof ApiPublicBotSessionRoute
   '/api/public/bot-ticket': typeof ApiPublicBotTicketRoute
+  '/api/public/tg-graph/$': typeof ApiPublicTgGraphSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -185,6 +193,7 @@ export interface FileRoutesById {
   '/api/public/bot-pdf': typeof ApiPublicBotPdfRoute
   '/api/public/bot-session': typeof ApiPublicBotSessionRoute
   '/api/public/bot-ticket': typeof ApiPublicBotTicketRoute
+  '/api/public/tg-graph/$': typeof ApiPublicTgGraphSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -207,6 +216,7 @@ export interface FileRouteTypes {
     | '/api/public/bot-pdf'
     | '/api/public/bot-session'
     | '/api/public/bot-ticket'
+    | '/api/public/tg-graph/$'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/login'
@@ -227,6 +237,7 @@ export interface FileRouteTypes {
     | '/api/public/bot-pdf'
     | '/api/public/bot-session'
     | '/api/public/bot-ticket'
+    | '/api/public/tg-graph/$'
   id:
     | '__root__'
     | '/_team'
@@ -248,6 +259,7 @@ export interface FileRouteTypes {
     | '/api/public/bot-pdf'
     | '/api/public/bot-session'
     | '/api/public/bot-ticket'
+    | '/api/public/tg-graph/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -262,6 +274,7 @@ export interface RootRouteChildren {
   ApiPublicBotPdfRoute: typeof ApiPublicBotPdfRoute
   ApiPublicBotSessionRoute: typeof ApiPublicBotSessionRoute
   ApiPublicBotTicketRoute: typeof ApiPublicBotTicketRoute
+  ApiPublicTgGraphSplatRoute: typeof ApiPublicTgGraphSplatRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -399,6 +412,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicBotTicketRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/tg-graph/$': {
+      id: '/api/public/tg-graph/$'
+      path: '/api/public/tg-graph/$'
+      fullPath: '/api/public/tg-graph/$'
+      preLoaderRoute: typeof ApiPublicTgGraphSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -438,6 +458,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicBotPdfRoute: ApiPublicBotPdfRoute,
   ApiPublicBotSessionRoute: ApiPublicBotSessionRoute,
   ApiPublicBotTicketRoute: ApiPublicBotTicketRoute,
+  ApiPublicTgGraphSplatRoute: ApiPublicTgGraphSplatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
