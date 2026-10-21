@@ -6,7 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import logo from "@/assets/tamkeen-logo.png.asset.json";
+import logo from "@/assets/tamkeen-logo-clean.png.asset.json";
 
 export const Route = createFileRoute("/login")({
   head: () => ({
@@ -60,7 +60,7 @@ function Login() {
         <div className="absolute -end-24 -top-24 h-96 w-96 rounded-full bg-sidebar-primary/10 blur-3xl" />
         <div className="absolute -bottom-32 -start-16 h-80 w-80 rounded-full bg-sidebar-accent blur-3xl" />
         <div className="relative flex items-center gap-3">
-          <div className="rounded-xl bg-card p-1.5"><img src={logo.url} alt="تمكين" className="h-12 w-12 object-contain" /></div>
+          <img src={logo.url} alt="تمكين" className="h-12 w-auto object-contain" />
           <div>
             <div className="font-display text-xl font-extrabold">تمكين</div>
             <div className="text-xs text-sidebar-foreground/60">للحلول التقنية الذكية</div>
