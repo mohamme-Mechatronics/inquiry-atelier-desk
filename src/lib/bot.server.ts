@@ -1,6 +1,6 @@
 // Shared helpers for the endpoints the WhatsApp bot (n8n) calls.
 export async function botGuard(request: Request) {
-  const secret = process.env.BOT_SECRET;
+  const secret = process.env['BOT_SECRET'];
   const got = request.headers.get("x-bot-secret");
   if (!secret || !got || got !== secret) {
     return { error: Response.json({ error: "unauthorized" }, { status: 401 }) };
