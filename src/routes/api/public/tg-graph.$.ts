@@ -50,9 +50,9 @@ async function sendText(chat_id: string, text: string, extra: Record<string, unk
   for (let i = 0; i < parts.length; i++) {
     const ex = i === parts.length - 1 ? extra : {};
     try {
-      last = await tg("sendMessage", { chat_id, text: waToHtml(parts[i]), parse_mode: "HTML", disable_web_page_preview: true, ...ex });
+      last = await tg("sendMessage", { chat_id, text: waToHtml(parts[i] ?? ""), parse_mode: "HTML", disable_web_page_preview: true, ...ex });
     } catch {
-      last = await tg("sendMessage", { chat_id, text: parts[i], disable_web_page_preview: true, ...ex });
+      last = await tg("sendMessage", { chat_id, text: parts[i] ?? "", disable_web_page_preview: true, ...ex });
     }
   }
   return last;
