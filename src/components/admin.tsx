@@ -57,7 +57,7 @@ export function ChannelBadge({ phone }: { phone: string }) {
   return <span className={`inline-flex shrink-0 items-center rounded px-1.5 py-px text-[10px] font-semibold ${ch.cls}`}>{ch.label}</span>;
 }
 
-export function Avatar({ name, phone, size = "md" }: { name?: string | null; phone: string; size?: "sm" | "md" | "lg" }) {
+export function Avatar({ name, phone, size = "md" }: { name?: string | null | undefined; phone: string; size?: "sm" | "md" | "lg" }) {
   const ch = CHANNELS[channelOf(phone)];
   const s = size === "lg" ? "h-14 w-14 text-xl" : size === "sm" ? "h-8 w-8 text-xs" : "h-10 w-10 text-sm";
   return (
@@ -85,7 +85,7 @@ const WHO: Record<string, { label: string; icon: Icon }> = {
 
 // Customer messages sit on the start side; bot/staff replies on the end side; notes centered.
 export function MessageBubble({ m }: { m: Msg }) {
-  const w = WHO[m.direction] ?? WHO.bot!;
+  const w = WHO[m.direction] ?? WHO["bot"]!;
   const tone =
     m.direction === "note" ? "mx-auto border border-dashed border-accent bg-accent/10"
     : m.direction === "customer" ? "me-auto rounded-ss-sm border bg-card"

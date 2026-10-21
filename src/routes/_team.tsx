@@ -16,16 +16,22 @@ import logo from "@/assets/tamkeen-logo.png.asset.json";
 export const Route = createFileRoute("/_team")({ component: AppLayout });
 
 type BadgeKey = "orders" | "tickets" | "human";
-const GROUPS = [
+type NavItem = {
+  to: "/" | "/chats" | "/orders" | "/customers" | "/quotes" | "/tickets" | "/catalog" | "/team";
+  label: string;
+  icon: typeof LayoutGrid;
+  badge?: BadgeKey;
+};
+const GROUPS: { title: string; items: NavItem[] }[] = [
   {
     title: "العمليات",
     items: [
       { to: "/", label: "الرئيسية", icon: LayoutGrid },
-      { to: "/chats", label: "المحادثات", icon: MessageCircle, badge: "human" as BadgeKey },
-      { to: "/orders", label: "الطلبات", icon: ShoppingCart, badge: "orders" as BadgeKey },
+      { to: "/chats", label: "المحادثات", icon: MessageCircle, badge: "human" },
+      { to: "/orders", label: "الطلبات", icon: ShoppingCart, badge: "orders" },
       { to: "/customers", label: "العملاء", icon: Users },
       { to: "/quotes", label: "عروض الأسعار", icon: FileText },
-      { to: "/tickets", label: "الدعم الفني", icon: Wrench, badge: "tickets" as BadgeKey },
+      { to: "/tickets", label: "الدعم الفني", icon: Wrench, badge: "tickets" },
     ],
   },
   {
@@ -35,8 +41,8 @@ const GROUPS = [
       { to: "/team", label: "الإعدادات والربط", icon: Settings },
     ],
   },
-] as const;
-const ALL = GROUPS.flatMap((g) => g.items);
+];
+const ALL: NavItem[] = GROUPS.flatMap((g) => g.items);
 const BOTTOM = ["/", "/chats", "/orders", "/customers"] as const;
 
 function useBadges(enabled: boolean) {
@@ -55,7 +61,7 @@ function useBadges(enabled: boolean) {
   });
 }
 
-function Count({ n, className = "" }: { n?: number; className?: string }) {
+function Count({ n, className = "" }: { n?: number | undefined; className?: string }) {
   if (!n) return null;
   return (
     <span className={`min-w-5 rounded-full bg-accent px-1.5 text-center text-[10px] font-bold leading-5 tabular-nums text-accent-foreground ${className}`}>
@@ -111,7 +117,7 @@ function AppLayout() {
               activeProps={{ className: "bg-sidebar-accent font-semibold !text-sidebar-foreground before:absolute before:inset-y-1.5 before:start-0 before:w-1 before:rounded-full before:bg-sidebar-primary" }}>
               <n.icon className="h-4 w-4 shrink-0" />
               <span className="flex-1">{n.label}</span>
-              {"badge" in n && <Count n={badges.data?.[n.badge]} />}
+              {n.badge && <Count n={badges.data?.[n.badge]} />}
             </Link>
           ))}
         </div>
@@ -202,7 +208,7 @@ function AppLayout() {
               activeProps={{ className: "!text-primary font-bold" }}>
               <n.icon className="h-5 w-5" />
               {n.label}
-              {"badge" in n && <Count n={badges.data?.[n.badge]} className="absolute top-1 start-1/2 ms-2" />}
+              {n.badge && <Count n={badges.data?.[n.badge]} className="absolute top-1 start-1/2 ms-2" />}
             </Link>
           );
         })}

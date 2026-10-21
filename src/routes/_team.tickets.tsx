@@ -36,7 +36,7 @@ function Tickets() {
       <PageHeader title="تذاكر الدعم الفني" count={list.length} description="بلاغات الصيانة الواردة من العملاء عبر البوت" />
       <div className="flex gap-1.5">
         {[["all", "الكل"], ...Object.entries(TICKET_STATUSES)].map(([k, l]) => (
-          <button key={k} onClick={() => setF(k)}
+          <button key={k} onClick={() => setF(k as string)}
             className={`flex items-center gap-1.5 rounded-md border px-3 py-1.5 text-xs font-medium ${f === k ? "border-primary bg-primary text-primary-foreground" : "bg-card text-muted-foreground hover:text-foreground"}`}>
             {l} <span className="tabular-nums opacity-70">{k === "all" ? data.length : data.filter((t) => t.status === k).length}</span>
           </button>
