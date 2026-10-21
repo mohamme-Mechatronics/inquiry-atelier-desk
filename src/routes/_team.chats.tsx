@@ -66,8 +66,8 @@ function Chats() {
   ] as const;
 
   return (
-    <div className="grid h-[calc(100dvh-9.25rem)] overflow-hidden rounded-xl border bg-card shadow-card md:h-[calc(100dvh-7rem)] md:grid-cols-[22rem_1fr]">
-      <div className={`flex min-h-0 flex-col border-e ${p ? "hidden md:flex" : "flex"}`}>
+    <div className="grid h-[calc(100dvh-9.25rem)] overflow-hidden rounded-xl border bg-card shadow-card grid-cols-1 md:h-[calc(100dvh-7rem)] md:grid-cols-[22rem_1fr]">
+      <div className={`flex min-h-0 min-w-0 flex-col border-e ${p ? "hidden md:flex" : "flex"}`}>
         <div className="space-y-3 border-b p-3">
           <div className="flex items-center justify-between">
             <h1 className="font-sans text-base font-bold">صندوق المحادثات</h1>
@@ -114,7 +114,7 @@ function Chats() {
           })}
         </div>
       </div>
-      <div className={`min-h-0 ${p ? "flex" : "hidden md:flex"} flex-col`}>
+      <div className={`min-h-0 min-w-0 ${p ? "flex" : "hidden md:flex"} flex-col`}>
         {p ? <Conversation phone={p} onBack={() => nav({ search: {} })} /> : (
           <div className="m-auto"><EmptyState icon={MessageCircle} title="اختر محادثة لعرضها" hint="اختر عميلاً من القائمة لقراءة المحادثة والرد عليه على نفس قناته." /></div>
         )}
