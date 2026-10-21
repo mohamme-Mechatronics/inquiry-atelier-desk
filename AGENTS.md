@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Keep credential-free n8n PDF continuation regression fixtures in src/test/fixtures; Telegram uploads already send documents, so their confirmed receipts must bypass the second send while WhatsApp retains upload-then-send.
