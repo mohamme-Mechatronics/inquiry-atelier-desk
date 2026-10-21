@@ -26,6 +26,7 @@ import { Route as ApiPublicBotMessageRouteImport } from './routes/api/public/bot
 import { Route as ApiPublicBotOrderRouteImport } from './routes/api/public/bot-order'
 import { Route as ApiPublicBotPausedRouteImport } from './routes/api/public/bot-paused'
 import { Route as ApiPublicBotPdfRouteImport } from './routes/api/public/bot-pdf'
+import { Route as ApiPublicBotSessionRouteImport } from './routes/api/public/bot-session'
 import { Route as ApiPublicBotTicketRouteImport } from './routes/api/public/bot-ticket'
 
 const TeamRoute = TeamRouteImport.update({
@@ -112,6 +113,11 @@ const ApiPublicBotPdfRoute = ApiPublicBotPdfRouteImport.update({
   path: '/api/public/bot-pdf',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicBotSessionRoute = ApiPublicBotSessionRouteImport.update({
+  id: '/api/public/bot-session',
+  path: '/api/public/bot-session',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicBotTicketRoute = ApiPublicBotTicketRouteImport.update({
   id: '/api/public/bot-ticket',
   path: '/api/public/bot-ticket',
@@ -135,6 +141,7 @@ export interface FileRoutesByFullPath {
   '/api/public/bot-order': typeof ApiPublicBotOrderRoute
   '/api/public/bot-paused': typeof ApiPublicBotPausedRoute
   '/api/public/bot-pdf': typeof ApiPublicBotPdfRoute
+  '/api/public/bot-session': typeof ApiPublicBotSessionRoute
   '/api/public/bot-ticket': typeof ApiPublicBotTicketRoute
 }
 export interface FileRoutesByTo {
@@ -154,6 +161,7 @@ export interface FileRoutesByTo {
   '/api/public/bot-order': typeof ApiPublicBotOrderRoute
   '/api/public/bot-paused': typeof ApiPublicBotPausedRoute
   '/api/public/bot-pdf': typeof ApiPublicBotPdfRoute
+  '/api/public/bot-session': typeof ApiPublicBotSessionRoute
   '/api/public/bot-ticket': typeof ApiPublicBotTicketRoute
 }
 export interface FileRoutesById {
@@ -175,6 +183,7 @@ export interface FileRoutesById {
   '/api/public/bot-order': typeof ApiPublicBotOrderRoute
   '/api/public/bot-paused': typeof ApiPublicBotPausedRoute
   '/api/public/bot-pdf': typeof ApiPublicBotPdfRoute
+  '/api/public/bot-session': typeof ApiPublicBotSessionRoute
   '/api/public/bot-ticket': typeof ApiPublicBotTicketRoute
 }
 export interface FileRouteTypes {
@@ -196,6 +205,7 @@ export interface FileRouteTypes {
     | '/api/public/bot-order'
     | '/api/public/bot-paused'
     | '/api/public/bot-pdf'
+    | '/api/public/bot-session'
     | '/api/public/bot-ticket'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -215,6 +225,7 @@ export interface FileRouteTypes {
     | '/api/public/bot-order'
     | '/api/public/bot-paused'
     | '/api/public/bot-pdf'
+    | '/api/public/bot-session'
     | '/api/public/bot-ticket'
   id:
     | '__root__'
@@ -235,6 +246,7 @@ export interface FileRouteTypes {
     | '/api/public/bot-order'
     | '/api/public/bot-paused'
     | '/api/public/bot-pdf'
+    | '/api/public/bot-session'
     | '/api/public/bot-ticket'
   fileRoutesById: FileRoutesById
 }
@@ -248,6 +260,7 @@ export interface RootRouteChildren {
   ApiPublicBotOrderRoute: typeof ApiPublicBotOrderRoute
   ApiPublicBotPausedRoute: typeof ApiPublicBotPausedRoute
   ApiPublicBotPdfRoute: typeof ApiPublicBotPdfRoute
+  ApiPublicBotSessionRoute: typeof ApiPublicBotSessionRoute
   ApiPublicBotTicketRoute: typeof ApiPublicBotTicketRoute
 }
 
@@ -372,6 +385,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicBotPdfRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/bot-session': {
+      id: '/api/public/bot-session'
+      path: '/api/public/bot-session'
+      fullPath: '/api/public/bot-session'
+      preLoaderRoute: typeof ApiPublicBotSessionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/bot-ticket': {
       id: '/api/public/bot-ticket'
       path: '/api/public/bot-ticket'
@@ -416,6 +436,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicBotOrderRoute: ApiPublicBotOrderRoute,
   ApiPublicBotPausedRoute: ApiPublicBotPausedRoute,
   ApiPublicBotPdfRoute: ApiPublicBotPdfRoute,
+  ApiPublicBotSessionRoute: ApiPublicBotSessionRoute,
   ApiPublicBotTicketRoute: ApiPublicBotTicketRoute,
 }
 export const routeTree = rootRouteImport
