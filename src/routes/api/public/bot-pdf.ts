@@ -30,7 +30,15 @@ export const Route = createFileRoute("/api/public/bot-pdf")({
           return v == null ? d : String(v) === "true";
         };
         const mb = form.get("marginBottom");
-        const options: Record<string, unknown> = {
+        const options: {
+          printBackground: boolean;
+          preferCSSPageSize: boolean;
+          format?: string;
+          displayHeaderFooter?: boolean;
+          headerTemplate?: string;
+          footerTemplate?: string;
+          margin?: { bottom: string };
+        } = {
           printBackground: flag("printBackground", true),
           preferCSSPageSize: flag("preferCssPageSize", true),
         };
