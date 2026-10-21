@@ -1,9 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
+import { ArrowRight, MapPin, Sun, Calendar, MessageCircle, ShoppingCart, Bot, Headset } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Switch } from "@/components/ui/switch";
-import { STATUSES, fmt } from "@/lib/crm";
+import { Avatar, ChannelBadge, EmptyState, MessageBubble, Panel, Skeleton } from "@/components/admin";
+import { StatusBadge } from "@/components/StatusBadge";
+import { STATUSES, STAGES, channelOf, fmt } from "@/lib/crm";
 
 export const Route = createFileRoute("/_team/customers_/$phone")({
   head: () => ({
@@ -40,49 +43,88 @@ function Customer() {
     qc.invalidateQueries({ queryKey: ["customers"] });
   };
   const c = data?.c;
-  if (!data) return <p className="text-muted-foreground">جارٍ التحميل…</p>;
-  if (!c) return <p>العميل غير موجود. <Link to="/customers" className="underline">رجوع</Link></p>;
+  if (!data) return <div className="grid gap-4 lg:grid-cols-3"><Skeleton className="h-80" /><Skeleton className="h-80 lg:col-span-2" /></div>;
+  if (!c) return <EmptyState icon={MessageCircle} title="العميل غير موجود" hint="ربما حُذف أو تغيّر رقمه." />;
+  const wa = channelOf(c.phone) === "whatsapp";
+  const info = [
+    { icon: MapPin, label: "المدينة", v: c.city },
+    { icon: Sun, label: "المنظومة", v: c.system },
+    { icon: Calendar, label: "تاريخ التسجيل", v: fmt(c.created_at) },
+    { icon: MessageCircle, label: "المرحلة", v: c.stage ? STAGES[c.stage] ?? c.stage : null },
+  ];
+
   return (
-    <div className="grid gap-4 lg:grid-cols-3">
-      <div className="space-y-4">
-        <div className="space-y-3 rounded-xl bg-card p-4 shadow-sm">
-          <h1 className="text-xl font-extrabold">{c.name || "بدون اسم"}</h1>
-          <a dir="ltr" href={`https://wa.me/${c.phone}`} target="_blank" rel="noreferrer" className="block text-sm text-primary underline">+{c.phone}</a>
-          <p className="text-sm">المدينة: {c.city || "—"}</p>
-          <p className="text-sm">المنظومة: {c.system || "—"}</p>
-          <div>
-            <p className="mb-1 text-sm font-semibold">حالة الطلب</p>
-            <div className="flex flex-wrap gap-1">
-              {Object.entries(STATUSES).map(([k, s]) => (
-                <button key={k} onClick={() => update({ status: k })} className={`rounded-full px-3 py-1 text-xs ${c.status === k ? s.cls + " ring-2 ring-ring" : "bg-muted"}`}>
-                  {s.label}
-                </button>
+    <div className="space-y-4">
+      <Link to="/customers" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
+        <ArrowRight className="h-4 w-4" /> العملاء
+      </Link>
+      <div className="grid gap-4 lg:grid-cols-3">
+        <div className="space-y-4">
+          <Panel bodyClass="p-5 space-y-5">
+            <div className="flex items-center gap-4">
+              <Avatar name={c.name} phone={c.phone} size="lg" />
+              <div className="min-w-0">
+                <h1 className="truncate text-xl font-extrabold">{c.name || "بدون اسم"}</h1>
+                <div className="mt-1 flex items-center gap-1.5">
+                  <ChannelBadge phone={c.phone} />
+                  {wa ? (
+                    <a dir="ltr" href={`https://wa.me/${c.phone}`} target="_blank" rel="noreferrer" className="text-sm tabular-nums text-primary hover:underline">+{c.phone}</a>
+                  ) : <span dir="ltr" className="text-sm tabular-nums text-muted-foreground">ID {c.phone}</span>}
+                </div>
+              </div>
+            </div>
+            <dl className="grid grid-cols-2 gap-3">
+              {info.map((x) => (
+                <div key={x.label} className="rounded-lg bg-muted/60 p-2.5">
+                  <dt className="flex items-center gap-1 text-[11px] text-muted-foreground"><x.icon className="h-3 w-3" /> {x.label}</dt>
+                  <dd className="mt-0.5 truncate text-sm font-semibold">{x.v || "—"}</dd>
+                </div>
               ))}
+            </dl>
+            <div>
+              <p className="mb-2 text-xs font-semibold text-muted-foreground">حالة العميل</p>
+              <div className="grid grid-cols-2 gap-1.5">
+                {Object.entries(STATUSES).map(([k, s]) => (
+                  <button key={k} onClick={() => update({ status: k })}
+                    className={`rounded-lg border px-3 py-2 text-xs font-semibold transition ${c.status === k ? "border-primary bg-primary text-primary-foreground" : "bg-background hover:bg-muted"}`}>
+                    {s.label}
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
-          <label className="flex items-center justify-between rounded-lg bg-muted p-2 text-sm">
-            إيقاف البوت لهذا العميل (رد يدوي)
-            <Switch checked={c.bot_paused} onCheckedChange={(v) => update({ bot_paused: v })} />
-          </label>
+            <label className={`flex items-center gap-3 rounded-lg border p-3 text-sm ${c.bot_paused ? "border-warning/40 bg-warning/10" : ""}`}>
+              {c.bot_paused ? <Headset className="h-4 w-4" /> : <Bot className="h-4 w-4" />}
+              <span className="flex-1">
+                <b className="block">{c.bot_paused ? "الرد يدوي" : "البوت يرد تلقائياً"}</b>
+                <span className="text-xs text-muted-foreground">أوقف البوت لتتولى المحادثة بنفسك</span>
+              </span>
+              <Switch checked={c.bot_paused} onCheckedChange={(v) => update({ bot_paused: v })} />
+            </label>
+            <Link to="/chats" search={{ p: c.phone }} className="flex items-center justify-center gap-2 rounded-lg bg-primary py-2.5 text-sm font-bold text-primary-foreground hover:opacity-90">
+              <MessageCircle className="h-4 w-4" /> الرد على العميل
+            </Link>
+          </Panel>
+
+          <Panel title={`الطلبات (${data.orders.length})`} icon={ShoppingCart}>
+            {data.orders.length === 0 && <p className="p-4 text-center text-sm text-muted-foreground">لا توجد طلبات</p>}
+            <ul className="divide-y">
+              {data.orders.map((o) => (
+                <li key={o.id} className="space-y-1 p-4 text-sm">
+                  <div className="flex items-center justify-between"><b className="tabular-nums">{o.amount || "—"}</b><StatusBadge status={o.status} /></div>
+                  <p className="text-xs text-muted-foreground">الفاتورة {o.invoice_no || "—"} · {o.method || "—"} · {fmt(o.created_at)}</p>
+                </li>
+              ))}
+            </ul>
+          </Panel>
         </div>
-        {data.orders.map((o) => (
-          <div key={o.id} className="rounded-xl border-s-4 border-accent bg-card p-3 text-sm shadow-sm">
-            <b>طلب شراء</b> · {fmt(o.created_at)}
-            <p>الفاتورة: {o.invoice_no || "—"} · المبلغ: {o.amount || "—"} · الدفع: {o.method || "—"}</p>
+
+        <Panel title="سجل المحادثة" icon={MessageCircle} className="lg:col-span-2"
+          action={<span className="text-xs tabular-nums text-muted-foreground">{data.msgs.length} رسالة</span>}>
+          <div className="max-h-[75vh] min-h-64 space-y-2.5 overflow-y-auto bg-muted/40 p-4">
+            {data.msgs.length === 0 && <EmptyState icon={MessageCircle} title="لا توجد رسائل" />}
+            {data.msgs.map((m) => <MessageBubble key={m.id} m={m} />)}
           </div>
-        ))}
-      </div>
-      <div className="rounded-xl bg-card p-3 shadow-sm lg:col-span-2">
-        <h2 className="mb-2 font-bold">المحادثة</h2>
-        <div className="max-h-[70vh] space-y-2 overflow-y-auto">
-          {data.msgs.map((m) => (
-            <div key={m.id} className={`max-w-[85%] whitespace-pre-wrap rounded-xl p-2 text-sm ${m.direction === "customer" ? "me-auto bg-muted" : "ms-auto bg-secondary"}`}>
-              {m.kind === "document" && <b className="block">📄 {m.file_name}</b>}
-              {m.text}
-              <div className="mt-1 text-[10px] text-muted-foreground">{m.direction === "customer" ? "العميل" : "البوت"} · {fmt(m.created_at)}</div>
-            </div>
-          ))}
-        </div>
+        </Panel>
       </div>
     </div>
   );

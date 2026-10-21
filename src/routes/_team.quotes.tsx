@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
+import { FileText } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { ChannelBadge, EmptyState, PageHeader, Panel, Skeleton } from "@/components/admin";
 import { fmt } from "@/lib/crm";
 
 export const Route = createFileRoute("/_team/quotes")({
@@ -16,28 +18,38 @@ export const Route = createFileRoute("/_team/quotes")({
 });
 
 function Quotes() {
-  const { data = [] } = useQuery({
+  const { data = [], isLoading } = useQuery({
     queryKey: ["quotes"],
     queryFn: async () =>
       (await supabase.from("messages").select("*").eq("kind", "document").order("created_at", { ascending: false }).limit(500)).data ?? [],
   });
   return (
     <div className="space-y-4">
-      <h1 className="text-2xl font-extrabold">عروض الأسعار المرسلة</h1>
-      <div className="divide-y rounded-xl bg-card shadow-sm">
-        {data.length === 0 && <p className="p-6 text-center text-muted-foreground">لم يُرسل أي عرض بعد.</p>}
-        {data.map((m) => (
-          <div key={m.id} className="flex items-center gap-3 p-3 text-sm">
-            <span className="text-xl">📄</span>
-            <div className="flex-1">
-              <b>{m.text || m.file_name}</b>
-              <div className="text-xs text-muted-foreground">{m.file_name}</div>
-            </div>
-            <Link to="/customers/$phone" params={{ phone: m.phone }} dir="ltr" className="text-primary underline">+{m.phone}</Link>
-            <span className="text-xs text-muted-foreground">{fmt(m.created_at)}</span>
-          </div>
-        ))}
-      </div>
+      <PageHeader title="عروض الأسعار والملفات" count={data.length} description="كل عرض سعر ودراسة ومخطط أرسله البوت للعملاء" />
+      <Panel>
+        <div className="hidden grid-cols-[2fr_1fr_9rem] gap-3 border-b bg-muted/50 px-4 py-2 text-[11px] font-semibold text-muted-foreground md:grid">
+          <span>الملف</span><span>العميل</span><span className="text-end">التاريخ</span>
+        </div>
+        {isLoading && <div className="space-y-3 p-4">{[1, 2, 3].map((i) => <Skeleton key={i} className="h-12" />)}</div>}
+        {!isLoading && data.length === 0 && <EmptyState icon={FileText} title="لم يُرسل أي ملف بعد" hint="ستظهر هنا عروض الأسعار والدراسات فور إرسالها من البوت." />}
+        <ul className="divide-y">
+          {data.map((m) => (
+            <li key={m.id} className="flex flex-wrap items-center gap-3 px-4 py-3 md:grid md:grid-cols-[2fr_1fr_9rem]">
+              <div className="flex min-w-0 flex-1 items-center gap-3">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-destructive/10 text-destructive"><FileText className="h-5 w-5" /></span>
+                <div className="min-w-0">
+                  <div className="truncate text-sm font-semibold">{m.text || m.file_name}</div>
+                  <div dir="ltr" className="truncate text-end text-xs text-muted-foreground">{m.file_name}</div>
+                </div>
+              </div>
+              <Link to="/customers/$phone" params={{ phone: m.phone }} className="flex items-center gap-1.5 text-sm text-primary hover:underline">
+                <ChannelBadge phone={m.phone} /><span dir="ltr" className="tabular-nums">{m.phone}</span>
+              </Link>
+              <span className="text-xs tabular-nums text-muted-foreground md:text-end">{fmt(m.created_at)}</span>
+            </li>
+          ))}
+        </ul>
+      </Panel>
     </div>
   );
 }

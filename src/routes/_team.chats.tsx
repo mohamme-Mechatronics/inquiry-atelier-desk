@@ -3,11 +3,12 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { toast } from "sonner";
-import { ArrowRight, Bot, MessageCircle, Search, Send, StickyNote, User, Headset } from "lucide-react";
+import { ArrowRight, Bot, MessageCircle, Search, Send, StickyNote, Headset, Zap, ExternalLink } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Switch } from "@/components/ui/switch";
 import { StatusBadge } from "@/components/StatusBadge";
-import { CHANNELS, QUICK_REPLIES, channelOf, fmt } from "@/lib/crm";
+import { Avatar, ChannelBadge, EmptyState, MessageBubble, Skeleton } from "@/components/admin";
+import { QUICK_REPLIES, channelOf, ago, preview } from "@/lib/crm";
 import { sendReply } from "@/lib/reply.functions";
 
 type Search = { p?: string };
@@ -38,7 +39,7 @@ function Chats() {
   const [seen, setSeen] = useState<Record<string, string>>({});
   useEffect(() => setSeen(readSeen()), []);
 
-  const { data: list = [] } = useQuery({
+  const { data: list = [], isLoading } = useQuery({
     queryKey: ["customers"],
     queryFn: async () => (await supabase.from("customers").select("*").order("last_at", { ascending: false }).limit(1000)).data ?? [],
     refetchInterval: 10000,
@@ -61,47 +62,51 @@ function Chats() {
   };
 
   const FILTERS = [
-    ["all", "الكل"], ["unread", "غير المقروءة"], ["paused", "البوت متوقف"], ["whatsapp", "واتساب"], ["telegram", "تليجرام"],
+    ["all", "الكل"], ["unread", "غير مقروءة"], ["paused", "رد يدوي"], ["whatsapp", "واتساب"], ["telegram", "تليجرام"],
   ] as const;
 
   return (
-    <div className="grid h-[calc(100vh-8rem)] overflow-hidden rounded-xl border bg-card md:grid-cols-[20rem_1fr]">
-      <div className={`flex min-h-0 flex-col border-e ${p ? "hidden md:flex" : "flex"}`}>
-        <div className="space-y-2 border-b p-3">
+    <div className="grid h-[calc(100dvh-9.25rem)] overflow-hidden rounded-xl border bg-card shadow-card grid-cols-1 md:h-[calc(100dvh-7rem)] md:grid-cols-[22rem_1fr]">
+      <div className={`flex min-h-0 min-w-0 flex-col border-e ${p ? "hidden md:flex" : "flex"}`}>
+        <div className="space-y-3 border-b p-3">
+          <div className="flex items-center justify-between">
+            <h1 className="font-sans text-base font-bold">صندوق المحادثات</h1>
+            <span className="text-xs tabular-nums text-muted-foreground">{shown.length} محادثة</span>
+          </div>
           <div className="relative">
             <Search className="absolute start-3 top-2.5 h-4 w-4 text-muted-foreground" />
             <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="بحث بالاسم أو الرقم"
-              className="w-full rounded-full bg-muted py-2 pe-3 ps-9 text-sm outline-none" />
+              className="h-9 w-full rounded-lg border bg-background pe-3 ps-9 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring" />
           </div>
-          <div className="flex flex-wrap gap-1">
+          <div className="scrollbar-none -mx-3 flex gap-1 overflow-x-auto px-3">
             {FILTERS.map(([k, l]) => (
               <button key={k} onClick={() => setF(k)}
-                className={`rounded-full px-2.5 py-0.5 text-xs ${f === k ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}>
+                className={`shrink-0 rounded-md px-2.5 py-1 text-xs font-medium transition-colors ${f === k ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground hover:text-foreground"}`}>
                 {l}
               </button>
             ))}
           </div>
         </div>
         <div className="min-h-0 flex-1 overflow-y-auto">
-          {shown.length === 0 && <p className="p-6 text-center text-sm text-muted-foreground">لا توجد محادثات</p>}
+          {isLoading && <div className="space-y-3 p-3">{[1, 2, 3, 4, 5].map((i) => <Skeleton key={i} className="h-14" />)}</div>}
+          {!isLoading && shown.length === 0 && <EmptyState icon={MessageCircle} title="لا توجد محادثات" hint="ستظهر محادثات العملاء هنا عند مراسلة البوت." />}
           {shown.map((c) => {
-            const ch = CHANNELS[channelOf(c.phone)];
+            const active = p === c.phone;
+            const u = unread(c);
             return (
               <button key={c.phone} onClick={() => open(c.phone, c.last_at)}
-                className={`flex w-full items-center gap-3 border-b p-3 text-start hover:bg-muted ${p === c.phone ? "bg-secondary" : ""}`}>
-                <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full font-bold ${ch.cls}`}>
-                  {(c.name || "؟").slice(0, 1)}
-                </div>
+                className={`relative flex w-full items-center gap-3 border-b px-3 py-3 text-start transition-colors hover:bg-muted/60 ${active ? "bg-secondary before:absolute before:inset-y-0 before:start-0 before:w-0.5 before:bg-accent" : ""}`}>
+                <Avatar name={c.name} phone={c.phone} />
                 <div className="min-w-0 flex-1">
-                  <div className="flex items-center gap-1">
-                    <span className="truncate text-sm font-bold">{c.name || c.phone}</span>
-                    {c.bot_paused ? <Headset className="h-3.5 w-3.5 text-destructive" /> : <Bot className="h-3.5 w-3.5 text-muted-foreground" />}
-                    <span className="ms-auto shrink-0 text-[10px] text-muted-foreground">{fmt(c.last_at)}</span>
+                  <div className="flex items-center gap-1.5">
+                    <span className={`truncate text-sm ${u ? "font-bold" : "font-semibold"}`}>{c.name || c.phone}</span>
+                    {c.bot_paused ? <Headset className="h-3.5 w-3.5 shrink-0 text-warning-foreground" /> : <Bot className="h-3.5 w-3.5 shrink-0 text-muted-foreground/60" />}
+                    <span className="ms-auto shrink-0 text-[10px] tabular-nums text-muted-foreground">{ago(c.last_at)}</span>
                   </div>
-                  <div className="flex items-center gap-1">
-                    <span className={`shrink-0 rounded px-1 text-[10px] ${ch.cls}`}>{ch.label}</span>
-                    <span className="truncate text-xs text-muted-foreground">{c.last_message}</span>
-                    {unread(c) && <span className="ms-auto h-2 w-2 shrink-0 rounded-full bg-accent" />}
+                  <div className="mt-0.5 flex items-center gap-1.5">
+                    <ChannelBadge phone={c.phone} />
+                    <span className={`truncate text-xs ${u ? "text-foreground" : "text-muted-foreground"}`}>{preview(c.last_message)}</span>
+                    {u && <span className="ms-auto h-2 w-2 shrink-0 rounded-full bg-accent" />}
                   </div>
                 </div>
               </button>
@@ -109,11 +114,9 @@ function Chats() {
           })}
         </div>
       </div>
-      <div className={`min-h-0 ${p ? "flex" : "hidden md:flex"} flex-col`}>
+      <div className={`min-h-0 min-w-0 ${p ? "flex" : "hidden md:flex"} flex-col`}>
         {p ? <Conversation phone={p} onBack={() => nav({ search: {} })} /> : (
-          <div className="m-auto flex flex-col items-center gap-2 text-muted-foreground">
-            <MessageCircle className="h-10 w-10 text-primary" /> اختر محادثة لعرضها
-          </div>
+          <div className="m-auto"><EmptyState icon={MessageCircle} title="اختر محادثة لعرضها" hint="اختر عميلاً من القائمة لقراءة المحادثة والرد عليه على نفس قناته." /></div>
         )}
       </div>
     </div>
@@ -174,64 +177,65 @@ function Conversation({ phone, onBack }: { phone: string; onBack: () => void }) 
 
   const c = data?.c;
   const msgs = useMemo(() => data?.msgs ?? [], [data]);
-  const who = (d: string) => (d === "customer" ? "العميل" : d === "staff" ? "الموظف" : d === "note" ? "ملاحظة داخلية" : "البوت");
 
   return (
     <>
-      <div className="flex items-center gap-2 border-b p-3">
-        <button onClick={onBack} className="md:hidden" aria-label="رجوع"><ArrowRight className="h-5 w-5" /></button>
+      <div className="flex items-center gap-3 border-b px-3 py-2.5">
+        <button onClick={onBack} className="rounded-md p-1 hover:bg-muted md:hidden" aria-label="رجوع"><ArrowRight className="h-5 w-5" /></button>
+        <Avatar name={c?.name} phone={phone} />
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
-            <Link to="/customers/$phone" params={{ phone }} className="truncate font-bold hover:underline">{c?.name || phone}</Link>
-            <span className={`rounded px-1.5 text-[10px] ${CHANNELS[ch].cls}`}>{CHANNELS[ch].label}</span>
+            <span className="truncate font-bold">{c?.name || phone}</span>
             {c && <StatusBadge status={c.status} />}
           </div>
-          <div dir="ltr" className="text-end text-xs text-muted-foreground">{ch === "whatsapp" ? `+${phone}` : `Telegram ID ${phone}`}</div>
+          <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+            <ChannelBadge phone={phone} />
+            <span dir="ltr" className="tabular-nums">{ch === "whatsapp" ? `+${phone}` : `ID ${phone}`}</span>
+          </div>
         </div>
         {c && (
-          <label className="flex items-center gap-1.5 text-xs">
-            إيقاف البوت
+          <label className={`hidden items-center gap-2 rounded-lg border px-2.5 py-1.5 text-xs font-medium sm:flex ${c.bot_paused ? "border-warning/40 bg-warning/10" : ""}`}>
+            {c.bot_paused ? <Headset className="h-3.5 w-3.5" /> : <Bot className="h-3.5 w-3.5" />}
+            {c.bot_paused ? "رد يدوي" : "البوت يعمل"}
             <Switch checked={c.bot_paused} onCheckedChange={togglePause} />
           </label>
         )}
+        <Link to="/customers/$phone" params={{ phone }} aria-label="ملف العميل"
+          className="flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground hover:bg-muted hover:text-foreground">
+          <ExternalLink className="h-4 w-4" />
+        </Link>
       </div>
+      {c && (
+        <label className="flex items-center justify-between border-b bg-muted/40 px-3 py-1.5 text-xs sm:hidden">
+          {c.bot_paused ? "البوت موقوف — الرد يدوي" : "البوت يرد تلقائياً"}
+          <Switch checked={c.bot_paused} onCheckedChange={togglePause} />
+        </label>
+      )}
 
-      <div className="min-h-0 flex-1 space-y-2 overflow-y-auto bg-muted/40 p-3">
-        {msgs.map((m) => {
-          const mine = m.direction !== "customer";
-          const note = m.direction === "note";
-          return (
-            <div key={m.id}
-              className={`max-w-[85%] whitespace-pre-wrap rounded-xl p-2 text-sm shadow-sm ${
-                note ? "mx-auto border border-dashed border-accent bg-secondary" : mine ? "me-auto bg-card" : "ms-auto bg-primary text-primary-foreground"
-              }`}>
-              <div className="mb-0.5 flex items-center gap-1 text-[10px] opacity-70">
-                {m.direction === "customer" ? <User className="h-3 w-3" /> : note ? <StickyNote className="h-3 w-3" /> : m.direction === "staff" ? <Headset className="h-3 w-3" /> : <Bot className="h-3 w-3" />}
-                {who(m.direction)}
-              </div>
-              {m.kind === "document" && <b className="block">📄 {m.file_name}</b>}
-              {m.text}
-              <div className="mt-1 text-[10px] opacity-60">{fmt(m.created_at)}</div>
-            </div>
-          );
-        })}
+      <div className="min-h-0 flex-1 space-y-2.5 overflow-y-auto bg-muted/40 p-4">
+        {!data && [1, 2, 3].map((i) => <Skeleton key={i} className={`h-14 w-2/3 ${i % 2 ? "" : "ms-auto"}`} />)}
+        {data && msgs.length === 0 && <EmptyState icon={MessageCircle} title="لا توجد رسائل بعد" />}
+        {msgs.map((m) => <MessageBubble key={m.id} m={m} />)}
         <div ref={end} />
       </div>
 
-      <div className="space-y-2 border-t p-3">
-        <div className="flex gap-1">
-          <button onClick={() => setMode("reply")} className={`flex items-center gap-1 rounded-full px-3 py-1 text-xs ${mode === "reply" ? "bg-primary text-primary-foreground" : "bg-muted"}`}>
-            <Send className="h-3 w-3" /> رد للعميل
-          </button>
-          <button onClick={() => setMode("note")} className={`flex items-center gap-1 rounded-full px-3 py-1 text-xs ${mode === "note" ? "bg-accent text-accent-foreground" : "bg-muted"}`}>
-            <StickyNote className="h-3 w-3" /> ملاحظة داخلية
-          </button>
+      <div className={`space-y-2 border-t p-3 ${mode === "note" ? "bg-accent/5" : ""}`}>
+        <div className="flex items-center gap-1">
+          <div className="flex rounded-lg bg-muted p-0.5">
+            <button onClick={() => setMode("reply")} className={`flex items-center gap-1 rounded-md px-3 py-1 text-xs font-medium ${mode === "reply" ? "bg-card shadow-card" : "text-muted-foreground"}`}>
+              <Send className="h-3 w-3" /> رد للعميل
+            </button>
+            <button onClick={() => setMode("note")} className={`flex items-center gap-1 rounded-md px-3 py-1 text-xs font-medium ${mode === "note" ? "bg-card shadow-card" : "text-muted-foreground"}`}>
+              <StickyNote className="h-3 w-3" /> ملاحظة داخلية
+            </button>
+          </div>
         </div>
         {mode === "reply" && (
-          <div className="flex gap-1 overflow-x-auto pb-1">
+          <div className="scrollbar-none flex gap-1 overflow-x-auto">
             {QUICK_REPLIES.map((r) => (
-              <button key={r.label} onClick={() => setText(r.text)} className="shrink-0 rounded-full border px-2.5 py-0.5 text-xs hover:bg-muted">
-                ⚡ {r.label}
+              <button key={r.label} onClick={() => setText(r.text)}
+                className="flex shrink-0 items-center gap-1 rounded-md border bg-background px-2 py-1 text-[11px] text-muted-foreground hover:border-accent hover:text-foreground">
+                <Zap className="h-3 w-3 text-accent" /> {r.label}
               </button>
             ))}
           </div>
@@ -239,11 +243,11 @@ function Conversation({ phone, onBack }: { phone: string; onBack: () => void }) 
         <div className="flex items-end gap-2">
           <textarea value={text} onChange={(e) => setText(e.target.value)} rows={2}
             onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); submit(); } }}
-            placeholder={mode === "reply" ? "اكتب رداً للعميل…" : "ملاحظة لا يراها العميل…"}
-            className="min-h-10 flex-1 resize-none rounded-xl border bg-background p-2 text-sm outline-none focus:ring-2 focus:ring-ring" />
+            placeholder={mode === "reply" ? "اكتب رداً للعميل… (Enter للإرسال)" : "ملاحظة لا يراها العميل…"}
+            className="min-h-11 flex-1 resize-none rounded-xl border bg-background px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring" />
           <button onClick={submit} disabled={busy || !text.trim()} aria-label="إرسال"
-            className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground disabled:opacity-50">
-            <Send className="h-4 w-4" />
+            className={`flex h-11 w-11 items-center justify-center rounded-xl disabled:opacity-40 ${mode === "note" ? "bg-accent text-accent-foreground" : "bg-primary text-primary-foreground"}`}>
+            <Send className="h-4 w-4 -scale-x-100" />
           </button>
         </div>
       </div>
