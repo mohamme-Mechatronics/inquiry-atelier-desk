@@ -5,7 +5,8 @@ import { ShoppingCart, MapPin, Receipt, Wallet } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Avatar, ChannelBadge, EmptyState, PageHeader, Skeleton, selectCls } from "@/components/admin";
 import { StatusBadge } from "@/components/StatusBadge";
-import { STATUSES, ago } from "@/lib/crm";
+import { STATUSES, ago, fmt } from "@/lib/crm";
+import { ExportButtons } from "@/components/ExportButtons";
 
 export const Route = createFileRoute("/_team/orders")({
   head: () => ({
@@ -51,9 +52,14 @@ function Orders() {
   };
   const re = CATS.find((c) => c[0] === cat)?.[2];
   const list = re ? data.filter((o) => re.test(`${o.details ?? ""} ${o.method ?? ""} ${o.invoice_no ?? ""}`)) : data;
+  const table = () => ({
+    title: `تقرير الطلبات — ${CATS.find((c) => c[0] === cat)?.[1]}`, file: "orders",
+    headers: ["العميل", "الرقم", "المبلغ", "الفاتورة", "المدينة", "طريقة الدفع", "الحالة", "التفاصيل", "التاريخ"],
+    rows: list.map((o) => [o.name, o.phone, o.amount, o.invoice_no, o.city, o.method, STATUSES[o.status]?.label ?? o.status, o.details, fmt(o.created_at)]),
+  });
   return (
     <div className="space-y-4">
-      <PageHeader title="الطلبات" count={list.length} description="طلبات الشراء والدفع الواردة من البوت، صنّفها وحدّث حالتها" />
+      <PageHeader title="الطلبات" count={list.length} description="طلبات الشراء والدفع الواردة من البوت، صنّفها وحدّث حالتها" actions={<ExportButtons table={table} />} />
       <div className="scrollbar-none -mx-3 flex gap-1.5 overflow-x-auto px-3 md:mx-0 md:flex-wrap md:px-0">
         {CATS.map(([k, l]) => (
           <button key={k} onClick={() => setCat(k)}

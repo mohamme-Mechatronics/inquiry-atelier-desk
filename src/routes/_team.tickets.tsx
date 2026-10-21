@@ -4,7 +4,8 @@ import { useState } from "react";
 import { Wrench, AlertTriangle, Cpu } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { ChannelBadge, EmptyState, PageHeader, Skeleton, selectCls } from "@/components/admin";
-import { TICKET_STATUSES, TICKET_CLS, ago } from "@/lib/crm";
+import { TICKET_STATUSES, TICKET_CLS, ago, fmt } from "@/lib/crm";
+import { ExportButtons } from "@/components/ExportButtons";
 
 export const Route = createFileRoute("/_team/tickets")({
   head: () => ({
@@ -31,9 +32,14 @@ function Tickets() {
     qc.invalidateQueries({ queryKey: ["nav-badges"] });
   };
   const list = f === "all" ? data : data.filter((t) => t.status === f);
+  const table = () => ({
+    title: "تقرير الدعم الفني", file: "support",
+    headers: ["رقم التذكرة", "العميل", "الرقم", "الجهاز", "نوع المشكلة", "الوصف", "الحالة", "التاريخ"],
+    rows: list.map((t) => [t.ticket_no, t.name, t.phone, t.device, t.issue_type, t.description, TICKET_STATUSES[t.status] ?? t.status, fmt(t.created_at)]),
+  });
   return (
     <div className="space-y-4">
-      <PageHeader title="تذاكر الدعم الفني" count={list.length} description="بلاغات الصيانة الواردة من العملاء عبر البوت" />
+      <PageHeader title="تذاكر الدعم الفني" count={list.length} description="بلاغات الصيانة الواردة من العملاء عبر البوت" actions={<ExportButtons table={table} />} />
       <div className="flex gap-1.5">
         {[["all", "الكل"], ...Object.entries(TICKET_STATUSES)].map(([k, l]) => (
           <button key={k} onClick={() => setF(k as string)}

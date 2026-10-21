@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { StatusBadge } from "@/components/StatusBadge";
 import { Avatar, ChannelBadge, EmptyState, PageHeader, Panel, Skeleton } from "@/components/admin";
 import { STATUSES, STAGES, CHANNELS, channelOf, fmt, ago } from "@/lib/crm";
+import { ExportButtons } from "@/components/ExportButtons";
 
 export const Route = createFileRoute("/_team/customers")({
   head: () => ({
@@ -33,29 +34,20 @@ function Customers() {
   );
   const countOf = (k: string) => (k === "all" ? data.length : data.filter((c) => c.status === k).length);
 
-  // Excel opens UTF-8 CSV with BOM correctly, including Arabic text.
-  const exportExcel = () => {
-    const esc = (v: unknown) => `"${String(v ?? "").replace(/"/g, '""')}"`;
-    const rows = [
-      ["الاسم", "الرقم", "القناة", "المدينة", "المنظومة", "الحالة", "المرحلة", "آخر رسالة", "آخر تواصل", "تاريخ التسجيل"],
-      ...list.map((c) => [
-        c.name, c.phone, CHANNELS[channelOf(c.phone)].label, c.city, c.system,
-        STATUSES[c.status]?.label ?? c.status, c.stage ? STAGES[c.stage] ?? c.stage : "", c.last_message,
-        fmt(c.last_at), fmt(c.created_at),
-      ]),
-    ];
-    const csv = "\uFEFF" + rows.map((r) => r.map(esc).join(",")).join("\r\n");
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
-    a.download = `tamkeen-customers-${new Date().toISOString().slice(0, 10)}.csv`;
-    a.click();
-    URL.revokeObjectURL(a.href);
-  };
+  const table = () => ({
+    title: "تقرير العملاء", file: "customers",
+    headers: ["الاسم", "الرقم", "القناة", "المدينة", "المنظومة", "الحالة", "المرحلة", "آخر رسالة", "آخر تواصل", "تاريخ التسجيل"],
+    rows: list.map((c) => [
+      c.name, c.phone, CHANNELS[channelOf(c.phone)].label, c.city, c.system,
+      STATUSES[c.status]?.label ?? c.status, c.stage ? STAGES[c.stage] ?? c.stage : "", c.last_message,
+      fmt(c.last_at), fmt(c.created_at),
+    ]),
+  });
 
   return (
     <div className="space-y-4">
       <PageHeader title="العملاء" count={list.length} description="كل من راسل البوت على واتساب أو تليجرام"
-        actions={<Button variant="outline" size="sm" onClick={exportExcel} disabled={!list.length}><Download className="h-4 w-4" /> تصدير Excel</Button>} />
+        actions={<ExportButtons table={table} />} />
 
       <Panel>
         <div className="flex flex-wrap items-center gap-2 border-b p-3">
