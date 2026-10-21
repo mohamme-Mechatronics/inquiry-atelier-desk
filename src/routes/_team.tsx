@@ -6,7 +6,7 @@ import { useAuth } from "@/hooks/use-auth";
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/tamkeen-logo.png.asset.json";
 
-export const Route = createFileRoute("/_app")({ component: AppLayout });
+export const Route = createFileRoute("/_team")({ component: AppLayout });
 
 const NAV = [
   { to: "/", label: "التقارير", icon: BarChart3 },

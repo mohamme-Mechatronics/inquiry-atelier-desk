@@ -9,7 +9,8 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppRouteImport } from './routes/_app'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as ApiPublicBotButtonLockRouteImport } from './routes/api/public/bot-button-lock'
 import { Route as ApiPublicBotCatalogRouteImport } from './routes/api/public/bot-catalog'
 import { Route as ApiPublicBotMediaRouteImport } from './routes/api/public/bot-media'
@@ -18,9 +19,13 @@ import { Route as ApiPublicBotOrderRouteImport } from './routes/api/public/bot-o
 import { Route as ApiPublicBotPausedRouteImport } from './routes/api/public/bot-paused'
 import { Route as ApiPublicBotTicketRouteImport } from './routes/api/public/bot-ticket'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const AppRoute = AppRouteImport.update({
+  id: '/_app',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiPublicBotButtonLockRoute = ApiPublicBotButtonLockRouteImport.update({
@@ -60,7 +65,8 @@ const ApiPublicBotTicketRoute = ApiPublicBotTicketRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
+  '/': typeof AppRoute
+  '/login': typeof LoginRoute
   '/api/public/bot-button-lock': typeof ApiPublicBotButtonLockRoute
   '/api/public/bot-catalog': typeof ApiPublicBotCatalogRoute
   '/api/public/bot-media': typeof ApiPublicBotMediaRoute
@@ -70,7 +76,8 @@ export interface FileRoutesByFullPath {
   '/api/public/bot-ticket': typeof ApiPublicBotTicketRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
+  '/': typeof AppRoute
+  '/login': typeof LoginRoute
   '/api/public/bot-button-lock': typeof ApiPublicBotButtonLockRoute
   '/api/public/bot-catalog': typeof ApiPublicBotCatalogRoute
   '/api/public/bot-media': typeof ApiPublicBotMediaRoute
@@ -81,7 +88,8 @@ export interface FileRoutesByTo {
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
+  '/_app': typeof AppRoute
+  '/login': typeof LoginRoute
   '/api/public/bot-button-lock': typeof ApiPublicBotButtonLockRoute
   '/api/public/bot-catalog': typeof ApiPublicBotCatalogRoute
   '/api/public/bot-media': typeof ApiPublicBotMediaRoute
@@ -94,6 +102,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/login'
     | '/api/public/bot-button-lock'
     | '/api/public/bot-catalog'
     | '/api/public/bot-media'
@@ -104,6 +113,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/login'
     | '/api/public/bot-button-lock'
     | '/api/public/bot-catalog'
     | '/api/public/bot-media'
@@ -113,7 +123,8 @@ export interface FileRouteTypes {
     | '/api/public/bot-ticket'
   id:
     | '__root__'
-    | '/'
+    | '/_app'
+    | '/login'
     | '/api/public/bot-button-lock'
     | '/api/public/bot-catalog'
     | '/api/public/bot-media'
@@ -124,7 +135,8 @@ export interface FileRouteTypes {
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
+  AppRoute: typeof AppRoute
+  LoginRoute: typeof LoginRoute
   ApiPublicBotButtonLockRoute: typeof ApiPublicBotButtonLockRoute
   ApiPublicBotCatalogRoute: typeof ApiPublicBotCatalogRoute
   ApiPublicBotMediaRoute: typeof ApiPublicBotMediaRoute
@@ -136,11 +148,18 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
+    '/_app': {
+      id: '/_app'
+      path: ''
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+      preLoaderRoute: typeof AppRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/bot-button-lock': {
@@ -196,7 +215,8 @@ declare module '@tanstack/react-router' {
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
+  AppRoute: AppRoute,
+  LoginRoute: LoginRoute,
   ApiPublicBotButtonLockRoute: ApiPublicBotButtonLockRoute,
   ApiPublicBotCatalogRoute: ApiPublicBotCatalogRoute,
   ApiPublicBotMediaRoute: ApiPublicBotMediaRoute,
