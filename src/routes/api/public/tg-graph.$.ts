@@ -27,7 +27,7 @@ async function tg(method: string, body: Record<string, unknown> | FormData) {
   const isForm = body instanceof FormData;
   const r = await fetch(`${TG()}/${method}`, {
     method: "POST",
-    headers: isForm ? undefined : { "content-type": "application/json" },
+    headers: isForm ? {} : { "content-type": "application/json" },
     body: isForm ? body : JSON.stringify(body),
   });
   const j: any = await r.json().catch(() => ({}));
@@ -42,7 +42,7 @@ async function sendText(chat_id: string, text: string, extra: Record<string, unk
   while (rest.length > 4000) {
     let cut = rest.lastIndexOf("\n", 4000);
     if (cut < 1000) cut = 4000;
-    parts.push(rest.slice(0, cut));
+    parts.push(rest.slice(0, cut) ?? "");
     rest = rest.slice(cut);
   }
   parts.push(rest);
