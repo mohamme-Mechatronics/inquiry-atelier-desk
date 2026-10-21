@@ -13,4 +13,4 @@
 - [ ] BROWSERLESS_TOKEN (blocked: value entered is rejected by Browserless 401; needs a valid key)
 - [x] Remix #2: empty migration set rescaffolded (tables already present in new database)
 - [x] Remix #2: manager account recreated
-- [ ] Remix #2: publish + bot file pointing at this project's site (blocked: awaiting user OK to publish)
+- [x] Remix #2: published + bot v45 pointing at inquiry-atelier-desk; settings page (links, secret, channel check), customers Excel export, order category filters
