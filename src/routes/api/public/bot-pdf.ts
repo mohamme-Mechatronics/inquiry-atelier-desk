@@ -27,7 +27,17 @@ export const Route = createFileRoute("/api/public/bot-pdf")({
         const token = process.env["BROWSERLESS_TOKEN"];
         if (!token) return fallback(Response.json({ error: "pdf service not configured" }, { status: 500 }));
 
-        const form = await request.formData();
+        // A non-multipart or truncated body makes formData() throw; answer 400 instead of crashing.
+        let form: FormData;
+        try {
+          form = await request.formData();
+        } catch (error) {
+          console.error(error);
+          return Response.json(
+            { error: "expected multipart/form-data with an index.html file" },
+            { status: 400 },
+          );
+        }
         let html = "";
         let footer = "";
         for (const f of form.getAll("files")) {
@@ -66,18 +76,24 @@ export const Route = createFileRoute("/api/public/bot-pdf")({
           options.margin = { bottom: String(mb) };
         }
 
-        const res = await fetch(
-          `https://production-sfo.browserless.io/pdf?token=${encodeURIComponent(token)}`,
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              html,
-              options,
-              gotoOptions: { waitUntil: "networkidle0", timeout: 60000 },
-            }),
-          },
-        );
+        let res: Response;
+        try {
+          res = await fetch(
+            `https://production-sfo.browserless.io/pdf?token=${encodeURIComponent(token)}`,
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                html,
+                options,
+                gotoOptions: { waitUntil: "networkidle0", timeout: 60000 },
+              }),
+            },
+          );
+        } catch (error) {
+          console.error(error);
+          return fallback(Response.json({ error: "pdf service unreachable" }, { status: 502 }));
+        }
         if (!res.ok) {
           const t = await res.text();
           return fallback(Response.json({ error: "pdf failed", status: res.status, detail: t.slice(0, 500) }, { status: 502 }));
