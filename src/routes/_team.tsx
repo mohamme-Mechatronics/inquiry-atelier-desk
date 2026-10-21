@@ -79,7 +79,9 @@ function AppLayout() {
   useEffect(() => {
     if (!loading && !session) nav({ to: "/login" });
   }, [loading, session, nav]);
-  useEffect(() => setMore(false), [pathname]);
+  useEffect(() => {
+    setMore(false);
+  }, [pathname]);
 
   if (loading || !session)
     return (

@@ -37,7 +37,9 @@ function Chats() {
   const [q, setQ] = useState("");
   const [f, setF] = useState<"all" | "unread" | "paused" | "whatsapp" | "telegram">("all");
   const [seen, setSeen] = useState<Record<string, string>>({});
-  useEffect(() => setSeen(readSeen()), []);
+  useEffect(() => {
+    setSeen(readSeen());
+  }, []);
 
   const { data: list = [], isLoading } = useQuery({
     queryKey: ["customers"],
@@ -144,7 +146,11 @@ function Conversation({ phone, onBack }: { phone: string; onBack: () => void }) 
     refetchInterval: 8000,
   });
   const count = data?.msgs.length ?? 0;
-  useEffect(() => end.current?.scrollIntoView({ block: "end" }), [count, phone]);
+  // Block body on purpose: newer browsers make scrollIntoView return a Promise,
+  // and React would then try to call that Promise as the effect cleanup.
+  useEffect(() => {
+    end.current?.scrollIntoView({ block: "end" });
+  }, [count, phone]);
 
   const togglePause = async (v: boolean) => {
     const { error } = await supabase.from("customers").update({ bot_paused: v }).eq("phone", phone);
