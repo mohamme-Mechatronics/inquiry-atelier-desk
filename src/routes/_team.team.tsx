@@ -61,7 +61,9 @@ function Team() {
   const getConn = useServerFn(getBotConnection);
   const check = useServerFn(checkChannels);
   const [origin, setOrigin] = useState("");
-  useEffect(() => setOrigin(window.location.origin), []);
+  useEffect(() => {
+    setOrigin(window.location.origin);
+  }, []);
 
   const { data } = useQuery({
     queryKey: ["team"],
