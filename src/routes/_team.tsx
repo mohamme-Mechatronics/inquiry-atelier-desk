@@ -187,7 +187,7 @@ function AppLayout() {
           <UserMenu />
         </header>
 
-        <main className="mx-auto w-full max-w-7xl flex-1 p-3 pb-24 md:p-6">
+        <main className="mx-auto w-full max-w-7xl flex-1 p-3 pb-20 md:p-6">
           <Outlet />
         </main>
       </div>
