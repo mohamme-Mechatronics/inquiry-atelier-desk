@@ -10,8 +10,22 @@ export const Route = createFileRoute("/api/public/bot-pdf")({
         if (!secret || request.headers.get("x-bot-secret") !== secret) {
           return Response.json({ error: "unauthorized" }, { status: 401 });
         }
+        // When this site's PDF key is missing or rejected, hand the same request to the
+        // backup PDF site (PDF_FALLBACK_URL) so quotes keep working. The header stops loops.
+        const backup = request.headers.get("x-pdf-fallback") ? null : request.clone();
+        const fallback = async (why: Response) => {
+          const url = process.env["PDF_FALLBACK_URL"];
+          if (!backup || !url) return why;
+          const headers = new Headers(backup.headers);
+          headers.set("x-pdf-fallback", "1");
+          headers.delete("host");
+          headers.delete("content-length");
+          const r = await fetch(url, { method: "POST", headers, body: await backup.arrayBuffer() });
+          return r.ok ? new Response(r.body, { headers: r.headers }) : why;
+        };
+
         const token = process.env["BROWSERLESS_TOKEN"];
-        if (!token) return Response.json({ error: "pdf service not configured" }, { status: 500 });
+        if (!token) return fallback(Response.json({ error: "pdf service not configured" }, { status: 500 }));
 
         const form = await request.formData();
         let html = "";
@@ -66,7 +80,7 @@ export const Route = createFileRoute("/api/public/bot-pdf")({
         );
         if (!res.ok) {
           const t = await res.text();
-          return Response.json({ error: "pdf failed", status: res.status, detail: t.slice(0, 500) }, { status: 502 });
+          return fallback(Response.json({ error: "pdf failed", status: res.status, detail: t.slice(0, 500) }, { status: 502 }));
         }
         const name = (request.headers.get("gotenberg-output-filename") || "document").replace(/[^\w .-]/g, "") || "document";
         return new Response(res.body, {
