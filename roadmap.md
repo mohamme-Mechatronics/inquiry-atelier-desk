@@ -4,5 +4,5 @@
 - [x] Free Browserless key from the user (blocked: user signup)
 - [x] Publish so the moved files go live
 - [x] Telegram copy of the bot (full conversation like WhatsApp)
-- [ ] Remix setup: re-enter BOT_SECRET, BROWSERLESS_TOKEN, TELEGRAM_BOT_TOKEN
-- [ ] Remix setup: database tables in the new project
+- [x] Remix setup: re-enter BOT_SECRET, BROWSERLESS_TOKEN, TELEGRAM_BOT_TOKEN
+- [x] Remix setup: database tables in the new project
