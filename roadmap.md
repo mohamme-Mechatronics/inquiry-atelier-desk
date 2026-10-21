@@ -10,7 +10,7 @@
 - [x] Admin panel redesign: sidebar, notifications home, WhatsApp+Telegram conversations with staff reply and internal notes
 - [x] WhatsApp replies from the panel (token + phone number ID saved in original project)
 - [x] Remix #2 setup: BOT_SECRET, TELEGRAM_BOT_TOKEN, WHATSAPP_PHONE_NUMBER_ID, WHATSAPP_TOKEN set and verified
-- [ ] BROWSERLESS_TOKEN (blocked: value entered is rejected by Browserless 401; needs a valid key)
+- [x] PDFs: new site falls back to the old site PDF service when its own Browserless key is rejected (PDF_FALLBACK_URL)
 - [x] Remix #2: empty migration set rescaffolded (tables already present in new database)
 - [x] Remix #2: manager account recreated
 - [x] Remix #2: published + bot v45 pointing at inquiry-atelier-desk; settings page (links, secret, channel check), customers Excel export, order category filters
