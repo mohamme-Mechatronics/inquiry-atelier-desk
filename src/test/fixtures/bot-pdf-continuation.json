@@ -1,0 +1,983 @@
+{
+  "nodes": {
+    "Validate WhatsApp Media ID": {
+      "jsCode": "// Upload sends the document immediately on Telegram; Meta only uploads media.\nconst item = $input.first();\nconst j = item.json || {};\nconst telegram = $('Build Quote HTML').first().json.phone_number_id === 'tg';\nif (telegram) {\n  const result = j.result;\n  if (j.ok !== true || !result || !Number.isInteger(result.message_id) || !result.document || !result.document.file_id) {\n    throw new Error('TELEGRAM DOCUMENT SEND FAILED: no confirmed document response.');\n  }\n  return [{ ...item, json: { ...j, id: String(result.document.file_id), messages: [{ id: 'tg:' + result.message_id }] } }];\n}\nif (!j.id) throw new Error('WHATSAPP MEDIA UPLOAD FAILED: Meta returned no media id.');\nreturn items;\n"
+    },
+    "Validate Quote Send Response": {
+      "jsCode": "const item = $input.first();\nconst j = item.json || {};\nconst telegram = $('Build Quote HTML').first().json.phone_number_id === 'tg';\nif (telegram && (j.ok !== true || !j.result || !Number.isInteger(j.result.message_id) || !j.result.document || !j.result.document.file_id)) {\n  throw new Error('TELEGRAM DOCUMENT SEND FAILED: no confirmed document response.');\n}\nconst id = Array.isArray(j.messages) && j.messages[0] && j.messages[0].id;\nif (!id) throw new Error('DOCUMENT SEND FAILED: no message id.');\nreturn items;\n"
+    },
+    "Quote Already Sent On Telegram?": {
+      "conditions": {
+        "options": {
+          "caseSensitive": true,
+          "leftValue": "",
+          "typeValidation": "strict",
+          "version": 2
+        },
+        "conditions": [
+          {
+            "id": "05baa054-4b7f-481f-ad51-6632508a21ac",
+            "leftValue": "={{ $('Build Quote HTML').first().json.phone_number_id }}",
+            "rightValue": "tg",
+            "operator": {
+              "type": "string",
+              "operation": "equals"
+            }
+          }
+        ],
+        "combinator": "and"
+      },
+      "options": {}
+    },
+    "Validate Study Media Response": {
+      "jsCode": "// Upload sends the document immediately on Telegram; Meta only uploads media.\nconst item = $input.first();\nconst j = item.json || {};\nconst telegram = $('Build Study HTML').first().json.phone_number_id === 'tg';\nif (telegram) {\n  const result = j.result;\n  if (j.ok !== true || !result || !Number.isInteger(result.message_id) || !result.document || !result.document.file_id) {\n    throw new Error('TELEGRAM DOCUMENT SEND FAILED: no confirmed document response.');\n  }\n  return [{ ...item, json: { ...j, id: String(result.document.file_id), messages: [{ id: 'tg:' + result.message_id }] } }];\n}\nif (!j.id) throw new Error('WHATSAPP MEDIA UPLOAD FAILED: Meta returned no media id.');\nreturn items;\n"
+    },
+    "Study Already Sent On Telegram?": {
+      "conditions": {
+        "options": {
+          "caseSensitive": true,
+          "leftValue": "",
+          "typeValidation": "strict",
+          "version": 2
+        },
+        "conditions": [
+          {
+            "id": "22da108f-0ed3-4316-955d-9e45a907a6f8",
+            "leftValue": "={{ $('Build Study HTML').first().json.phone_number_id }}",
+            "rightValue": "tg",
+            "operator": {
+              "type": "string",
+              "operation": "equals"
+            }
+          }
+        ],
+        "combinator": "and"
+      },
+      "options": {}
+    },
+    "Validate SLD Media Response": {
+      "jsCode": "// Upload sends the document immediately on Telegram; Meta only uploads media.\nconst item = $input.first();\nconst j = item.json || {};\nconst telegram = $('Build SLD Files - English Clean Layout').first().json.phone_number_id === 'tg';\nif (telegram) {\n  const result = j.result;\n  if (j.ok !== true || !result || !Number.isInteger(result.message_id) || !result.document || !result.document.file_id) {\n    throw new Error('TELEGRAM DOCUMENT SEND FAILED: no confirmed document response.');\n  }\n  return [{ ...item, json: { ...j, id: String(result.document.file_id), messages: [{ id: 'tg:' + result.message_id }] } }];\n}\nif (!j.id) throw new Error('WHATSAPP MEDIA UPLOAD FAILED: Meta returned no media id.');\nreturn items;\n"
+    },
+    "SLD Already Sent On Telegram?": {
+      "conditions": {
+        "options": {
+          "caseSensitive": true,
+          "leftValue": "",
+          "typeValidation": "strict",
+          "version": 2
+        },
+        "conditions": [
+          {
+            "id": "9acce349-ce42-4037-8072-f60d00b82f70",
+            "leftValue": "={{ $('Build SLD Files - English Clean Layout').first().json.phone_number_id }}",
+            "rightValue": "tg",
+            "operator": {
+              "type": "string",
+              "operation": "equals"
+            }
+          }
+        ],
+        "combinator": "and"
+      },
+      "options": {}
+    }
+  },
+  "connections": {
+    "WhatsApp Trigger": {
+      "main": [
+        [
+          {
+            "node": "Parse Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Message": {
+      "main": [
+        [
+          {
+            "node": "Load Session",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Load Session": {
+      "main": [
+        [
+          {
+            "node": "Mode Router",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mode Router": {
+      "main": [
+        [
+          {
+            "node": "Get Session",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Session": {
+      "main": [
+        [
+          {
+            "node": "Bot Paused Gate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "State Machine": {
+      "main": [
+        [
+          {
+            "node": "Upsert Session",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Build CRM Log",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upsert Session": {
+      "main": [
+        [
+          {
+            "node": "Has Inv Image?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Has Inv Image?": {
+      "main": [
+        [
+          {
+            "node": "Send Inv Image",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send Quote PDF?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Inv Image": {
+      "main": [
+        [
+          {
+            "node": "Send Quote PDF?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Has Details Text?": {
+      "main": [
+        [
+          {
+            "node": "Send Details Text",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send Study PDF?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Details Text": {
+      "main": [
+        [
+          {
+            "node": "Send Study PDF?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Quote PDF?": {
+      "main": [
+        [
+          {
+            "node": "Send PDF Wait Msg",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Has Details Text?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send PDF Wait Msg": {
+      "main": [
+        [
+          {
+            "node": "Has Quote Images?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Has Quote Images?": {
+      "main": [
+        [
+          {
+            "node": "Split Quote Images",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Build Quote HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Quote Images": {
+      "main": [
+        [
+          {
+            "node": "Send Quote Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Quote Image": {
+      "main": [
+        [
+          {
+            "node": "After Quote Images",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "After Quote Images": {
+      "main": [
+        [
+          {
+            "node": "Build Quote HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Quote HTML": {
+      "main": [
+        [
+          {
+            "node": "Validate Quote HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate Quote HTML": {
+      "main": [
+        [
+          {
+            "node": "Build Drive Multipart",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Drive Multipart": {
+      "main": [
+        [
+          {
+            "node": "Import HTML As Google Doc",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Import HTML As Google Doc": {
+      "main": [
+        [
+          {
+            "node": "Validate Quote PDF Binary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate Quote PDF Binary": {
+      "main": [
+        [
+          {
+            "node": "Upload PDF To WhatsApp",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload PDF To WhatsApp": {
+      "main": [
+        [
+          {
+            "node": "Validate WhatsApp Media ID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate WhatsApp Media ID": {
+      "main": [
+        [
+          {
+            "node": "Quote Already Sent On Telegram?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Quote PDF": {
+      "main": [
+        [
+          {
+            "node": "Validate Quote Send Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate Quote Send Response": {
+      "main": [
+        [
+          {
+            "node": "Has Catalogs?",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "CRM Attach Quote PDF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Study PDF?": {
+      "main": [
+        [
+          {
+            "node": "Send Study Wait Msg",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Customer Make SLD?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Study Wait Msg": {
+      "main": [
+        [
+          {
+            "node": "Study Site",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Study Site": {
+      "main": [
+        [
+          {
+            "node": "Fetch PVGIS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch PVGIS": {
+      "main": [
+        [
+          {
+            "node": "Study Prepare",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Study Prepare": {
+      "main": [
+        [
+          {
+            "node": "Split Charts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Charts": {
+      "main": [
+        [
+          {
+            "node": "Fetch Chart",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Chart": {
+      "main": [
+        [
+          {
+            "node": "Build Study HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Study HTML": {
+      "main": [
+        [
+          {
+            "node": "Study Build Multipart",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Study Build Multipart": {
+      "main": [
+        [
+          {
+            "node": "Study Import Doc",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Study Import Doc": {
+      "main": [
+        [
+          {
+            "node": "Study Upload PDF",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Study Error Notify",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Study Upload PDF": {
+      "main": [
+        [
+          {
+            "node": "Validate Study Media Response",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Study Error Notify",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Study Send PDF": {
+      "main": [
+        [
+          {
+            "node": "Customer Make SLD?",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "CRM Attach Study PDF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Customer Make SLD?": {
+      "main": [
+        [
+          {
+            "node": "Customer SLD Wait Msg",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Has Reply?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Study Error Notify": {
+      "main": [
+        [
+          {
+            "node": "Customer Make SLD?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Customer SLD Wait Msg": {
+      "main": [
+        [
+          {
+            "node": "Build SLD Files - English Clean Layout",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build SLD Files - English Clean Layout": {
+      "main": [
+        [
+          {
+            "node": "SLD Upload PDF",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "SLD Error Notify",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SLD Upload PDF": {
+      "main": [
+        [
+          {
+            "node": "Validate SLD Media Response",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "SLD Error Notify",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SLD Send PDF": {
+      "main": [
+        [
+          {
+            "node": "Has Reply?",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "CRM Attach SLD PDF",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "SLD Error Notify",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Has Reply?": {
+      "main": [
+        [
+          {
+            "node": "Send Reply",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Has Followup?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SLD Error Notify": {
+      "main": [
+        [
+          {
+            "node": "Has Reply?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Reply": {
+      "main": [
+        [
+          {
+            "node": "Has Followup?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Has Followup?": {
+      "main": [
+        [
+          {
+            "node": "Send Followup Ask",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Notify Employee?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Followup Ask": {
+      "main": [
+        [
+          {
+            "node": "Notify Employee?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notify Employee?": {
+      "main": [
+        [
+          {
+            "node": "Send Notification",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Has Extra Msgs?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Notification": {
+      "main": [
+        [
+          {
+            "node": "Has Extra Msgs?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Has Extra Msgs?": {
+      "main": [
+        [
+          {
+            "node": "Split Extra Msgs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Extra Msgs": {
+      "main": [
+        [
+          {
+            "node": "Send Extra Msg",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Has Catalogs?": {
+      "main": [
+        [
+          {
+            "node": "Split Catalogs",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Has Details Text?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Catalogs": {
+      "main": [
+        [
+          {
+            "node": "Send Catalog PDF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Catalog PDF": {
+      "main": [
+        [
+          {
+            "node": "Keep Single After Catalogs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Keep Single After Catalogs": {
+      "main": [
+        [
+          {
+            "node": "Wait After Catalogs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build CRM Log": {
+      "main": [
+        [
+          {
+            "node": "Log to CRM",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait After Catalogs": {
+      "main": [
+        [
+          {
+            "node": "Has Details Text?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Bot Paused Gate": {
+      "main": [
+        [
+          {
+            "node": "State Machine",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Parse Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Quote Already Sent On Telegram?": {
+      "main": [
+        [
+          {
+            "node": "Validate Quote Send Response",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send Quote PDF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate Study Media Response": {
+      "main": [
+        [
+          {
+            "node": "Study Already Sent On Telegram?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Study Error Notify",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Study Already Sent On Telegram?": {
+      "main": [
+        [
+          {
+            "node": "Customer Make SLD?",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "CRM Attach Study PDF",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Study Send PDF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate SLD Media Response": {
+      "main": [
+        [
+          {
+            "node": "SLD Already Sent On Telegram?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "SLD Error Notify",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SLD Already Sent On Telegram?": {
+      "main": [
+        [
+          {
+            "node": "Has Reply?",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "CRM Attach SLD PDF",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "SLD Send PDF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}
