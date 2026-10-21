@@ -9,6 +9,8 @@
 - [x] Repair Telegram quote, study, and SLD document continuation; deliver combined v44 (13 regression tests passed; live n8n conversation not verified)
 - [x] Admin panel redesign: sidebar, notifications home, WhatsApp+Telegram conversations with staff reply and internal notes
 - [x] WhatsApp replies from the panel (token + phone number ID saved in original project)
-- [ ] Remix #2 setup: re-enter BOT_SECRET, BROWSERLESS_TOKEN, TELEGRAM_BOT_TOKEN, WHATSAPP_PHONE_NUMBER_ID, WHATSAPP_TOKEN
+- [x] Remix #2 setup: BOT_SECRET, TELEGRAM_BOT_TOKEN, WHATSAPP_PHONE_NUMBER_ID, WHATSAPP_TOKEN set and verified
+- [ ] BROWSERLESS_TOKEN (blocked: value entered is rejected by Browserless 401; needs a valid key)
 - [x] Remix #2: empty migration set rescaffolded (tables already present in new database)
-- [ ] Remix #2: recreate manager account, publish, give bot file pointing at this project's site (conversations currently go to the old site)
+- [x] Remix #2: manager account recreated
+- [ ] Remix #2: publish + bot file pointing at this project's site (blocked: awaiting user OK to publish)
