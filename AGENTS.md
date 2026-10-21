@@ -10,3 +10,4 @@
 <!-- LOVABLE:END -->
 
 - Keep credential-free n8n PDF continuation regression fixtures in src/test/fixtures; Telegram uploads already send documents, so their confirmed receipts must bypass the second send while WhatsApp retains upload-then-send.
+- Customer channel is derived from the stored id (967 + 9 digits = WhatsApp, Telegram chat ids otherwise); panel replies go through src/lib/reply.functions.ts on the customer's own channel, notes are messages with direction 'note'.

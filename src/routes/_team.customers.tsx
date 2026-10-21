@@ -4,7 +4,7 @@ import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Input } from "@/components/ui/input";
 import { StatusBadge } from "@/components/StatusBadge";
-import { STATUSES, STAGES, fmt } from "@/lib/crm";
+import { STATUSES, STAGES, CHANNELS, channelOf, fmt } from "@/lib/crm";
 
 export const Route = createFileRoute("/_team/customers")({
   head: () => ({
@@ -46,7 +46,8 @@ function Customers() {
           <Link key={c.phone} to="/customers/$phone" params={{ phone: c.phone }} className="flex items-center gap-3 p-3 hover:bg-muted">
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-2 font-bold">
-                {c.name || "بدون اسم"} <span dir="ltr" className="text-xs font-normal text-muted-foreground">+{c.phone}</span>
+                {c.name || "بدون اسم"} <span dir="ltr" className="text-xs font-normal text-muted-foreground">{c.phone}</span>
+                <span className={`rounded px-1.5 text-[10px] font-normal ${CHANNELS[channelOf(c.phone)].cls}`}>{CHANNELS[channelOf(c.phone)].label}</span>
                 {c.bot_paused && <span className="rounded bg-destructive px-1.5 text-xs text-destructive-foreground">البوت موقوف</span>}
               </div>
               <div className="truncate text-sm text-muted-foreground">{c.last_message}</div>

@@ -43,7 +43,14 @@ function Team() {
   };
   return (
     <div className="space-y-4">
-      <h1 className="text-2xl font-extrabold">فريق المبيعات</h1>
+      <h1 className="text-2xl font-extrabold">الإعدادات والربط مع البوت</h1>
+      <div className="space-y-2 rounded-xl bg-card p-4 text-sm shadow-sm">
+        <h2 className="font-bold text-primary">القنوات المربوطة</h2>
+        <p>• <b>واتساب</b> و<b>تليجرام</b> (@LithiumPowerBot) يرسلان كل الرسائل والطلبات إلى هذه اللوحة تلقائياً عبر n8n.</p>
+        <p>• الرد من صفحة «المحادثات» يصل للعميل على نفس القناة التي راسل منها.</p>
+        <p className="text-muted-foreground">رابط الاستقبال: <span dir="ltr">{typeof window !== "undefined" ? window.location.origin : ""}/api/public/bot-message</span></p>
+      </div>
+      <h2 className="text-lg font-extrabold">فريق العمل</h2>
       <p className="text-sm text-muted-foreground">كل موظف ينشئ حساباً من صفحة الدخول، ثم تفعّله أنت هنا.</p>
       <div className="divide-y rounded-xl bg-card shadow-sm">
         {data?.members.map((m) => {

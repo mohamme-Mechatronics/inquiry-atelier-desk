@@ -7,3 +7,5 @@
 - [x] Remix setup: re-enter BOT_SECRET, BROWSERLESS_TOKEN, TELEGRAM_BOT_TOKEN
 - [x] Remix setup: database tables in the new project
 - [x] Repair Telegram quote, study, and SLD document continuation; deliver combined v44 (13 regression tests passed; live n8n conversation not verified)
+- [x] Admin panel redesign: sidebar, notifications home, WhatsApp+Telegram conversations with staff reply and internal notes
+- [ ] WhatsApp replies from the panel (blocked: user must enter WhatsApp access token + phone number ID)
