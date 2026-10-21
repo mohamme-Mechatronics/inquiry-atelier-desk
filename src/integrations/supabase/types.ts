@@ -14,6 +14,24 @@ export type Database = {
   }
   public: {
     Tables: {
+      bot_sessions: {
+        Row: {
+          data: Json
+          phone: string
+          updated_at: string
+        }
+        Insert: {
+          data?: Json
+          phone: string
+          updated_at?: string
+        }
+        Update: {
+          data?: Json
+          phone?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       button_locks: {
         Row: {
           choice: string | null
