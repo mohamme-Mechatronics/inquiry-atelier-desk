@@ -26,6 +26,10 @@ export const ago = (d: string) => {
   return new Date(d).toLocaleDateString("ar", { day: "numeric", month: "short" });
 };
 
+// One-line preview of a bot message: drops decorative separators and *bold* markers.
+export const preview = (t?: string | null) =>
+  (t ?? "").replace(/[━─═_~*]+/g, " ").replace(/\s+/g, " ").trim();
+
 // WhatsApp numbers are Yemeni (967 + 9 digits); Telegram customers are stored by chat id.
 export type Channel = "whatsapp" | "telegram";
 export const channelOf = (phone: string): Channel =>

@@ -6,7 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { StatusBadge } from "@/components/StatusBadge";
 import { Avatar, ChannelBadge, EmptyState, PageHeader, Panel, Skeleton } from "@/components/admin";
-import { STATUSES, STAGES, CHANNELS, channelOf, fmt, ago } from "@/lib/crm";
+import { STATUSES, STAGES, CHANNELS, channelOf, fmt, ago, preview } from "@/lib/crm";
 
 export const Route = createFileRoute("/_team/customers")({
   head: () => ({

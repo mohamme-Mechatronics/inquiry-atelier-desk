@@ -8,7 +8,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Switch } from "@/components/ui/switch";
 import { StatusBadge } from "@/components/StatusBadge";
 import { Avatar, ChannelBadge, EmptyState, MessageBubble, Skeleton } from "@/components/admin";
-import { QUICK_REPLIES, channelOf, ago } from "@/lib/crm";
+import { QUICK_REPLIES, channelOf, ago, preview } from "@/lib/crm";
 import { sendReply } from "@/lib/reply.functions";
 
 type Search = { p?: string };
@@ -105,7 +105,7 @@ function Chats() {
                   </div>
                   <div className="mt-0.5 flex items-center gap-1.5">
                     <ChannelBadge phone={c.phone} />
-                    <span className={`truncate text-xs ${u ? "text-foreground" : "text-muted-foreground"}`}>{c.last_message}</span>
+                    <span className={`truncate text-xs ${u ? "text-foreground" : "text-muted-foreground"}`}>{preview(c.last_message)}</span>
                     {u && <span className="ms-auto h-2 w-2 shrink-0 rounded-full bg-accent" />}
                   </div>
                 </div>

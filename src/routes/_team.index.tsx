@@ -4,7 +4,7 @@ import { Users, MessageCircle, ShoppingCart, Wrench, FileText, Bell, Headset, Us
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
 import { Panel, EmptyState, ChannelBadge, Skeleton } from "@/components/admin";
-import { STATUSES, CHANNELS, channelOf, ago } from "@/lib/crm";
+import { STATUSES, CHANNELS, channelOf, ago, preview } from "@/lib/crm";
 
 export const Route = createFileRoute("/_team/")({
   head: () => ({
@@ -76,13 +76,13 @@ function Dashboard() {
     <div className="space-y-5">
       <div className="relative overflow-hidden rounded-2xl bg-sidebar p-5 text-sidebar-foreground shadow-elevated md:p-7">
         <div className="absolute -start-16 -top-16 h-56 w-56 rounded-full bg-sidebar-primary/20 blur-3xl" />
-        <div className="relative flex flex-wrap items-end gap-4">
+        <div className="relative flex flex-col gap-4 sm:flex-row sm:items-end">
           <div className="min-w-0 flex-1">
             <p className="text-sm text-sidebar-foreground/70">{hello}، <span dir="ltr">{name}</span></p>
             <h1 className="mt-1 text-2xl font-extrabold md:text-3xl">لوحة متابعة المبيعات</h1>
             <p className="mt-1 text-sm text-sidebar-foreground/70">كل ما يحدث في بوت تمكين على واتساب وتليجرام لحظة بلحظة</p>
           </div>
-          <div className="flex gap-6">
+          <div className="flex items-center justify-between gap-6">
             <div>
               <div className="text-3xl font-bold tabular-nums text-sidebar-primary">{data?.newToday ?? 0}</div>
               <div className="text-xs text-sidebar-foreground/70">عملاء جدد اليوم</div>
@@ -125,7 +125,7 @@ function Dashboard() {
                         <span className="truncate text-sm font-semibold">{n.title}</span>
                         <ChannelBadge phone={n.phone} />
                       </div>
-                      <div className="truncate text-xs text-muted-foreground">{n.sub || "—"}</div>
+                      <div className="truncate text-xs text-muted-foreground">{preview(n.sub) || "—"}</div>
                     </div>
                     <span className="shrink-0 text-[11px] tabular-nums text-muted-foreground">{ago(n.at)}</span>
                   </Link>
