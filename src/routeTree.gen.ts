@@ -9,50 +9,393 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as TeamRouteImport } from './routes/_team'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as TeamIndexRouteImport } from './routes/_team.index'
+import { Route as TeamCatalogRouteImport } from './routes/_team.catalog'
+import { Route as TeamCustomersRouteImport } from './routes/_team.customers'
+import { Route as TeamOrdersRouteImport } from './routes/_team.orders'
+import { Route as TeamQuotesRouteImport } from './routes/_team.quotes'
+import { Route as TeamTeamRouteImport } from './routes/_team.team'
+import { Route as TeamTicketsRouteImport } from './routes/_team.tickets'
+import { Route as TeamCustomersPhoneRouteImport } from './routes/_team.customers_.$phone'
+import { Route as ApiPublicBotButtonLockRouteImport } from './routes/api/public/bot-button-lock'
+import { Route as ApiPublicBotCatalogRouteImport } from './routes/api/public/bot-catalog'
+import { Route as ApiPublicBotMediaRouteImport } from './routes/api/public/bot-media'
+import { Route as ApiPublicBotMessageRouteImport } from './routes/api/public/bot-message'
+import { Route as ApiPublicBotOrderRouteImport } from './routes/api/public/bot-order'
+import { Route as ApiPublicBotPausedRouteImport } from './routes/api/public/bot-paused'
+import { Route as ApiPublicBotTicketRouteImport } from './routes/api/public/bot-ticket'
 
-const IndexRoute = IndexRouteImport.update({
+const TeamRoute = TeamRouteImport.update({
+  id: '/_team',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TeamIndexRoute = TeamIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => TeamRoute,
+} as any)
+const TeamCatalogRoute = TeamCatalogRouteImport.update({
+  id: '/catalog',
+  path: '/catalog',
+  getParentRoute: () => TeamRoute,
+} as any)
+const TeamCustomersRoute = TeamCustomersRouteImport.update({
+  id: '/customers',
+  path: '/customers',
+  getParentRoute: () => TeamRoute,
+} as any)
+const TeamOrdersRoute = TeamOrdersRouteImport.update({
+  id: '/orders',
+  path: '/orders',
+  getParentRoute: () => TeamRoute,
+} as any)
+const TeamQuotesRoute = TeamQuotesRouteImport.update({
+  id: '/quotes',
+  path: '/quotes',
+  getParentRoute: () => TeamRoute,
+} as any)
+const TeamTeamRoute = TeamTeamRouteImport.update({
+  id: '/team',
+  path: '/team',
+  getParentRoute: () => TeamRoute,
+} as any)
+const TeamTicketsRoute = TeamTicketsRouteImport.update({
+  id: '/tickets',
+  path: '/tickets',
+  getParentRoute: () => TeamRoute,
+} as any)
+const TeamCustomersPhoneRoute = TeamCustomersPhoneRouteImport.update({
+  id: '/customers_/$phone',
+  path: '/customers/$phone',
+  getParentRoute: () => TeamRoute,
+} as any)
+const ApiPublicBotButtonLockRoute = ApiPublicBotButtonLockRouteImport.update({
+  id: '/api/public/bot-button-lock',
+  path: '/api/public/bot-button-lock',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicBotCatalogRoute = ApiPublicBotCatalogRouteImport.update({
+  id: '/api/public/bot-catalog',
+  path: '/api/public/bot-catalog',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicBotMediaRoute = ApiPublicBotMediaRouteImport.update({
+  id: '/api/public/bot-media',
+  path: '/api/public/bot-media',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicBotMessageRoute = ApiPublicBotMessageRouteImport.update({
+  id: '/api/public/bot-message',
+  path: '/api/public/bot-message',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicBotOrderRoute = ApiPublicBotOrderRouteImport.update({
+  id: '/api/public/bot-order',
+  path: '/api/public/bot-order',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicBotPausedRoute = ApiPublicBotPausedRouteImport.update({
+  id: '/api/public/bot-paused',
+  path: '/api/public/bot-paused',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicBotTicketRoute = ApiPublicBotTicketRouteImport.update({
+  id: '/api/public/bot-ticket',
+  path: '/api/public/bot-ticket',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
+  '/': typeof TeamIndexRoute
+  '/login': typeof LoginRoute
+  '/catalog': typeof TeamCatalogRoute
+  '/customers': typeof TeamCustomersRoute
+  '/orders': typeof TeamOrdersRoute
+  '/quotes': typeof TeamQuotesRoute
+  '/team': typeof TeamTeamRoute
+  '/tickets': typeof TeamTicketsRoute
+  '/customers/$phone': typeof TeamCustomersPhoneRoute
+  '/api/public/bot-button-lock': typeof ApiPublicBotButtonLockRoute
+  '/api/public/bot-catalog': typeof ApiPublicBotCatalogRoute
+  '/api/public/bot-media': typeof ApiPublicBotMediaRoute
+  '/api/public/bot-message': typeof ApiPublicBotMessageRoute
+  '/api/public/bot-order': typeof ApiPublicBotOrderRoute
+  '/api/public/bot-paused': typeof ApiPublicBotPausedRoute
+  '/api/public/bot-ticket': typeof ApiPublicBotTicketRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
+  '/login': typeof LoginRoute
+  '/catalog': typeof TeamCatalogRoute
+  '/customers': typeof TeamCustomersRoute
+  '/orders': typeof TeamOrdersRoute
+  '/quotes': typeof TeamQuotesRoute
+  '/team': typeof TeamTeamRoute
+  '/tickets': typeof TeamTicketsRoute
+  '/': typeof TeamIndexRoute
+  '/customers/$phone': typeof TeamCustomersPhoneRoute
+  '/api/public/bot-button-lock': typeof ApiPublicBotButtonLockRoute
+  '/api/public/bot-catalog': typeof ApiPublicBotCatalogRoute
+  '/api/public/bot-media': typeof ApiPublicBotMediaRoute
+  '/api/public/bot-message': typeof ApiPublicBotMessageRoute
+  '/api/public/bot-order': typeof ApiPublicBotOrderRoute
+  '/api/public/bot-paused': typeof ApiPublicBotPausedRoute
+  '/api/public/bot-ticket': typeof ApiPublicBotTicketRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
+  '/_team': typeof TeamRouteWithChildren
+  '/login': typeof LoginRoute
+  '/_team/catalog': typeof TeamCatalogRoute
+  '/_team/customers': typeof TeamCustomersRoute
+  '/_team/orders': typeof TeamOrdersRoute
+  '/_team/quotes': typeof TeamQuotesRoute
+  '/_team/team': typeof TeamTeamRoute
+  '/_team/tickets': typeof TeamTicketsRoute
+  '/_team/': typeof TeamIndexRoute
+  '/_team/customers_/$phone': typeof TeamCustomersPhoneRoute
+  '/api/public/bot-button-lock': typeof ApiPublicBotButtonLockRoute
+  '/api/public/bot-catalog': typeof ApiPublicBotCatalogRoute
+  '/api/public/bot-media': typeof ApiPublicBotMediaRoute
+  '/api/public/bot-message': typeof ApiPublicBotMessageRoute
+  '/api/public/bot-order': typeof ApiPublicBotOrderRoute
+  '/api/public/bot-paused': typeof ApiPublicBotPausedRoute
+  '/api/public/bot-ticket': typeof ApiPublicBotTicketRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/catalog'
+    | '/customers'
+    | '/orders'
+    | '/quotes'
+    | '/team'
+    | '/tickets'
+    | '/customers/$phone'
+    | '/api/public/bot-button-lock'
+    | '/api/public/bot-catalog'
+    | '/api/public/bot-media'
+    | '/api/public/bot-message'
+    | '/api/public/bot-order'
+    | '/api/public/bot-paused'
+    | '/api/public/bot-ticket'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/login'
+    | '/catalog'
+    | '/customers'
+    | '/orders'
+    | '/quotes'
+    | '/team'
+    | '/tickets'
+    | '/'
+    | '/customers/$phone'
+    | '/api/public/bot-button-lock'
+    | '/api/public/bot-catalog'
+    | '/api/public/bot-media'
+    | '/api/public/bot-message'
+    | '/api/public/bot-order'
+    | '/api/public/bot-paused'
+    | '/api/public/bot-ticket'
+  id:
+    | '__root__'
+    | '/_team'
+    | '/login'
+    | '/_team/catalog'
+    | '/_team/customers'
+    | '/_team/orders'
+    | '/_team/quotes'
+    | '/_team/team'
+    | '/_team/tickets'
+    | '/_team/'
+    | '/_team/customers_/$phone'
+    | '/api/public/bot-button-lock'
+    | '/api/public/bot-catalog'
+    | '/api/public/bot-media'
+    | '/api/public/bot-message'
+    | '/api/public/bot-order'
+    | '/api/public/bot-paused'
+    | '/api/public/bot-ticket'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
+  TeamRoute: typeof TeamRouteWithChildren
+  LoginRoute: typeof LoginRoute
+  ApiPublicBotButtonLockRoute: typeof ApiPublicBotButtonLockRoute
+  ApiPublicBotCatalogRoute: typeof ApiPublicBotCatalogRoute
+  ApiPublicBotMediaRoute: typeof ApiPublicBotMediaRoute
+  ApiPublicBotMessageRoute: typeof ApiPublicBotMessageRoute
+  ApiPublicBotOrderRoute: typeof ApiPublicBotOrderRoute
+  ApiPublicBotPausedRoute: typeof ApiPublicBotPausedRoute
+  ApiPublicBotTicketRoute: typeof ApiPublicBotTicketRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
+    '/_team': {
+      id: '/_team'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof TeamRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_team/': {
+      id: '/_team/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+      preLoaderRoute: typeof TeamIndexRouteImport
+      parentRoute: typeof TeamRoute
+    }
+    '/_team/catalog': {
+      id: '/_team/catalog'
+      path: '/catalog'
+      fullPath: '/catalog'
+      preLoaderRoute: typeof TeamCatalogRouteImport
+      parentRoute: typeof TeamRoute
+    }
+    '/_team/customers': {
+      id: '/_team/customers'
+      path: '/customers'
+      fullPath: '/customers'
+      preLoaderRoute: typeof TeamCustomersRouteImport
+      parentRoute: typeof TeamRoute
+    }
+    '/_team/orders': {
+      id: '/_team/orders'
+      path: '/orders'
+      fullPath: '/orders'
+      preLoaderRoute: typeof TeamOrdersRouteImport
+      parentRoute: typeof TeamRoute
+    }
+    '/_team/quotes': {
+      id: '/_team/quotes'
+      path: '/quotes'
+      fullPath: '/quotes'
+      preLoaderRoute: typeof TeamQuotesRouteImport
+      parentRoute: typeof TeamRoute
+    }
+    '/_team/team': {
+      id: '/_team/team'
+      path: '/team'
+      fullPath: '/team'
+      preLoaderRoute: typeof TeamTeamRouteImport
+      parentRoute: typeof TeamRoute
+    }
+    '/_team/tickets': {
+      id: '/_team/tickets'
+      path: '/tickets'
+      fullPath: '/tickets'
+      preLoaderRoute: typeof TeamTicketsRouteImport
+      parentRoute: typeof TeamRoute
+    }
+    '/_team/customers_/$phone': {
+      id: '/_team/customers_/$phone'
+      path: '/customers/$phone'
+      fullPath: '/customers/$phone'
+      preLoaderRoute: typeof TeamCustomersPhoneRouteImport
+      parentRoute: typeof TeamRoute
+    }
+    '/api/public/bot-button-lock': {
+      id: '/api/public/bot-button-lock'
+      path: '/api/public/bot-button-lock'
+      fullPath: '/api/public/bot-button-lock'
+      preLoaderRoute: typeof ApiPublicBotButtonLockRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/bot-catalog': {
+      id: '/api/public/bot-catalog'
+      path: '/api/public/bot-catalog'
+      fullPath: '/api/public/bot-catalog'
+      preLoaderRoute: typeof ApiPublicBotCatalogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/bot-media': {
+      id: '/api/public/bot-media'
+      path: '/api/public/bot-media'
+      fullPath: '/api/public/bot-media'
+      preLoaderRoute: typeof ApiPublicBotMediaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/bot-message': {
+      id: '/api/public/bot-message'
+      path: '/api/public/bot-message'
+      fullPath: '/api/public/bot-message'
+      preLoaderRoute: typeof ApiPublicBotMessageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/bot-order': {
+      id: '/api/public/bot-order'
+      path: '/api/public/bot-order'
+      fullPath: '/api/public/bot-order'
+      preLoaderRoute: typeof ApiPublicBotOrderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/bot-paused': {
+      id: '/api/public/bot-paused'
+      path: '/api/public/bot-paused'
+      fullPath: '/api/public/bot-paused'
+      preLoaderRoute: typeof ApiPublicBotPausedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/bot-ticket': {
+      id: '/api/public/bot-ticket'
+      path: '/api/public/bot-ticket'
+      fullPath: '/api/public/bot-ticket'
+      preLoaderRoute: typeof ApiPublicBotTicketRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
 }
 
+interface TeamRouteChildren {
+  TeamCatalogRoute: typeof TeamCatalogRoute
+  TeamCustomersRoute: typeof TeamCustomersRoute
+  TeamOrdersRoute: typeof TeamOrdersRoute
+  TeamQuotesRoute: typeof TeamQuotesRoute
+  TeamTeamRoute: typeof TeamTeamRoute
+  TeamTicketsRoute: typeof TeamTicketsRoute
+  TeamIndexRoute: typeof TeamIndexRoute
+  TeamCustomersPhoneRoute: typeof TeamCustomersPhoneRoute
+}
+
+const TeamRouteChildren: TeamRouteChildren = {
+  TeamCatalogRoute: TeamCatalogRoute,
+  TeamCustomersRoute: TeamCustomersRoute,
+  TeamOrdersRoute: TeamOrdersRoute,
+  TeamQuotesRoute: TeamQuotesRoute,
+  TeamTeamRoute: TeamTeamRoute,
+  TeamTicketsRoute: TeamTicketsRoute,
+  TeamIndexRoute: TeamIndexRoute,
+  TeamCustomersPhoneRoute: TeamCustomersPhoneRoute,
+}
+
+const TeamRouteWithChildren = TeamRoute._addFileChildren(TeamRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
+  TeamRoute: TeamRouteWithChildren,
+  LoginRoute: LoginRoute,
+  ApiPublicBotButtonLockRoute: ApiPublicBotButtonLockRoute,
+  ApiPublicBotCatalogRoute: ApiPublicBotCatalogRoute,
+  ApiPublicBotMediaRoute: ApiPublicBotMediaRoute,
+  ApiPublicBotMessageRoute: ApiPublicBotMessageRoute,
+  ApiPublicBotOrderRoute: ApiPublicBotOrderRoute,
+  ApiPublicBotPausedRoute: ApiPublicBotPausedRoute,
+  ApiPublicBotTicketRoute: ApiPublicBotTicketRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
