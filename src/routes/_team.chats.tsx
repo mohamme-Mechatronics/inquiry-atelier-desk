@@ -221,46 +221,46 @@ function Conversation({ phone, onBack }: { phone: string; onBack: () => void }) 
 
   return (
     <>
-      <div className={`flex items-center gap-3 border-b px-3 py-2.5 text-primary-foreground ${ch === "whatsapp" ? "bg-wa-head" : "bg-tg-head"} [&_select]:text-foreground [&_.text-muted-foreground]:text-primary-foreground/75`}>
-        <button onClick={onBack} className="rounded-md p-1 hover:bg-primary-foreground/10 md:hidden" aria-label="رجوع"><ArrowRight className="h-5 w-5" /></button>
-        <Avatar name={c?.name} phone={phone} />
-        <div className="min-w-0 flex-1">
-          <div className="flex items-center gap-2">
-            <span className="truncate font-bold">{c?.name || phone}</span>
-            {c && <StatusBadge status={c.status} />}
+      <div className={`space-y-2 px-3 py-2.5 text-primary-foreground shadow-card ${ch === "whatsapp" ? "bg-wa-head" : "bg-tg-head"}`}>
+        <div className="flex items-center gap-2.5">
+          <button onClick={onBack} className="shrink-0 rounded-full p-1 hover:bg-primary-foreground/10 md:hidden" aria-label="رجوع"><ArrowRight className="h-5 w-5" /></button>
+          <Avatar name={c?.name} phone={phone} />
+          <div className="min-w-0 flex-1">
+            <div className="truncate text-[15px] font-bold leading-tight">{c?.name || phone}</div>
+            <div className="mt-0.5 flex items-center gap-1.5 text-[11px] text-primary-foreground/75">
+              <span>{ch === "whatsapp" ? "واتساب" : "تليجرام"}</span>
+              <span>•</span>
+              <span dir="ltr" className="truncate tabular-nums">{ch === "whatsapp" ? `+${phone}` : phone}</span>
+            </div>
           </div>
-          <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-            <ChannelBadge phone={phone} />
-            <span dir="ltr" className="tabular-nums">{ch === "whatsapp" ? `+${phone}` : `ID ${phone}`}</span>
-          </div>
+          {c && <StatusBadge status={c.status} />}
+          <Link to="/customers/$phone" params={{ phone }} aria-label="ملف العميل"
+            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full hover:bg-primary-foreground/10">
+            <ExternalLink className="h-4 w-4" />
+          </Link>
         </div>
         {c && (
-          <label className={`hidden items-center gap-2 rounded-lg border px-2.5 py-1.5 text-xs font-medium sm:flex ${c.bot_paused ? "border-warning/40 bg-warning/10" : ""}`}>
-            {c.bot_paused ? <Headset className="h-3.5 w-3.5" /> : <Bot className="h-3.5 w-3.5" />}
-            {c.bot_paused ? "رد يدوي" : "البوت يعمل"}
-            <Switch checked={c.bot_paused} onCheckedChange={togglePause} />
-          </label>
+          <div className="flex items-center gap-2">
+            <div className="flex shrink-0 rounded-full bg-primary-foreground/15 p-0.5 text-xs font-semibold" role="group" aria-label="من يرد">
+              <button onClick={() => c.bot_paused && togglePause(false)}
+                className={`flex items-center gap-1 rounded-full px-3 py-1 transition ${!c.bot_paused ? "bg-card text-foreground shadow-card" : "text-primary-foreground/80"}`}>
+                <Bot className="h-3.5 w-3.5" /> البوت
+              </button>
+              <button onClick={() => !c.bot_paused && togglePause(true)}
+                className={`flex items-center gap-1 rounded-full px-3 py-1 transition ${c.bot_paused ? "bg-card text-foreground shadow-card" : "text-primary-foreground/80"}`}>
+                <Headset className="h-3.5 w-3.5" /> الموظف
+              </button>
+            </div>
+            <label className="ms-auto flex min-w-0 items-center gap-1 rounded-full bg-primary-foreground/15 px-2.5 py-1 text-xs" title="إسناد لموظف">
+              <UserCheck className="h-3.5 w-3.5 shrink-0" />
+              <select value={c.assigned_to ?? ""} onChange={(e) => assign(e.target.value)} className="min-w-0 max-w-28 bg-transparent text-xs font-medium text-primary-foreground outline-none [&_option]:text-foreground">
+                <option value="">غير مسند</option>
+                {team.data?.map((t) => <option key={t.user_id} value={t.user_id}>{t.email?.split("@")[0]}</option>)}
+              </select>
+            </label>
+          </div>
         )}
-        {c && (
-          <label className="flex items-center gap-1 rounded-lg border border-primary-foreground/30 px-1.5 py-1 text-xs [&_select]:text-primary-foreground [&_option]:text-foreground" title="إسناد لموظف">
-            <UserCheck className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
-            <select value={c.assigned_to ?? ""} onChange={(e) => assign(e.target.value)} className="max-w-24 bg-transparent text-xs outline-none sm:max-w-36">
-              <option value="">غير مسند</option>
-              {team.data?.map((t) => <option key={t.user_id} value={t.user_id}>{t.email?.split("@")[0]}</option>)}
-            </select>
-          </label>
-        )}
-        <Link to="/customers/$phone" params={{ phone }} aria-label="ملف العميل"
-          className="flex h-8 w-8 items-center justify-center rounded-md hover:bg-primary-foreground/10">
-          <ExternalLink className="h-4 w-4" />
-        </Link>
       </div>
-      {c && (
-        <label className="flex items-center justify-between border-b bg-muted/40 px-3 py-1.5 text-xs sm:hidden">
-          {c.bot_paused ? "البوت موقوف — الرد يدوي" : "البوت يرد تلقائياً"}
-          <Switch checked={c.bot_paused} onCheckedChange={togglePause} />
-        </label>
-      )}
 
       <div className={`min-h-0 flex-1 space-y-1.5 overflow-y-auto p-3 ${ch === "whatsapp" ? "chat-wa" : "chat-tg"}`}>
         {!data && [1, 2, 3].map((i) => <Skeleton key={i} className={`h-14 w-2/3 ${i % 2 ? "" : "ms-auto"}`} />)}
