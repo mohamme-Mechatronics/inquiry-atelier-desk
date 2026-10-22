@@ -9,6 +9,8 @@ import { STATUSES, CHANNELS, channelOf, ago, preview } from "@/lib/crm";
 export const Route = createFileRoute("/_team/")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "الرئيسية — تمكين" },
       { name: "description", content: "ملخص عملاء واتساب وتليجرام والطلبات والإشعارات" },
       { property: "og:title", content: "الرئيسية — تمكين" },
