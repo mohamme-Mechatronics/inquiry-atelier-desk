@@ -60,20 +60,21 @@ function Customer() {
       </Link>
       <div className="grid gap-4 lg:grid-cols-3">
         <div className="space-y-4">
-          <Panel bodyClass="p-5 space-y-5">
-            <div className="flex items-center gap-4">
+          <Panel bodyClass="space-y-5 p-0">
+            <div className={`flex items-center gap-3 px-4 py-4 text-primary-foreground ${wa ? "bg-wa-head" : "bg-tg-head"}`}>
               <Avatar name={c.name} phone={c.phone} size="lg" />
               <div className="min-w-0">
-                <h1 className="truncate text-xl font-extrabold">{c.name || "بدون اسم"}</h1>
-                <div className="mt-1 flex items-center gap-1.5">
-                  <ChannelBadge phone={c.phone} />
+                <h1 className="truncate text-lg font-extrabold">{c.name || "بدون اسم"}</h1>
+                <div className="mt-0.5 flex items-center gap-1.5 text-xs text-primary-foreground/80">
+                  <span>{wa ? "واتساب" : "تليجرام"}</span><span>•</span>
                   {wa ? (
-                    <a dir="ltr" href={`https://wa.me/${c.phone}`} target="_blank" rel="noreferrer" className="text-sm tabular-nums text-primary hover:underline">+{c.phone}</a>
-                  ) : <span dir="ltr" className="text-sm tabular-nums text-muted-foreground">ID {c.phone}</span>}
+                    <a dir="ltr" href={`https://wa.me/${c.phone}`} target="_blank" rel="noreferrer" className="tabular-nums hover:underline">+{c.phone}</a>
+                  ) : <span dir="ltr" className="tabular-nums">{c.phone}</span>}
                 </div>
               </div>
             </div>
-            <dl className="grid grid-cols-2 gap-3">
+            <div className="space-y-5 px-4 pb-4">
+            <dl className="grid grid-cols-2 gap-2">
               {info.map((x) => (
                 <div key={x.label} className="rounded-lg bg-muted/60 p-2.5">
                   <dt className="flex items-center gap-1 text-[11px] text-muted-foreground"><x.icon className="h-3 w-3" /> {x.label}</dt>
@@ -92,17 +93,23 @@ function Customer() {
                 ))}
               </div>
             </div>
-            <label className={`flex items-center gap-3 rounded-lg border p-3 text-sm ${c.bot_paused ? "border-warning/40 bg-warning/10" : ""}`}>
-              {c.bot_paused ? <Headset className="h-4 w-4" /> : <Bot className="h-4 w-4" />}
-              <span className="flex-1">
-                <b className="block">{c.bot_paused ? "الرد يدوي" : "البوت يرد تلقائياً"}</b>
-                <span className="text-xs text-muted-foreground">أوقف البوت لتتولى المحادثة بنفسك</span>
-              </span>
-              <Switch checked={c.bot_paused} onCheckedChange={(v) => update({ bot_paused: v })} />
-            </label>
-            <Link to="/chats" search={{ p: c.phone }} className="flex items-center justify-center gap-2 rounded-lg bg-primary py-2.5 text-sm font-bold text-primary-foreground hover:opacity-90">
+            <div>
+              <p className="mb-2 text-xs font-semibold text-muted-foreground">من يرد على العميل</p>
+              <div className="grid grid-cols-2 gap-1 rounded-xl bg-muted p-1 text-sm font-semibold">
+                <button onClick={() => update({ bot_paused: false })}
+                  className={`flex items-center justify-center gap-1.5 rounded-lg py-2 transition ${!c.bot_paused ? "bg-card text-foreground shadow-card" : "text-muted-foreground"}`}>
+                  <Bot className="h-4 w-4" /> البوت
+                </button>
+                <button onClick={() => update({ bot_paused: true })}
+                  className={`flex items-center justify-center gap-1.5 rounded-lg py-2 transition ${c.bot_paused ? "bg-accent text-accent-foreground shadow-card" : "text-muted-foreground"}`}>
+                  <Headset className="h-4 w-4" /> الموظف
+                </button>
+              </div>
+            </div>
+            <Link to="/chats" search={{ p: c.phone }} className={`flex items-center justify-center gap-2 rounded-lg py-2.5 text-sm font-bold text-primary-foreground hover:opacity-90 ${wa ? "bg-wa-head" : "bg-tg-head"}`}>
               <MessageCircle className="h-4 w-4" /> الرد على العميل
             </Link>
+            </div>
           </Panel>
 
           <Panel title={`الطلبات (${data.orders.length})`} icon={ShoppingCart}>
@@ -120,9 +127,9 @@ function Customer() {
 
         <Panel title="سجل المحادثة" icon={MessageCircle} className="lg:col-span-2"
           action={<span className="text-xs tabular-nums text-muted-foreground">{data.msgs.length} رسالة</span>}>
-          <div className="max-h-[75vh] min-h-64 space-y-2.5 overflow-y-auto bg-muted/40 p-4">
+          <div className={`max-h-[75vh] min-h-64 space-y-1.5 overflow-y-auto p-3 ${wa ? "chat-wa" : "chat-tg"}`}>
             {data.msgs.length === 0 && <EmptyState icon={MessageCircle} title="لا توجد رسائل" />}
-            {data.msgs.map((m) => <MessageBubble key={m.id} m={m} />)}
+            {data.msgs.map((m) => <MessageBubble key={m.id} m={m} skin={wa ? "whatsapp" : "telegram"} />)}
           </div>
         </Panel>
       </div>
