@@ -4,7 +4,7 @@ import { saveBotOrder } from '../lib/bot-orders.server';
 function database(existing: {id:string;details:string} | null) {
   const insert = vi.fn().mockResolvedValue({error:null});
   const updateEq = vi.fn().mockResolvedValue({error:null});
-  const update = vi.fn(() => ({eq:updateEq}));
+  const update = vi.fn((_row: Record<string,unknown>) => ({eq:updateEq}));
   const query = {eq:vi.fn(), maybeSingle:vi.fn().mockResolvedValue({data:existing,error:null})};
   query.eq.mockReturnValue(query);
   const db = {from:vi.fn(() => ({select:() => query,insert,update}))};
@@ -17,7 +17,7 @@ describe('Bot orders persist agricultural payment on the existing quotation', ()
     expect(d.insert).not.toHaveBeenCalled();
     expect(d.update).toHaveBeenCalledWith(expect.objectContaining({amount:'2200 $',method:'حوالة شبكة محلية'}));
     const row = d.update.mock.calls[0]?.[0] as unknown as Record<string,unknown>;
-    expect(row.details).toBe('عرض سعر TMK-AGR-TEST — فرع زراعي / غطاسات\nبانتظار تحقق الحسابات');
+    expect(row['details']).toBe('عرض سعر TMK-AGR-TEST — فرع زراعي / غطاسات\nبانتظار تحقق الحسابات');
     expect(row).not.toHaveProperty('status');
     expect(d.updateEq).toHaveBeenCalledWith('id','order-1');
   });

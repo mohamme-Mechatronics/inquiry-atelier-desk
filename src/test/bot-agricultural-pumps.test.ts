@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import fixture from './fixtures/bot-agricultural-pumps.json';
 
-type Row = Record<string, any>;
+// Dynamic n8n payloads are intentionally executed as-is, outside app DTO types.
+type Row = any;
 const AsyncFunction = Object.getPrototypeOf(async function () {}).constructor;
 const execute = new AsyncFunction('$', '$input', '$getWorkflowStaticData', 'Buffer', fixture.stateMachine);
 const executeCrm = new AsyncFunction('$', fixture.crmLog);
@@ -79,10 +80,12 @@ describe('Agricultural pump quotation and payment', { timeout: 30000 }, () => {
         const calls: Row[] = [];
         await executeCrm.call({ helpers: { httpRequest: async (r: Row) => { calls.push(r); return {ok:true}; } } },
           (name: string) => ({ first: () => ({json: name === 'State Machine' ? s : name === 'Parse Message' ? {text:'TEST receipt'} : {}}) }));
-        expect(calls[0].body.invoice_no).toBe(s.quote_number);
-        expect(calls[0].body.amount).toBe('2200 $');
-        expect(calls[0].body.method).toBe(label);
-        expect(calls[0].body.details).toContain('بانتظار تحقق الحسابات');
+        const saved = calls[0];
+        if (!saved) throw new Error('Missing order callback');
+        expect(saved.body.invoice_no).toBe(s.quote_number);
+        expect(saved.body.amount).toBe('2200 $');
+        expect(saved.body.method).toBe(label);
+        expect(saved.body.details).toContain('بانتظار تحقق الحسابات');
       });
     }
   }
