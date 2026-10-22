@@ -1,4 +1,5 @@
 # Roadmap
+- [ ] Add agricultural pump conversation, sizing, quote editing, and existing payment handoff; deliver updated combined bot with regression tests.
 - [x] Move bot images/quote files off Catbox to the site
 - [x] Replace Gotenberg with site PDF converter
 - [x] Free Browserless key from the user (blocked: user signup)
