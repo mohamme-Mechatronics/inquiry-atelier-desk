@@ -1706,7 +1706,7 @@
     },
     {
       "parameters": {
-        "jsCode": "try {\n  const S = $('State Machine').first().json || {};\n  const id = String(($('Upload PDF To WhatsApp').first().json || {}).id || '');\n  if (id) await this.helpers.httpRequest({ method: 'POST', url: 'https://inquiry-atelier-desk.lovable.app/api/public/bot-media',\n    headers: { 'x-bot-secret': 'vDspleBMSDJGkvmcP0SZVYriWkWFWrp6noeVM219738gdRyM', 'Content-Type': 'application/json' },\n    body: { phone: String(S.phone || ''), text: 'عرض سعر ' + String(S.quote_number || ''), media_id: id, file_name: String(($('Build Quote HTML').first().json||{}).filename || 'عرض سعر.pdf'), mime: 'application/pdf' }, json: true, timeout: 10000 });\n} catch (e) {}\nreturn [];"
+        "jsCode": "try {\n  const S = $('State Machine').first().json || {};\n  const upload = $('Upload PDF To WhatsApp').first().json || {};\n  const id = String(upload.id || (upload.result && upload.result.document && upload.result.document.file_id) || '');\n  if (id) await this.helpers.httpRequest({ method: 'POST', url: 'https://inquiry-atelier-desk.lovable.app/api/public/bot-media',\n    headers: { 'x-bot-secret': 'vDspleBMSDJGkvmcP0SZVYriWkWFWrp6noeVM219738gdRyM', 'Content-Type': 'application/json' },\n    body: { phone: String(S.phone || ''), text: 'عرض سعر ' + String(S.quote_number || ''), media_id: id, file_name: String(($('Build Quote HTML').first().json||{}).filename || 'عرض سعر.pdf'), mime: 'application/pdf' }, json: true, timeout: 10000 });\n} catch (e) {}\nreturn [];"
       },
       "id": "87a9c137-b0e7-4e68-98ac-84b6e4cd9f41",
       "name": "CRM Attach Quote PDF",
@@ -1786,7 +1786,7 @@
       }
     },
     {
-      "id": "809d31f3-0c74-4d6b-ae59-e3b4d3503324",
+      "id": "574c1527-ea3a-43bd-aa63-cf2b2fc5af3e",
       "name": "Quote Already Sent On Telegram?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -1819,7 +1819,7 @@
       ]
     },
     {
-      "id": "7cade4a2-169f-49f8-9310-35f0471db70e",
+      "id": "f9f64eaf-5517-4b22-993c-1d015f26c2af",
       "name": "Validate Study Media Response",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -1832,7 +1832,7 @@
       ]
     },
     {
-      "id": "ade2bf6a-2157-484f-ba9b-bdc6572544f3",
+      "id": "26e80325-5edb-4136-8f3c-30ece0638464",
       "name": "Study Already Sent On Telegram?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -1865,7 +1865,7 @@
       ]
     },
     {
-      "id": "ce3f716b-886b-413b-8420-853910e6b9c5",
+      "id": "90db0c16-2011-4990-a387-10eddaffc5ca",
       "name": "Validate SLD Media Response",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -1878,7 +1878,7 @@
       ]
     },
     {
-      "id": "80134fdb-63ae-43a5-abb2-acdb8e9690a9",
+      "id": "04ab5c01-9f3e-4489-a5a4-1ae971939f6c",
       "name": "SLD Already Sent On Telegram?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
