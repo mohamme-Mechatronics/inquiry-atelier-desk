@@ -125,7 +125,11 @@ function SkinBubble({ m, skin, who }: { m: Msg; skin: "whatsapp" | "telegram"; w
   const ink = wa ? "text-wa-ink" : "text-tg-ink";
   return (
     <div className={`w-fit min-w-24 max-w-[80%] whitespace-pre-wrap break-words px-2.5 pb-1 pt-1.5 text-[14px] leading-relaxed shadow-sm ${bubble} ${ink}`}>
-      {out && <div className={`mb-0.5 flex items-center gap-1 text-[10px] font-bold ${wa ? "text-wa-head" : "text-tg-head"} dark:opacity-80`}><who.icon className="h-3 w-3" />{who.label}</div>}
+      {out && (
+        <span className={`mb-1 inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold text-primary-foreground ${m.direction === "staff" ? "bg-accent text-accent-foreground" : wa ? "bg-wa-head" : "bg-tg-head"}`}>
+          <who.icon className="h-3 w-3" />{who.label}
+        </span>
+      )}
       {m.kind === "document" && (
         <div className="mb-1 flex items-center gap-2 rounded-md bg-black/5 px-2 py-2 text-xs font-semibold">
           <FileText className="h-6 w-6 shrink-0 text-destructive" /> <span dir="ltr" className="truncate">{m.file_name}</span>

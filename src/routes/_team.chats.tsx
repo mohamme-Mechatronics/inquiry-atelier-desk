@@ -5,7 +5,6 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { toast } from "sonner";
 import { ArrowRight, Bot, MessageCircle, Search, Send, StickyNote, Headset, Zap, ExternalLink, Paperclip, Package, UserCheck } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { Switch } from "@/components/ui/switch";
 import { StatusBadge } from "@/components/StatusBadge";
 import { Avatar, ChannelBadge, EmptyState, MessageBubble, Skeleton } from "@/components/admin";
 import { QUICK_REPLIES, channelOf, ago, preview } from "@/lib/crm";
