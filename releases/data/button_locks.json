@@ -1,0 +1,14 @@
+[
+  {
+    "choice": "inbound",
+    "context_id": "msg:wamid.HBgMOTY3Nzc3Njg3MTA3FQIAEhggQUNGODMyQ0Q1NEYwNTNEQzJGM0M3RkJENUQ1NzU1RDYA",
+    "created_at": "2026-10-21T21:15:58.369242+00:00",
+    "phone": "967777687107"
+  },
+  {
+    "choice": "inbound",
+    "context_id": "msg:wamid.HBgMOTY3Nzc3Njg3MTA3FQIAEhggQUMxM0M2NzU1QzMwRkE3QUI4MTRFN0I4NzE1QUFFNzYA",
+    "created_at": "2026-10-21T23:08:28.858561+00:00",
+    "phone": "967777687107"
+  }
+]

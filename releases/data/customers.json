@@ -1,0 +1,26 @@
+[
+  {
+    "bot_paused": false,
+    "city": null,
+    "created_at": "2026-10-21T21:17:08.974989+00:00",
+    "last_at": "2026-10-21T21:22:53.984+00:00",
+    "last_message": "━━━━━━━━━━━━━━━━━━━━\n تم تسجيل بلاغ العطل بنجاح!*\n\n رقم التذكرة: *TMK-SUP-1000*\nاحتفظ بهذا الرقم لمتابعة البلاغ._\n\nسيتواصل معك مهندس الصيانة في أقرب وقت ممكن._\n━━━━━━━━━━━━━━━━━━━━\n _0-للعودة للبداية\n🔘 العودة للبداية",
+    "name": "Mohammed Qumash",
+    "phone": "8744835696",
+    "stage": "human",
+    "status": "new",
+    "system": "r5"
+  },
+  {
+    "bot_paused": false,
+    "city": null,
+    "created_at": "2026-10-21T21:16:03.014917+00:00",
+    "last_at": "2026-10-21T23:08:30.384+00:00",
+    "last_message": "اهلا مهندس",
+    "name": "En.Mohammed Qumash",
+    "phone": "967777687107",
+    "stage": "human",
+    "status": "new",
+    "system": null
+  }
+]
