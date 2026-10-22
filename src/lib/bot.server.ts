@@ -38,3 +38,31 @@ export async function touchCustomer(
   };
   await db.from("customers").upsert(row, { onConflict: "phone" });
 }
+
+const BRANCH: Record<string, string> = { r: "سكني", c: "تجاري", i: "صناعي", a: "زراعي / غطاسات" };
+
+// Every quote the bot issues becomes an order row (once per quote number), labelled with its branch.
+export async function recordQuoteOrder(db: NonNullable<DB>, phone: string, label: unknown) {
+  const quote = String(label ?? "").match(/TMK-[\w-]+/)?.[0];
+  if (!quote) return;
+  const { data: dup } = await db.from("orders").select("id").eq("phone", phone).eq("invoice_no", quote).maybeSingle();
+  if (dup) return;
+  const [{ data: sess }, { data: cust }] = await Promise.all([
+    db.from("bot_sessions").select("data").eq("phone", phone).maybeSingle(),
+    db.from("customers").select("name, city, system").eq("phone", phone).maybeSingle(),
+  ]);
+  const d = (sess?.data ?? {}) as Record<string, string>;
+  const pt = String(d['project_type'] ?? "");
+  const amount = pt.startsWith(`Q|${quote}|`) ? pt.split("|")[3] : "";
+  const sys = String(d['system_type'] || cust?.system || "");
+  const branch = BRANCH[sys.charAt(0)] ?? "";
+  await db.from("orders").insert({
+    phone,
+    name: d['customer_name'] || cust?.name || null,
+    city: d['city'] || cust?.city || null,
+    invoice_no: quote,
+    amount: amount ? `${amount} $` : null,
+    method: "عرض سعر",
+    details: `عرض سعر ${quote}${branch ? ` — فرع ${branch}` : ""}`,
+  });
+}
