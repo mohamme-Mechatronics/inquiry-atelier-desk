@@ -21,7 +21,7 @@ export const Route = createFileRoute("/api/public/bot-session")({
         const fields: Record<string, unknown> = { ...old };
         for (const [k, v] of Object.entries(m)) {
           if (k === "action" || k === "phone") continue;
-          if (v !== undefined) fields[k] = v == null ? null : String(v).slice(0, 8000);
+          if (v !== undefined) fields[k] = v == null ? null : String(v).slice(0, 200000);
         }
         await db
           .from("bot_sessions")
