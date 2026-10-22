@@ -53,7 +53,7 @@ function Stats() {
 
   return (
     <div className="space-y-4">
-      <PageHeader title="الإحصائيات" subtitle="أداء المبيعات حسب نوع النظام والمدينة والشهر" />
+      <PageHeader title="الإحصائيات" description="أداء المبيعات حسب نوع النظام والمدينة والشهر" />
       <div className="grid gap-4 lg:grid-cols-2">
         <Panel title="المبيعات حسب نوع النظام" icon={Sun} bodyClass="p-3">
           {isLoading ? <Skeleton className="h-56" /> : !data?.sys.length ? <EmptyState icon={Sun} title="لا توجد بيانات بعد" /> : (
