@@ -11,6 +11,7 @@ import { Avatar, ChannelBadge, EmptyState, MessageBubble, Skeleton } from "@/com
 import { QUICK_REPLIES, channelOf, ago, preview } from "@/lib/crm";
 import { sendReply, sendFile } from "@/lib/reply.functions";
 import { useTeam } from "@/lib/team";
+import { useAuth } from "@/hooks/use-auth";
 
 type Search = { p?: string };
 
@@ -36,7 +37,8 @@ function Chats() {
   const { p } = Route.useSearch();
   const nav = useNavigate({ from: "/chats" });
   const [q, setQ] = useState("");
-  const [f, setF] = useState<"all" | "unread" | "paused" | "whatsapp" | "telegram">("all");
+  const me = useAuth().session?.user.id;
+  const [f, setF] = useState<"all" | "mine" | "unread" | "paused" | "whatsapp" | "telegram">("all");
   const [seen, setSeen] = useState<Record<string, string>>({});
   useEffect(() => {
     setSeen(readSeen());
@@ -53,6 +55,7 @@ function Chats() {
     if (q && !`${c.phone} ${c.name ?? ""}`.includes(q)) return false;
     if (f === "unread") return unread(c);
     if (f === "paused") return c.bot_paused;
+    if (f === "mine") return (c as any).assigned_to === me;
     if (f === "whatsapp" || f === "telegram") return channelOf(c.phone) === f;
     return true;
   });
@@ -65,7 +68,7 @@ function Chats() {
   };
 
   const FILTERS = [
-    ["all", "الكل"], ["unread", "غير مقروءة"], ["paused", "رد يدوي"], ["whatsapp", "واتساب"], ["telegram", "تليجرام"],
+    ["all", "الكل"], ["mine", "المسندة لي"], ["unread", "غير مقروءة"], ["paused", "رد يدوي"], ["whatsapp", "واتساب"], ["telegram", "تليجرام"],
   ] as const;
 
   return (
