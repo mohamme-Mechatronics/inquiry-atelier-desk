@@ -3,13 +3,15 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { toast } from "sonner";
-import { ArrowRight, Bot, MessageCircle, Search, Send, StickyNote, Headset, Zap, ExternalLink } from "lucide-react";
+import { ArrowRight, Bot, MessageCircle, Search, Send, StickyNote, Headset, Zap, ExternalLink, Paperclip, Package, UserCheck } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Switch } from "@/components/ui/switch";
 import { StatusBadge } from "@/components/StatusBadge";
 import { Avatar, ChannelBadge, EmptyState, MessageBubble, Skeleton } from "@/components/admin";
 import { QUICK_REPLIES, channelOf, ago, preview } from "@/lib/crm";
-import { sendReply } from "@/lib/reply.functions";
+import { sendReply, sendFile } from "@/lib/reply.functions";
+import { useTeam } from "@/lib/team";
+import { useAuth } from "@/hooks/use-auth";
 
 type Search = { p?: string };
 
@@ -35,7 +37,8 @@ function Chats() {
   const { p } = Route.useSearch();
   const nav = useNavigate({ from: "/chats" });
   const [q, setQ] = useState("");
-  const [f, setF] = useState<"all" | "unread" | "paused" | "whatsapp" | "telegram">("all");
+  const me = useAuth().session?.user.id;
+  const [f, setF] = useState<"all" | "mine" | "unread" | "paused" | "whatsapp" | "telegram">("all");
   const [seen, setSeen] = useState<Record<string, string>>({});
   useEffect(() => {
     setSeen(readSeen());
@@ -52,6 +55,7 @@ function Chats() {
     if (q && !`${c.phone} ${c.name ?? ""}`.includes(q)) return false;
     if (f === "unread") return unread(c);
     if (f === "paused") return c.bot_paused;
+    if (f === "mine") return (c as any).assigned_to === me;
     if (f === "whatsapp" || f === "telegram") return channelOf(c.phone) === f;
     return true;
   });
@@ -64,7 +68,7 @@ function Chats() {
   };
 
   const FILTERS = [
-    ["all", "الكل"], ["unread", "غير مقروءة"], ["paused", "رد يدوي"], ["whatsapp", "واتساب"], ["telegram", "تليجرام"],
+    ["all", "الكل"], ["mine", "المسندة لي"], ["unread", "غير مقروءة"], ["paused", "رد يدوي"], ["whatsapp", "واتساب"], ["telegram", "تليجرام"],
   ] as const;
 
   return (
@@ -132,7 +136,38 @@ function Conversation({ phone, onBack }: { phone: string; onBack: () => void }) 
   const [text, setText] = useState("");
   const [busy, setBusy] = useState(false);
   const end = useRef<HTMLDivElement>(null);
+  const fileRef = useRef<HTMLInputElement>(null);
+  const sendF = useServerFn(sendFile);
+  const team = useTeam();
+  const [showCat, setShowCat] = useState(false);
+  const catalog = useQuery({
+    queryKey: ["catalog-mini"], enabled: showCat,
+    queryFn: async () => (await supabase.from("catalog_items").select("code,name,unit,price").order("name").limit(200)).data ?? [],
+  });
   const ch = channelOf(phone);
+
+  const upload = async (f: File) => {
+    if (f.size > 20 * 1024 * 1024) { toast.error("الملف أكبر من 20 ميجا"); return; }
+    setBusy(true);
+    try {
+      const ext = f.name.split(".").pop()?.toLowerCase().replace(/[^a-z0-9]/g, "") || "bin";
+      const path = `${phone}/${Date.now()}.${ext}`;
+      const { error } = await supabase.storage.from("chat-files").upload(path, f, { contentType: f.type });
+      if (error) throw new Error("تعذر رفع الملف");
+      await sendF({ data: { phone, path, name: f.name, mime: f.type, caption: text.trim() } });
+      setText("");
+      toast.success("تم إرسال الملف");
+      qc.invalidateQueries({ queryKey: ["chat", phone] });
+    } catch (e: any) { toast.error(e?.message || "تعذر الإرسال"); } finally { setBusy(false); }
+  };
+
+  const assign = async (v: string) => {
+    const { error } = await supabase.from("customers").update({ assigned_to: v || null }).eq("phone", phone);
+    if (error) { toast.error("تعذر الإسناد"); return; }
+    toast.success(v ? "تم إسناد المحادثة" : "تم إلغاء الإسناد");
+    qc.invalidateQueries({ queryKey: ["chat", phone] });
+    qc.invalidateQueries({ queryKey: ["customers"] });
+  };
 
   const { data } = useQuery({
     queryKey: ["chat", phone],
@@ -206,6 +241,15 @@ function Conversation({ phone, onBack }: { phone: string; onBack: () => void }) 
             <Switch checked={c.bot_paused} onCheckedChange={togglePause} />
           </label>
         )}
+        {c && (
+          <label className="flex items-center gap-1 rounded-lg border px-1.5 py-1 text-xs" title="إسناد لموظف">
+            <UserCheck className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
+            <select value={c.assigned_to ?? ""} onChange={(e) => assign(e.target.value)} className="max-w-24 bg-transparent text-xs outline-none sm:max-w-36">
+              <option value="">غير مسند</option>
+              {team.data?.map((t) => <option key={t.user_id} value={t.user_id}>{t.email?.split("@")[0]}</option>)}
+            </select>
+          </label>
+        )}
         <Link to="/customers/$phone" params={{ phone }} aria-label="ملف العميل"
           className="flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground hover:bg-muted hover:text-foreground">
           <ExternalLink className="h-4 w-4" />
@@ -236,8 +280,31 @@ function Conversation({ phone, onBack }: { phone: string; onBack: () => void }) 
             </button>
           </div>
         </div>
+        {mode === "reply" && showCat && (
+          <div className="max-h-40 space-y-1 overflow-y-auto rounded-lg border bg-background p-1">
+            {catalog.isLoading && <Skeleton className="h-8" />}
+            {catalog.data?.length === 0 && <p className="p-2 text-xs text-muted-foreground">لا توجد أصناف في الكتالوج</p>}
+            {catalog.data?.map((it) => (
+              <button key={it.code} onClick={() => { setText(`🔹 ${it.name}${it.price != null ? `\nالسعر: ${it.price}${it.unit ? " / " + it.unit : ""}` : ""}`); setShowCat(false); }}
+                className="flex w-full items-center justify-between rounded-md px-2 py-1.5 text-start text-xs hover:bg-muted">
+                <span className="truncate">{it.name}</span>
+                <b className="shrink-0 tabular-nums">{it.price ?? "—"}</b>
+              </button>
+            ))}
+          </div>
+        )}
         {mode === "reply" && (
           <div className="scrollbar-none flex gap-1 overflow-x-auto">
+            <button onClick={() => fileRef.current?.click()} disabled={busy}
+              className="flex shrink-0 items-center gap-1 rounded-md border border-primary/30 bg-primary/5 px-2 py-1 text-[11px] font-medium text-primary">
+              <Paperclip className="h-3 w-3" /> صورة / ملف
+            </button>
+            <button onClick={() => setShowCat((v) => !v)}
+              className="flex shrink-0 items-center gap-1 rounded-md border border-accent/40 bg-accent/10 px-2 py-1 text-[11px] font-medium">
+              <Package className="h-3 w-3" /> الكتالوج
+            </button>
+            <input ref={fileRef} type="file" accept="image/*,application/pdf" className="hidden"
+              onChange={(e) => { const f = e.target.files?.[0]; e.target.value = ""; if (f) upload(f); }} />
             {QUICK_REPLIES.map((r) => (
               <button key={r.label} onClick={() => setText(r.text)}
                 className="flex shrink-0 items-center gap-1 rounded-md border bg-background px-2 py-1 text-[11px] text-muted-foreground hover:border-accent hover:text-foreground">

@@ -1,3 +1,4 @@
+import { useTeam } from "@/lib/team";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
@@ -45,6 +46,11 @@ function Orders() {
     queryFn: async () => (await supabase.from("orders").select("*").order("created_at", { ascending: false })).data ?? [],
     refetchInterval: 20000,
   });
+  const team = useTeam();
+  const assign = async (id: string, v: string) => {
+    await supabase.from("orders").update({ assigned_to: v || null }).eq("id", id);
+    qc.invalidateQueries({ queryKey: ["orders"] });
+  };
   const setStatus = async (id: string, status: string) => {
     await supabase.from("orders").update({ status }).eq("id", id);
     qc.invalidateQueries({ queryKey: ["orders"] });
@@ -97,6 +103,10 @@ function Orders() {
             )}
             <div className="mt-auto flex items-center gap-2 border-t bg-muted/30 px-4 py-2.5">
               <span className="text-xs text-muted-foreground">تحديث الحالة</span>
+              <select value={o.assigned_to ?? ""} onChange={(e) => assign(o.id, e.target.value)} className={selectCls} aria-label="الموظف المسؤول">
+                <option value="">غير مسند</option>
+                {team.data?.map((t) => <option key={t.user_id} value={t.user_id}>{t.email?.split("@")[0]}</option>)}
+              </select>
               <select value={o.status} onChange={(e) => setStatus(o.id, e.target.value)} className={`${selectCls} ms-auto`}>
                 {Object.entries(STATUSES).map(([k, s]) => <option key={k} value={k}>{s.label}</option>)}
               </select>

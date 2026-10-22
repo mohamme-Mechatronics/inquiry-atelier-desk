@@ -82,6 +82,7 @@ export type Database = {
       }
       customers: {
         Row: {
+          assigned_to: string | null
           bot_paused: boolean
           city: string | null
           created_at: string
@@ -94,6 +95,7 @@ export type Database = {
           system: string | null
         }
         Insert: {
+          assigned_to?: string | null
           bot_paused?: boolean
           city?: string | null
           created_at?: string
@@ -106,6 +108,7 @@ export type Database = {
           system?: string | null
         }
         Update: {
+          assigned_to?: string | null
           bot_paused?: boolean
           city?: string | null
           created_at?: string
@@ -161,6 +164,7 @@ export type Database = {
       orders: {
         Row: {
           amount: string | null
+          assigned_to: string | null
           city: string | null
           created_at: string
           details: string | null
@@ -173,6 +177,7 @@ export type Database = {
         }
         Insert: {
           amount?: string | null
+          assigned_to?: string | null
           city?: string | null
           created_at?: string
           details?: string | null
@@ -185,6 +190,7 @@ export type Database = {
         }
         Update: {
           amount?: string | null
+          assigned_to?: string | null
           city?: string | null
           created_at?: string
           details?: string | null
@@ -291,6 +297,13 @@ export type Database = {
         Returns: boolean
       }
       is_team: { Args: { _user_id: string }; Returns: boolean }
+      list_team: {
+        Args: never
+        Returns: {
+          email: string
+          user_id: string
+        }[]
+      }
       next_ticket_no: { Args: never; Returns: string }
     }
     Enums: {

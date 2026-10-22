@@ -1,0 +1,1 @@
+CREATE POLICY "team read chat files" ON storage.objects FOR SELECT TO authenticated USING (bucket_id = 'chat-files' AND public.is_team(auth.uid()));
