@@ -60,53 +60,53 @@ function Customer() {
       </Link>
       <div className="grid gap-4 lg:grid-cols-3">
         <div className="space-y-4">
-          <Panel bodyClass="space-y-5 p-0">
-            <div className={`flex items-center gap-3 px-4 py-4 text-primary-foreground ${wa ? "bg-wa-head" : "bg-tg-head"}`}>
-              <Avatar name={c.name} phone={c.phone} size="lg" />
+          <Panel bodyClass="space-y-3 p-0">
+            <div className="flex items-center gap-3 px-3 pt-3">
+              <Avatar name={c.name} phone={c.phone} />
               <div className="min-w-0">
-                <h1 className="truncate text-lg font-extrabold">{c.name || "بدون اسم"}</h1>
-                <div className="mt-0.5 flex items-center gap-1.5 text-xs text-primary-foreground/80">
+                <h1 className="truncate text-base font-extrabold">{c.name || "بدون اسم"}</h1>
+                <div className="mt-0.5 flex items-center gap-1.5 text-xs text-muted-foreground">
                   <span>{wa ? "واتساب" : "تليجرام"}</span><span>•</span>
                   {wa ? (
-                    <a dir="ltr" href={`https://wa.me/${c.phone}`} target="_blank" rel="noreferrer" className="tabular-nums hover:underline">+{c.phone}</a>
+                    <a dir="ltr" href={`https://wa.me/${c.phone}`} target="_blank" rel="noreferrer" className="tabular-nums text-primary hover:underline">+{c.phone}</a>
                   ) : <span dir="ltr" className="tabular-nums">{c.phone}</span>}
                 </div>
               </div>
             </div>
-            <div className="space-y-5 px-4 pb-4">
+            <div className="space-y-3 px-3 pb-3">
             <dl className="grid grid-cols-2 gap-2">
               {info.map((x) => (
-                <div key={x.label} className="rounded-lg bg-muted/60 p-2.5">
+                <div key={x.label} className="rounded-lg bg-muted/60 px-2.5 py-1.5">
                   <dt className="flex items-center gap-1 text-[11px] text-muted-foreground"><x.icon className="h-3 w-3" /> {x.label}</dt>
-                  <dd className="mt-0.5 truncate text-sm font-semibold">{x.v || "—"}</dd>
+                  <dd className="truncate text-xs font-semibold">{x.v || "—"}</dd>
                 </div>
               ))}
             </dl>
             <div>
-              <p className="mb-2 text-xs font-semibold text-muted-foreground">حالة العميل</p>
-              <div className="grid grid-cols-2 gap-1.5">
+              <p className="mb-1 text-[11px] font-semibold text-muted-foreground">حالة العميل</p>
+              <div className="grid grid-cols-4 gap-1">
                 {Object.entries(STATUSES).map(([k, s]) => (
                   <button key={k} onClick={() => update({ status: k })}
-                    className={`rounded-lg border px-3 py-2 text-xs font-semibold transition ${c.status === k ? "border-primary bg-primary text-primary-foreground" : "bg-background hover:bg-muted"}`}>
+                    className={`rounded-md border px-2 py-1 text-[11px] font-semibold transition ${c.status === k ? "border-primary bg-primary text-primary-foreground" : "bg-background hover:bg-muted"}`}>
                     {s.label}
                   </button>
                 ))}
               </div>
             </div>
             <div>
-              <p className="mb-2 text-xs font-semibold text-muted-foreground">من يرد على العميل</p>
-              <div className="grid grid-cols-2 gap-1 rounded-xl bg-muted p-1 text-sm font-semibold">
+              <p className="mb-1 text-[11px] font-semibold text-muted-foreground">من يرد على العميل</p>
+              <div className="grid grid-cols-2 gap-1 rounded-lg bg-muted p-0.5 text-xs font-semibold">
                 <button onClick={() => update({ bot_paused: false })}
-                  className={`flex items-center justify-center gap-1.5 rounded-lg py-2 transition ${!c.bot_paused ? "bg-card text-foreground shadow-card" : "text-muted-foreground"}`}>
-                  <Bot className="h-4 w-4" /> البوت
+                  className={`flex items-center justify-center gap-1.5 rounded-md py-1 transition ${!c.bot_paused ? "bg-card text-foreground shadow-card" : "text-muted-foreground"}`}>
+                  <Bot className="h-3.5 w-3.5" /> البوت
                 </button>
                 <button onClick={() => update({ bot_paused: true })}
-                  className={`flex items-center justify-center gap-1.5 rounded-lg py-2 transition ${c.bot_paused ? "bg-accent text-accent-foreground shadow-card" : "text-muted-foreground"}`}>
-                  <Headset className="h-4 w-4" /> الموظف
+                  className={`flex items-center justify-center gap-1.5 rounded-md py-1 transition ${c.bot_paused ? "bg-card text-foreground shadow-card" : "text-muted-foreground"}`}>
+                  <Headset className="h-3.5 w-3.5" /> الموظف
                 </button>
               </div>
             </div>
-            <Link to="/chats" search={{ p: c.phone }} className={`flex items-center justify-center gap-2 rounded-lg py-2.5 text-sm font-bold text-primary-foreground hover:opacity-90 ${wa ? "bg-wa-head" : "bg-tg-head"}`}>
+            <Link to="/chats" search={{ p: c.phone }} className={`flex items-center justify-center gap-2 rounded-lg bg-primary py-2 text-xs font-bold text-primary-foreground hover:opacity-90`}>
               <MessageCircle className="h-4 w-4" /> الرد على العميل
             </Link>
             </div>
