@@ -12,3 +12,6 @@
 - Keep credential-free n8n PDF continuation regression fixtures in src/test/fixtures; Telegram uploads already send documents, so their confirmed receipts must bypass the second send while WhatsApp retains upload-then-send.
 - Customer channel is derived from the stored id (967 + 9 digits = WhatsApp, Telegram chat ids otherwise); panel replies go through src/lib/reply.functions.ts on the customer's own channel, notes are messages with direction 'note'.
 - Admin pages build on the shared pieces in src/components/admin.tsx (PageHeader, Panel, EmptyState, Avatar, ChannelBadge, MessageBubble); reuse them so every page keeps the same look.
+- Build the combined pump workflow from the previous export plus releases/bot/source using build-pump-workflow.py; regenerate credential-free fixtures from that same output so tests exercise the delivered conversation.
+- Agricultural pump quotes select complete, current engineer-approved catalog packages; never substitute hybrid equipment or price/size an unapproved VFD from horsepower alone.
+- Payment receipts update the existing customer/quote order through saveBotOrder without changing its sales status; receiving a receipt does not prove settlement.
