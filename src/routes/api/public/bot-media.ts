@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { botGuard, readJson, s, touchCustomer } from "@/lib/bot.server";
+import { botGuard, readJson, recordQuoteOrder, s, touchCustomer } from "@/lib/bot.server";
 
 export const Route = createFileRoute("/api/public/bot-media")({
   server: {
@@ -21,6 +21,7 @@ export const Route = createFileRoute("/api/public/bot-media")({
           file_name: s(m.file_name, 200),
           stage: "quote",
         });
+        await recordQuoteOrder(g.db!, phone, m.text);
         return Response.json({ ok: true });
       },
     },

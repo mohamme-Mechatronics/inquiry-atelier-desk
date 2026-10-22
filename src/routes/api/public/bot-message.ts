@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { botGuard, readJson, s, touchCustomer } from "@/lib/bot.server";
+import { botGuard, readJson, recordQuoteOrder, s, touchCustomer } from "@/lib/bot.server";
 
 export const Route = createFileRoute("/api/public/bot-message")({
   server: {
@@ -25,6 +25,7 @@ export const Route = createFileRoute("/api/public/bot-message")({
             stage: s(m.stage, 40),
           });
           if (!error) saved++;
+          if (/عرض سعر/.test(String(m.text ?? "")) && (m.kind === "pdf" || m.kind === "document")) await recordQuoteOrder(g.db!, phone, m.text);
         }
         return Response.json({ ok: true, saved });
       },
