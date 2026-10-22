@@ -73,37 +73,37 @@ function Dashboard() {
   const name = session?.user.email?.split("@")[0] ?? "";
 
   return (
-    <div className="space-y-5">
-      <div className="relative overflow-hidden rounded-2xl bg-sidebar p-5 text-sidebar-foreground shadow-elevated md:p-7">
+    <div className="space-y-3 md:space-y-5">
+      <div className="relative overflow-hidden rounded-2xl bg-sidebar p-4 text-sidebar-foreground shadow-elevated md:p-7">
         <div className="absolute -start-16 -top-16 h-56 w-56 rounded-full bg-sidebar-primary/10 blur-3xl" />
-        <div className="relative flex flex-col gap-4 sm:flex-row sm:items-end">
+        <div className="relative flex flex-col gap-3 sm:flex-row sm:items-end">
           <div className="min-w-0 flex-1">
             <p className="text-sm text-sidebar-foreground/70">{hello}، <span dir="ltr">{name}</span></p>
-            <h1 className="mt-1 text-2xl font-extrabold md:text-3xl">لوحة متابعة المبيعات</h1>
-            <p className="mt-1 text-sm text-sidebar-foreground/70">كل ما يحدث في بوت تمكين على واتساب وتليجرام لحظة بلحظة</p>
+            <h1 className="mt-0.5 text-xl font-extrabold md:text-3xl">لوحة متابعة المبيعات</h1>
+            <p className="mt-1 hidden text-sm text-sidebar-foreground/70 sm:block">كل ما يحدث في بوت تمكين على واتساب وتليجرام لحظة بلحظة</p>
           </div>
           <div className="flex items-center justify-between gap-6">
             <div>
-              <div className="text-3xl font-bold tabular-nums text-sidebar-primary">{data?.newToday ?? 0}</div>
+              <div className="text-2xl font-bold tabular-nums text-sidebar-primary md:text-3xl">{data?.newToday ?? 0}</div>
               <div className="text-xs text-sidebar-foreground/70">عملاء جدد اليوم</div>
             </div>
-            <Link to="/chats" className="flex items-center gap-1 self-center rounded-lg bg-sidebar-primary px-4 py-2 text-sm font-bold text-sidebar-primary-foreground hover:opacity-90">
+            <Link to="/chats" className="flex items-center gap-1 self-center rounded-lg bg-sidebar-primary px-3 py-1.5 text-sm font-bold text-sidebar-primary-foreground hover:opacity-90">
               فتح المحادثات <ArrowUpLeft className="h-4 w-4" />
             </Link>
           </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-3 lg:grid-cols-5">
+      <div className="grid grid-cols-3 gap-2 md:gap-3 lg:grid-cols-5">
         {cards.map((c, i) => (
           <Link key={c.label} to={c.to}
-            className={`group rounded-xl border bg-card p-4 shadow-card transition hover:-translate-y-0.5 hover:shadow-elevated ${i === 0 ? "col-span-2 lg:col-span-1" : ""}`}>
+            className={`group rounded-xl border bg-card p-2.5 shadow-card transition hover:-translate-y-0.5 hover:shadow-elevated md:p-4 ${i === 3 ? "col-span-1" : ""}`}>
             <div className="flex items-center justify-between">
-              <span className={`flex h-9 w-9 items-center justify-center rounded-lg ${c.tone}`}><c.icon className="h-4 w-4" /></span>
+              <span className={`flex h-7 w-7 items-center justify-center rounded-lg md:h-9 md:w-9 ${c.tone}`}><c.icon className="h-3.5 w-3.5 md:h-4 md:w-4" /></span>
               <ArrowUpLeft className="h-4 w-4 text-muted-foreground opacity-0 transition group-hover:opacity-100" />
             </div>
-            {isLoading ? <Skeleton className="mt-3 h-8 w-14" /> : <div className="mt-3 text-3xl font-bold tabular-nums">{c.v ?? 0}</div>}
-            <div className="mt-0.5 text-xs font-medium text-muted-foreground">{c.label}</div>
+            {isLoading ? <Skeleton className="mt-2 h-6 w-10" /> : <div className="mt-1.5 text-xl font-bold tabular-nums md:mt-3 md:text-3xl">{c.v ?? 0}</div>}
+            <div className="mt-0.5 truncate text-[11px] font-medium text-muted-foreground md:text-xs">{c.label}</div>
           </Link>
         ))}
       </div>
