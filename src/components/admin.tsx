@@ -84,8 +84,9 @@ const WHO: Record<string, { label: string; icon: Icon }> = {
 };
 
 // Customer messages sit on the start side; bot/staff replies on the end side; notes centered.
-export function MessageBubble({ m }: { m: Msg }) {
+export function MessageBubble({ m, skin }: { m: Msg; skin?: "whatsapp" | "telegram" }) {
   const w = WHO[m.direction] ?? WHO["bot"]!;
+  if (skin) return <SkinBubble m={m} skin={skin} who={w} />;
   const tone =
     m.direction === "note" ? "mx-auto border border-dashed border-accent bg-accent/10"
     : m.direction === "customer" ? "me-auto rounded-ss-sm border bg-card"
@@ -103,6 +104,37 @@ export function MessageBubble({ m }: { m: Msg }) {
       )}
       {m.text}
       <div className="mt-1 text-[10px] tabular-nums opacity-60">{fmt(m.created_at)}</div>
+    </div>
+  );
+}
+
+// Channel look: the conversation is drawn like the real WhatsApp / Telegram app.
+function SkinBubble({ m, skin, who }: { m: Msg; skin: "whatsapp" | "telegram"; who: { label: string; icon: Icon } }) {
+  const wa = skin === "whatsapp";
+  const t = new Date(m.created_at).toLocaleTimeString("ar", { hour: "2-digit", minute: "2-digit" });
+  if (m.direction === "note")
+    return (
+      <div className="mx-auto w-fit max-w-[85%] rounded-lg border border-dashed border-accent bg-accent/90 px-3 py-1.5 text-center text-xs text-accent-foreground shadow-card">
+        <StickyNote className="me-1 inline h-3 w-3" />{m.text}
+      </div>
+    );
+  const out = m.direction !== "customer";
+  const bubble = wa
+    ? out ? "ms-auto rounded-lg rounded-se-none bg-wa-out" : "me-auto rounded-lg rounded-ss-none bg-wa-in"
+    : out ? "ms-auto rounded-2xl rounded-ee-md bg-tg-out" : "me-auto rounded-2xl rounded-es-md bg-tg-in";
+  const ink = wa ? "text-wa-ink" : "text-tg-ink";
+  return (
+    <div className={`w-fit min-w-24 max-w-[80%] whitespace-pre-wrap break-words px-2.5 pb-1 pt-1.5 text-[14px] leading-relaxed shadow-sm ${bubble} ${ink}`}>
+      {out && <div className={`mb-0.5 flex items-center gap-1 text-[10px] font-bold ${wa ? "text-wa-head" : "text-tg-head"} dark:opacity-80`}><who.icon className="h-3 w-3" />{who.label}</div>}
+      {m.kind === "document" && (
+        <div className="mb-1 flex items-center gap-2 rounded-md bg-black/5 px-2 py-2 text-xs font-semibold">
+          <FileText className="h-6 w-6 shrink-0 text-destructive" /> <span dir="ltr" className="truncate">{m.file_name}</span>
+        </div>
+      )}
+      {m.text}
+      <div className="mt-0.5 flex items-center justify-end gap-1 text-[10px] tabular-nums opacity-60">
+        {t}{out && <span className={wa ? "text-info" : "text-success"}>✓✓</span>}
+      </div>
     </div>
   );
 }

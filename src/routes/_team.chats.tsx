@@ -221,8 +221,8 @@ function Conversation({ phone, onBack }: { phone: string; onBack: () => void }) 
 
   return (
     <>
-      <div className="flex items-center gap-3 border-b px-3 py-2.5">
-        <button onClick={onBack} className="rounded-md p-1 hover:bg-muted md:hidden" aria-label="رجوع"><ArrowRight className="h-5 w-5" /></button>
+      <div className={`flex items-center gap-3 border-b px-3 py-2.5 text-primary-foreground ${ch === "whatsapp" ? "bg-wa-head" : "bg-tg-head"} [&_select]:text-foreground [&_.text-muted-foreground]:text-primary-foreground/75`}>
+        <button onClick={onBack} className="rounded-md p-1 hover:bg-primary-foreground/10 md:hidden" aria-label="رجوع"><ArrowRight className="h-5 w-5" /></button>
         <Avatar name={c?.name} phone={phone} />
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
@@ -242,7 +242,7 @@ function Conversation({ phone, onBack }: { phone: string; onBack: () => void }) 
           </label>
         )}
         {c && (
-          <label className="flex items-center gap-1 rounded-lg border px-1.5 py-1 text-xs" title="إسناد لموظف">
+          <label className="flex items-center gap-1 rounded-lg border border-primary-foreground/30 px-1.5 py-1 text-xs [&_select]:text-primary-foreground [&_option]:text-foreground" title="إسناد لموظف">
             <UserCheck className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
             <select value={c.assigned_to ?? ""} onChange={(e) => assign(e.target.value)} className="max-w-24 bg-transparent text-xs outline-none sm:max-w-36">
               <option value="">غير مسند</option>
@@ -251,7 +251,7 @@ function Conversation({ phone, onBack }: { phone: string; onBack: () => void }) 
           </label>
         )}
         <Link to="/customers/$phone" params={{ phone }} aria-label="ملف العميل"
-          className="flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground hover:bg-muted hover:text-foreground">
+          className="flex h-8 w-8 items-center justify-center rounded-md hover:bg-primary-foreground/10">
           <ExternalLink className="h-4 w-4" />
         </Link>
       </div>
@@ -262,10 +262,10 @@ function Conversation({ phone, onBack }: { phone: string; onBack: () => void }) 
         </label>
       )}
 
-      <div className="min-h-0 flex-1 space-y-2.5 overflow-y-auto bg-muted/40 p-4">
+      <div className={`min-h-0 flex-1 space-y-1.5 overflow-y-auto p-3 ${ch === "whatsapp" ? "chat-wa" : "chat-tg"}`}>
         {!data && [1, 2, 3].map((i) => <Skeleton key={i} className={`h-14 w-2/3 ${i % 2 ? "" : "ms-auto"}`} />)}
         {data && msgs.length === 0 && <EmptyState icon={MessageCircle} title="لا توجد رسائل بعد" />}
-        {msgs.map((m) => <MessageBubble key={m.id} m={m} />)}
+        {msgs.map((m) => <MessageBubble key={m.id} m={m} skin={ch} />)}
         <div ref={end} />
       </div>
 
