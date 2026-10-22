@@ -8,6 +8,8 @@ import { PageHeader, Panel, EmptyState, Skeleton } from "@/components/admin";
 export const Route = createFileRoute("/_team/stats")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "الإحصائيات — تمكين" },
       { name: "description", content: "رسوم بيانية للمبيعات حسب نوع النظام والمدينة ونسبة الإنجاز الشهرية" },
       { property: "og:title", content: "الإحصائيات — تمكين" },

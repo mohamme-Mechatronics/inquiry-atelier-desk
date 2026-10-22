@@ -12,6 +12,8 @@ import { ExportButtons } from "@/components/ExportButtons";
 export const Route = createFileRoute("/_team/customers")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "العملاء — تمكين" },
       { name: "description", content: "قائمة عملاء واتساب وتليجرام وحالة كل عميل" },
       { property: "og:title", content: "العملاء — تمكين" },

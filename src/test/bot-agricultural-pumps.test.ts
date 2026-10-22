@@ -66,7 +66,7 @@ describe('Agricultural pump quotation and payment', { timeout: 30000 }, () => {
       expect(s.service_needed).toBe('الدفع عند الاستلام');
       expect(s.notify_employee).toBe(true);
     });
-    for (const [method,label] of [['pay_network','حوالة شبكة محلية'], ['pay_wallet','محفظة إلكترونية']]) {
+    for (const [method,label] of [['pay_network','حوالة شبكة محلية'], ['pay_wallet','محفظة إلكترونية']] as const) {
       it(`${channel}: ${method} receives a receipt, never auto-confirms payment`, async () => {
         let s = await journey(channel);
         s = await run(s, 'pump_issue', channel);

@@ -11,6 +11,8 @@ import { STATUSES, STAGES, channelOf, fmt } from "@/lib/crm";
 export const Route = createFileRoute("/_team/customers_/$phone")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "ملف العميل — تمكين" },
       { name: "description", content: "محادثة العميل وحالته وطلباته" },
       { property: "og:title", content: "ملف العميل — تمكين" },

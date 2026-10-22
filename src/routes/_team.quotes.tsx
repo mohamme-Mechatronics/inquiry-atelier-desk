@@ -8,6 +8,8 @@ import { fmt } from "@/lib/crm";
 export const Route = createFileRoute("/_team/quotes")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "عروض الأسعار — تمكين" },
       { name: "description", content: "عروض الأسعار والدراسات والمخططات التي أرسلها البوت" },
       { property: "og:title", content: "عروض الأسعار — تمكين" },

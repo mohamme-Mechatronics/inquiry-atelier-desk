@@ -11,6 +11,8 @@ import logo from "@/assets/tamkeen-logo-clean.png.asset.json";
 export const Route = createFileRoute("/login")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "تسجيل الدخول — تمكين" },
       { name: "description", content: "دخول فريق المبيعات إلى لوحة تمكين" },
       { property: "og:title", content: "تسجيل الدخول — تمكين" },

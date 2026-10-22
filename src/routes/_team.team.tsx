@@ -14,6 +14,8 @@ import { checkChannels, getBotConnection } from "@/lib/settings.functions";
 export const Route = createFileRoute("/_team/team")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "الإعدادات والربط — تمكين" },
       { name: "description", content: "ربط بوت واتساب وتليجرام بالإدارة وإدارة فريق العمل" },
       { property: "og:title", content: "الإعدادات والربط — تمكين" },

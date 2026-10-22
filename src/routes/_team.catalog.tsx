@@ -13,6 +13,8 @@ import { EmptyState, PageHeader, Panel, Skeleton } from "@/components/admin";
 export const Route = createFileRoute("/_team/catalog")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "الأصناف والأسعار — تمكين" },
       { name: "description", content: "أسعار ومواصفات الأصناف التي يستخدمها البوت في عروض الأسعار" },
       { property: "og:title", content: "الأصناف والأسعار — تمكين" },

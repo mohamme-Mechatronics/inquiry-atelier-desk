@@ -10,6 +10,8 @@ import { ExportButtons } from "@/components/ExportButtons";
 export const Route = createFileRoute("/_team/tickets")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "الدعم الفني — تمكين" },
       { name: "description", content: "تذاكر الدعم الفني الواردة من البوت" },
       { property: "og:title", content: "الدعم الفني — تمكين" },

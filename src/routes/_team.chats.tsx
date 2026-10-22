@@ -18,6 +18,8 @@ export const Route = createFileRoute("/_team/chats")({
   validateSearch: (s: Record<string, unknown>): Search => (typeof s["p"] === "string" ? { p: s["p"] as string } : {}),
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "المحادثات — تمكين" },
       { name: "description", content: "محادثات عملاء واتساب وتليجرام والرد عليهم من اللوحة" },
       { property: "og:title", content: "المحادثات — تمكين" },
