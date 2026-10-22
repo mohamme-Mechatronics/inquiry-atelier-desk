@@ -2,7 +2,7 @@
 // PUMP_PACKAGE_* catalog rows contain a PUMP_CONFIG=<JSON> specification line.
 // Packages require explicit engineering approval and a complete priced bill of materials.
 function pumpRead() {
-  try { return JSON.parse(String(main_loads || '').replace(/^PUMP:/, '')); }
+  try { var p = JSON.parse(String(main_loads || '').replace(/^PUMP:/, '')); return p && typeof p === 'object' && !Array.isArray(p) ? p : {}; }
   catch (e) { return {}; }
 }
 function pumpWrite(p) { main_loads = 'PUMP:' + JSON.stringify(p); }
@@ -95,8 +95,9 @@ function pumpPackages(p) {
     if (!Array.isArray(c.bom) || !c.bom.length) continue;
     var items = [], roles = {}, valid = true, total = 0;
     c.bom.forEach(function (b) {
+      if (!b || typeof b !== 'object' || typeof b.code !== 'string') { valid = false; return; }
       var r = I[b.code];
-      if (!r || !r.name || typeof r.price !== 'number' || !Number.isFinite(r.price) || r.price <= 0 ||
+      if (!r || !r.name || !Array.isArray(r.specs) || typeof r.price !== 'number' || !Number.isFinite(r.price) || r.price <= 0 ||
         !Number.isFinite(b.qty) || b.qty <= 0 || /بطاري|battery|ess|bms/i.test(b.code + ' ' + r.name)) { valid = false; return; }
       roles[b.role] = true;
       var t = Math.round(b.qty * r.price * 100) / 100; total += t;
@@ -109,11 +110,16 @@ function pumpPackages(p) {
   return out.sort(function (a,b) { return a.total - b.total || a.key.localeCompare(b.key); });
 }
 function pumpInvalidate(p) {
-  delete p.package; project_type = ''; quote_context = null; quote_number = '';
+  delete p.package; delete p.fingerprint; project_type = ''; quote_context = null; quote_number = '';
   pumpWrite(p);
 }
+function pumpFingerprint(o) { return JSON.stringify({ key: o.key, config: o.config, items: o.items }); }
+function pumpCanPay() {
+  var p = pumpRead(), o = pumpPackages(p).find(function (x) { return x.key === p.package; });
+  return !!(o && p.fingerprint === pumpFingerprint(o) && quote_context && quote_context.quote_number === p.quote);
+}
 function pumpResult() {
-  var p = pumpRead(), opts = pumpPackages(p), found = opts.find(function (o) { return o.key === p.package; }) || opts[0];
+  var p = pumpRead(), opts = pumpPackages(p), found = p.package ? opts.find(function (o) { return o.key === p.package; }) : opts[0];
   if (!found) {
     step = 'pump_review'; response = W(pumpSummary(p)) + '\n\n' + pumpAsk(step);
     notify_employee = true; notification_text = 'طلب زراعي / غطاسات للمراجعة الهندسية\n' + pumpSummary(p);
@@ -129,7 +135,7 @@ function pumpIssue() {
   var old = p.quote || '', base = old.replace(/-V\d+$/, '');
   quote_number = old ? base + '-V' + ((Number((old.match(/-V(\d+)$/) || [])[1]) || 1) + 1) :
     'TMK-AGR-' + now.replace(/\D/g, '').slice(0, 17) + '-' + String(message_id || phone).replace(/\W/g, '').slice(-8);
-  p.quote = quote_number; pumpWrite(p);
+  p.quote = quote_number; p.fingerprint = pumpFingerprint(found); pumpWrite(p);
   quote_items = found.items; __quote_total = found.total; item_quote = true; send_quote_file = true;
   quote_file_name = 'عرض سعر ' + quote_number + '.pdf'; quote_file_url = '';
   quote_caption = 'عرض سعر ' + quote_number + ' — زراعي / غطاسات';
@@ -140,6 +146,11 @@ function pumpIssue() {
 }
 function pumpHandle() {
   var p = pumpRead(), n = pumpNumber(text), unknown = /^(لا أعرف|لا اعرف|غير معروف|unknown|skip)$/i.test(text);
+  if (text === 'back_step' || text === 'العودة خطوة') {
+    var i = PUMP_STEPS.indexOf(step);
+    step = step === 'pump_packages' ? 'pump_edit' : (i > 0 ? PUMP_STEPS[i - 1] : (step === 'pump_name' ? 'menu_sys3' : 'pump_result'));
+    response = step === 'menu_sys3' ? W('اختر نوع المنظومة\n1 - السكني\n2 - التجاري\n3 - الصناعي\n4 - غطاسات وآبار زراعية') : pumpAsk(step); return;
+  }
   if (text === 'pump_visit' || ((step === 'pump_result' || step === 'pump_review') && text === '3')) {
     pump_event = 'visit'; notify_employee = true;
     notification_text = 'طلب معاينة مهندس — زراعي / غطاسات\n' + pumpSummary(p);
@@ -149,8 +160,7 @@ function pumpHandle() {
     step = 'pump_edit'; response = pumpAsk(step); return;
   }
   if (text === 'aq_buy' || text === 'buy_invoice') {
-    var ready = pumpPackages(p).some(function (o) { return o.key === p.package; });
-    if (!ready || !quote_context || quote_context.quote_number !== p.quote) { pumpResult(); return; }
+    if (!pumpCanPay()) { pumpResult(); return; }
     response = goBuy(); return;
   }
   if (step === 'pump_after') {
@@ -174,7 +184,7 @@ function pumpHandle() {
     if (text === '__media__' || text.length < 2 || !/[A-Za-z\u0600-\u06FF]/.test(text)) { response = noOpt(pumpAsk(step)); return; }
     if (step === 'pump_name') customer_name = text.slice(0,120); else city = text.slice(0,120);
   } else if (step === 'pump_power_unit') {
-    if (text === '3') { p.unit = ''; p.power = null; pumpWrite(p); pumpResult(); return; }
+    if (text === '3') { p.unit = ''; p.power = null; pumpWrite(p); step = 'pump_voltage'; response = pumpAsk(step); return; }
     if (text !== '1' && text !== '2') { response = noOpt(pumpAsk(step)); return; }
     p.unit = text === '1' ? 'HP' : 'kW';
   } else if (step === 'pump_voltage') {

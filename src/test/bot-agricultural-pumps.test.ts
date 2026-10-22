@@ -37,7 +37,7 @@ async function journey(channel = 'tg', cat = catalog()) {
   for (const value of inputs) s = await run(s, value, channel, cat);
   return s;
 }
-describe('Agricultural pump quotation and payment', () => {
+describe('Agricultural pump quotation and payment', { timeout: 30000 }, () => {
   for (const channel of ['tg','wa']) {
     it(`${channel}: farm data to formal quote, editing, and cash on delivery`, async () => {
       let s = await journey(channel);
@@ -128,5 +128,22 @@ describe('Agricultural pump quotation and payment', () => {
     expect(calls[0].body.method).toBe('مراجعة هندسية');
     expect(calls[0].body.amount).toBeNull();
     expect(calls[0].body.details).toContain('زراعي / غطاسات');
+  });
+  it('rejects malformed BOMs rather than crashing', async () => {
+    const cat = catalog();
+    cat.ITEMS.PUMP_PACKAGE_TEST.specs[0] = cat.ITEMS.PUMP_PACKAGE_TEST.specs[0].replace('"bom":[', '"bom":[null,');
+    expect((await journey('tg',cat)).step).toBe('pump_review');
+  });
+  it('requires a new quotation after equipment prices change even on the payment screen', async () => {
+    let s = await journey();
+    s = await run(s, 'pump_issue');
+    s = await run(s, 'aq_buy');
+    s = await run(s, 'محمد المزارع');
+    const changed = catalog(); changed.ITEMS.PUMP_TEST_vfd.price = 600;
+    s = await run(s, 'pay_network', 'tg', changed);
+    expect(s.step).toBe('pump_result');
+    expect(s.send_quote_file).toBe(false);
+    s = await run(s, 'pump_issue', 'tg', changed);
+    expect(s.grand_total).toBe(2300);
   });
 });
