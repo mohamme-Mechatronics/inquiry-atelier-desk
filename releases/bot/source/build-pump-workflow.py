@@ -92,5 +92,6 @@ def clean(text):
     text = re.sub(r"('x-bot-secret'\s*:\s*)'[^']+'", r"\1'TEST_BOT_SECRET'", text)
     return re.sub(r"(SUP_TICKET_SECRET\s*=\s*)'[^']+'", r"\1'TEST_BOT_SECRET'", text)
 test_fixture = {'stateMachine': clean(code), 'crmLog': clean(crm)}
+test_fixture['quoteHtml'] = clean(nodes['Build Quote HTML']['parameters']['jsCode'])
 (root / 'src/test/fixtures/bot-agricultural-pumps.json').write_text(json.dumps(test_fixture, ensure_ascii=False, indent=2))
 print('Generated v46 workflow, agricultural fixture, and PDF continuation fixes.')

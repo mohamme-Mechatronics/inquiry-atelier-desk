@@ -6,6 +6,7 @@ type Row = any;
 const AsyncFunction = Object.getPrototypeOf(async function () {}).constructor;
 const execute = new AsyncFunction('$', '$input', '$getWorkflowStaticData', 'Buffer', fixture.stateMachine);
 const executeCrm = new AsyncFunction('$', fixture.crmLog);
+const executeHtml = new AsyncFunction('$', '$input', '$getWorkflowStaticData', 'Buffer', fixture.quoteHtml);
 const BOM = ['panel', 'vfd', 'dc_protection', 'motor_protection', 'cable', 'earthing', 'installation'];
 function catalog(): Row {
   const ITEMS: Row = {};
@@ -148,5 +149,13 @@ describe('Agricultural pump quotation and payment', { timeout: 30000 }, () => {
     expect(s.send_quote_file).toBe(false);
     s = await run(s, 'pump_issue', 'tg', changed);
     expect(s.grand_total).toBe(2300);
+  });
+  it('renders the actual quote HTML with exactly the approved pump BOM total', async () => {
+    const state = await run(await journey(), 'pump_issue');
+    const [item] = await executeHtml.call({helpers:{httpRequest:async () => catalog()}},
+      () => ({first:() => ({json:state})}), {first:() => ({json:state})}, () => ({}), Buffer);
+    expect(item.json.quote_number).toBe(state.quote_number);
+    expect(item.json.quote_text).toContain('2,200');
+    expect(item.json.html).toContain('VFD');
   });
 });
