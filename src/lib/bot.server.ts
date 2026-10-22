@@ -52,14 +52,14 @@ export async function recordQuoteOrder(db: NonNullable<DB>, phone: string, label
     db.from("customers").select("name, city, system").eq("phone", phone).maybeSingle(),
   ]);
   const d = (sess?.data ?? {}) as Record<string, string>;
-  const pt = String(d.project_type ?? "");
+  const pt = String(d['project_type'] ?? "");
   const amount = pt.startsWith(`Q|${quote}|`) ? pt.split("|")[3] : "";
-  const sys = String(d.system_type || cust?.system || "");
-  const branch = BRANCH[sys[0]] ?? "";
+  const sys = String(d['system_type'] || cust?.system || "");
+  const branch = BRANCH[sys.charAt(0)] ?? "";
   await db.from("orders").insert({
     phone,
-    name: d.customer_name || cust?.name || null,
-    city: d.city || cust?.city || null,
+    name: d['customer_name'] || cust?.name || null,
+    city: d['city'] || cust?.city || null,
     invoice_no: quote,
     amount: amount ? `${amount} $` : null,
     method: "عرض سعر",
