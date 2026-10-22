@@ -1786,7 +1786,7 @@
       }
     },
     {
-      "id": "ff414dc5-f73c-4906-8f49-4e552f352374",
+      "id": "5d7fef26-9b22-4e24-b83c-d2587ed8e6a5",
       "name": "Quote Already Sent On Telegram?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -1819,7 +1819,7 @@
       ]
     },
     {
-      "id": "0c0483f7-21b6-4645-8139-6d987f1f51c1",
+      "id": "1c074b60-338b-461f-9d89-294af92180ef",
       "name": "Validate Study Media Response",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -1832,7 +1832,7 @@
       ]
     },
     {
-      "id": "0505546d-10d6-4eae-9753-7c0f8386f28f",
+      "id": "b8f82ff9-8d2b-41bb-aa20-7eddd2e0df24",
       "name": "Study Already Sent On Telegram?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
@@ -1865,7 +1865,7 @@
       ]
     },
     {
-      "id": "ac00abdb-4b41-4f91-bf68-e73a8ca2b77e",
+      "id": "3dfdaf7b-bbf6-4d6b-89f6-89867297b113",
       "name": "Validate SLD Media Response",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -1878,7 +1878,7 @@
       ]
     },
     {
-      "id": "8094ae58-fea5-4442-8a2e-47a4821973ae",
+      "id": "f114cdb9-46be-4622-8dad-66a2fa86fc83",
       "name": "SLD Already Sent On Telegram?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
