@@ -81,6 +81,9 @@ for name in ['Validate WhatsApp Media ID','Quote Already Sent On Telegram?',
 # into another channel. Existing non-agricultural routing is retained unchanged.
 extra = nodes['Split Extra Msgs']['parameters']['jsCode']
 nodes['Split Extra Msgs']['parameters']['jsCode'] = "const b = $('State Machine').first().json;\nif (b.menu_choice === '4') return (b.extra_payloads || []).filter(p => String(p.to || '') === String(b.phone)).map(p => ({json:p}));\n" + extra
+attach = nodes['CRM Attach Quote PDF']['parameters']['jsCode']
+attach = attach.replace("const id = String(($('Upload PDF To WhatsApp').first().json || {}).id || '');", "const upload = $('Upload PDF To WhatsApp').first().json || {};\n  const id = String(upload.id || (upload.result && upload.result.document && upload.result.document.file_id) || '');")
+nodes['CRM Attach Quote PDF']['parameters']['jsCode'] = attach
 
 workflow['name'] = 'Tamkeen Bot v46 - WhatsApp + Telegram + Agricultural Pumps'
 workflow['active'] = False

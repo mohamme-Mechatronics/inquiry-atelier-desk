@@ -1,5 +1,7 @@
 # Roadmap
-- [ ] Add agricultural pump conversation, sizing, quote editing, and existing payment handoff; deliver updated combined bot with regression tests.
+- [x] Add agricultural pump conversation, approved-package selection, quote editing, and existing payment handoff; deliver combined v46 with regression tests.
+- [ ] Activate real agricultural quotations (blocked: engineer-approved pump/VFD models, prices, and compatibility packages not supplied).
+- [ ] Verify v46 on live n8n (blocked: no connected n8n access; import and activation required).
 - [x] Move bot images/quote files off Catbox to the site
 - [x] Replace Gotenberg with site PDF converter
 - [x] Free Browserless key from the user (blocked: user signup)
