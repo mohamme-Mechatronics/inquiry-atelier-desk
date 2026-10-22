@@ -6,6 +6,7 @@ type Row = any;
 const AsyncFunction = Object.getPrototypeOf(async function () {}).constructor;
 const execute = new AsyncFunction('$', '$input', '$getWorkflowStaticData', 'Buffer', fixture.stateMachine);
 const executeCrm = new AsyncFunction('$', fixture.crmLog);
+if (!('quoteHtml' in fixture) || typeof fixture.quoteHtml !== 'string') throw new Error('Missing generated quote HTML fixture');
 const executeHtml = new AsyncFunction('$', '$input', '$getWorkflowStaticData', 'Buffer', fixture.quoteHtml);
 const BOM = ['panel', 'vfd', 'dc_protection', 'motor_protection', 'cable', 'earthing', 'installation'];
 function catalog(): Row {
