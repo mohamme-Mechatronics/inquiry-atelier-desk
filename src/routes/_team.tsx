@@ -2,7 +2,7 @@ import { createFileRoute, Link, Outlet, useLocation, useNavigate } from "@tansta
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import {
-  LayoutGrid, MessageCircle, ShoppingCart, Users, FileText, Wrench, Package, Settings, LogOut, Bell, Menu, ChevronLeft,
+  LayoutGrid, BarChart3, MessageCircle, ShoppingCart, Users, FileText, Wrench, Package, Settings, LogOut, Bell, Menu, ChevronLeft,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
@@ -11,13 +11,14 @@ import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import {
   DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { LiveAlerts } from "@/components/LiveAlerts";
 import logo from "@/assets/tamkeen-logo-clean.png.asset.json";
 
 export const Route = createFileRoute("/_team")({ component: AppLayout });
 
 type BadgeKey = "orders" | "tickets" | "human";
 type NavItem = {
-  to: "/" | "/chats" | "/orders" | "/customers" | "/quotes" | "/tickets" | "/catalog" | "/team";
+  to: "/" | "/stats" | "/chats" | "/orders" | "/customers" | "/quotes" | "/tickets" | "/catalog" | "/team";
   label: string;
   icon: typeof LayoutGrid;
   badge?: BadgeKey;
@@ -37,6 +38,7 @@ const GROUPS: { title: string; items: NavItem[] }[] = [
   {
     title: "الإدارة",
     items: [
+      { to: "/stats", label: "الإحصائيات", icon: BarChart3 },
       { to: "/catalog", label: "الأصناف والأسعار", icon: Package },
       { to: "/team", label: "الإعدادات والربط", icon: Settings },
     ],
@@ -196,6 +198,7 @@ function AppLayout() {
         </header>
 
         <main className="mx-auto w-full max-w-7xl flex-1 p-3 pb-20 md:p-6">
+          <LiveAlerts />
           <Outlet />
         </main>
       </div>
