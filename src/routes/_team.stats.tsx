@@ -93,7 +93,7 @@ function Stats() {
           {isLoading ? <Skeleton className="h-56" /> : (
             <div className="h-60">
               <ResponsiveContainer>
-                <BarChart data={data?.monthly}>
+                <BarChart data={data?.monthly ?? []}>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} />
                   <XAxis dataKey="m" fontSize={11} />
                   <YAxis allowDecimals={false} fontSize={11} width={28} />
