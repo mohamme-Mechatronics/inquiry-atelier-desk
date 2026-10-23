@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { FileText } from "lucide-react";
+import { FileText, FilePlus2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { ChannelBadge, EmptyState, PageHeader, Panel, Skeleton } from "@/components/admin";
 import { fmt } from "@/lib/crm";
@@ -27,7 +28,7 @@ function Quotes() {
   });
   return (
     <div className="space-y-4">
-      <PageHeader title="عروض الأسعار والملفات" count={data.length} description="كل عرض سعر ودراسة ومخطط أرسله البوت للعملاء" />
+      <PageHeader title="عروض الأسعار والملفات" count={data.length} actions={<Button asChild size="sm" className="gap-1 text-xs"><Link to="/quote-builder"><FilePlus2 className="h-4 w-4" />إنشاء عرض سعر</Link></Button>} />
       <Panel>
         <div className="hidden grid-cols-[2fr_1fr_9rem] gap-3 border-b bg-muted/50 px-4 py-2 text-[11px] font-semibold text-muted-foreground md:grid">
           <span>الملف</span><span>العميل</span><span className="text-end">التاريخ</span>

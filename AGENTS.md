@@ -17,3 +17,4 @@
 - Payment receipts update the existing customer/quote order through saveBotOrder without changing its sales status; receiving a receipt does not prove settlement.
 - Catalog categories are derived from existing product codes/names; technical PDF defaults come from the delivered bot, with PDF_URL spec overrides for the admin library, so no duplicate catalog database is needed.
 - Import bot menu products using ACTES_KEYMAP codes and effective ITEM_PRICES defaults into catalog_items with missing-code-only inserts; retain the credential-free export in releases/data so admin edits are never overwritten and imports remain auditable.
+- Manual quotations use current catalog prices validated server-side, existing orders and private chat-files storage, and the shared PDF service; agricultural quotes remain restricted to engineer-approved bot packages.
