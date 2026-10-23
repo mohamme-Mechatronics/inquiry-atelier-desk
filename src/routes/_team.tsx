@@ -191,6 +191,7 @@ function AppLayout() {
             <div className="truncate text-sm font-bold md:text-base">{current?.label ?? "ملف العميل"}</div>
           </div>
           <span className="hidden text-xs text-muted-foreground lg:block">{today}</span>
+          <Button asChild variant={pathname === "/quote-builder" ? "default" : "ghost"} size="icon" className="h-9 w-9 shrink-0 rounded-md" title="إنشاء عرض سعر" aria-label="إنشاء عرض سعر"><Link to="/quote-builder"><FilePlus2 className="h-5 w-5" /></Link></Button>
           <Link to="/notifications" aria-label="الإشعارات" className="relative flex h-9 w-9 items-center justify-center rounded-full text-muted-foreground hover:bg-muted hover:text-foreground">
             <Bell className="h-5 w-5" />
             {total > 0 && <span className="absolute end-1.5 top-1.5 h-2.5 w-2.5 rounded-full border-2 border-card bg-destructive" />}
