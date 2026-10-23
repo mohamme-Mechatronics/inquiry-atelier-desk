@@ -15,3 +15,4 @@
 - Build the combined pump workflow from the previous export plus releases/bot/source using build-pump-workflow.py; regenerate credential-free fixtures from that same output so tests exercise the delivered conversation.
 - Agricultural pump quotes select complete, current engineer-approved catalog packages; never substitute hybrid equipment or price/size an unapproved VFD from horsepower alone.
 - Payment receipts update the existing customer/quote order through saveBotOrder without changing its sales status; receiving a receipt does not prove settlement.
+- Catalog categories are derived from existing product codes/names; technical PDF defaults come from the delivered bot, with PDF_URL spec overrides for the admin library, so no duplicate catalog database is needed.
