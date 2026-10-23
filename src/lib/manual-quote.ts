@@ -24,7 +24,7 @@ export function quoteTotal(lines: QuoteLine[]) {
   return Math.round(lines.reduce((sum, line) => sum + Math.round(line.price * line.quantity * 100) / 100, 0) * 100) / 100;
 }
 /** Catalog lines always use the current catalog price; custom lines (code starting with "custom:") carry their own entered price. */
-export function pricedLines(items: { code: string; name: string; unit: string | null; price: number | null; specs?: unknown }[], selections: { code: string; quantity: number; custom?: { name: string; unit: string; price: number; specs: string[] } }[]): QuoteLine[] {
+export function pricedLines(items: { code: string; name: string; unit: string | null; price: number | null; specs?: unknown }[], selections: { code: string; quantity: number; custom?: { name: string; unit: string; price: number; specs: string[] } | undefined }[]): QuoteLine[] {
   const seen = new Set<string>();
   return selections.map((selection) => {
     if (seen.has(selection.code)) throw new Error("الصنف مكرر");
