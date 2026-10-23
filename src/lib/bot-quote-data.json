@@ -178,27 +178,37 @@
         {
           "code": "PV_SUNTECH_595",
           "name": "الواح طاقة شمسية ماركة سنتك العالمية قدرة اللوح: 595 وات",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 110
         },
         {
           "code": "INV_LIPOWER_1_6K",
           "name": "إنفرتر هايبرد ليو باور 1.6 كيلو سنجل فاز 12فلت / سنجل فاز مع الواي فاي",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 180
         },
         {
           "code": "BAT_RV12100",
           "name": "بطارية ليثيوم بايلونتك1.28كيلو 100امبير",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 220
         },
         {
-          "code": "",
+          "code": "STAND_100A_12V",
           "name": "استند 100 أمبير 12 فولت مع لوحة الحماية الكاملة",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 60
         },
         {
           "code": "cable_cu_1500v_10mm",
           "name": "كابل نحاس مجلفن 1500 فولت مفرد 6 مم",
-          "quantity": 20
+          "quantity": 20,
+          "unit": "حبه",
+          "price": 2.3
         }
       ]
     },
@@ -211,27 +221,37 @@
         {
           "code": "PV_SUNTECH_595",
           "name": "الواح طاقة شمسية ماركة سنتك العالمية قدرة اللوح: 595 وات",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 110
         },
         {
           "code": "INV_LIPOWER_1_6K",
           "name": "إنفرتر هايبرد ليو باور 1.6 كيلو سنجل فاز 12فلت / سنجل فاز مع الواي فاي",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 180
         },
         {
           "code": "BAT_RV12200",
           "name": "بطارية ليثيوم بايلونتك2.56كيلو 200امبير",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 350
         },
         {
-          "code": "",
+          "code": "STAND_200A_12V",
           "name": "استند 200 أمبير 12 فولت مع لوحة الحماية الكاملة",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 60
         },
         {
           "code": "cable_cu_1500v_10mm",
           "name": "كابل نحاس مجلفن 1500 فولت مفرد 6 مم",
-          "quantity": 20
+          "quantity": 20,
+          "unit": "حبه",
+          "price": 2.3
         }
       ]
     },
@@ -244,27 +264,37 @@
         {
           "code": "PV_SUNTECH_595",
           "name": "الواح طاقة شمسية ماركة سنتك العالمية قدرة اللوح: 595 وات",
-          "quantity": 2
+          "quantity": 2,
+          "unit": "حبه",
+          "price": 110
         },
         {
           "code": "INV_LIPOWER_1_6K",
           "name": "إنفرتر هايبرد ليو باور 1.6 كيلو سنجل فاز 12فلت / سنجل فاز مع الواي فاي",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 180
         },
         {
           "code": "BAT_RV12200",
           "name": "بطارية ليثيوم بايلونتك2.56كيلو 200امبير",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 350
         },
         {
-          "code": "",
+          "code": "STAND_200A_12V",
           "name": "استند 200 أمبير 12 فولت مع لوحة الحماية الكاملة",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 60
         },
         {
           "code": "cable_cu_1500v_10mm",
           "name": "كابل نحاس مجلفن 1500 فولت مفرد 6 مم",
-          "quantity": 20
+          "quantity": 20,
+          "unit": "حبه",
+          "price": 2.3
         }
       ]
     },
@@ -277,27 +307,37 @@
         {
           "code": "PV_SUNTECH_595",
           "name": "الواح طاقة شمسية ماركة سنتك العالمية قدرة اللوح: 595 وات",
-          "quantity": 2
+          "quantity": 2,
+          "unit": "حبه",
+          "price": 110
         },
         {
           "code": "INV_LIPOWER_1_6K",
           "name": "إنفرتر هايبرد ليو باور 1.6 كيلو سنجل فاز 12فلت / سنجل فاز مع الواي فاي",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 180
         },
         {
           "code": "BAT_HEROEE_4K",
           "name": "بطارية ليثيوم هيثيوم 4 كيلو 314 أمبير 12.8 فولت / بطارية ليثيوم HUTHIUM هيثيوم 4 كيلو 314 أمبير",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 390
         },
         {
-          "code": "",
+          "code": "STAND_314A_12V",
           "name": "استند 314 أمبير 12 فولت مع لوحة الحماية الكاملة",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 100
         },
         {
           "code": "cable_cu_1500v_10mm",
           "name": "كابل نحاس مجلفن 1500 فولت مفرد 6 مم",
-          "quantity": 30
+          "quantity": 30,
+          "unit": "حبه",
+          "price": 2.3
         }
       ]
     },
@@ -310,27 +350,37 @@
         {
           "code": "PV_SUNTECH_595",
           "name": "الواح طاقة شمسية ماركة سنتك العالمية قدرة اللوح: 595 وات",
-          "quantity": 3
+          "quantity": 3,
+          "unit": "حبه",
+          "price": 110
         },
         {
           "code": "INV_LIPOWER_1_6K",
           "name": "إنفرتر هايبرد ليو باور 1.6 كيلو سنجل فاز 12فلت / سنجل فاز مع الواي فاي",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 180
         },
         {
           "code": "BAT_HEROEE_4K",
           "name": "بطارية ليثيوم هيثيوم 4 كيلو 314 أمبير 12.8 فولت / بطارية ليثيوم HUTHIUM هيثيوم 4 كيلو 314 أمبير",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 390
         },
         {
-          "code": "",
+          "code": "STAND_314A_12V",
           "name": "استند 314 أمبير 12 فولت مع لوحة الحماية الكاملة",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 100
         },
         {
           "code": "cable_cu_1500v_10mm",
           "name": "كابل نحاس مجلفن 1500 فولت مفرد 6 مم",
-          "quantity": 30
+          "quantity": 30,
+          "unit": "حبه",
+          "price": 2.3
         }
       ]
     },
@@ -343,27 +393,37 @@
         {
           "code": "PV_SUNTECH_720",
           "name": "الواح طاقة شمسية سنتك 720 وات",
-          "quantity": 4
+          "quantity": 4,
+          "unit": "حبه",
+          "price": 130
         },
         {
           "code": "INV_LIPOWER_6_2K",
           "name": "إنفرتر هايبرد ليو باور 6.2 كيلو سنجل فاز 48",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 380
         },
         {
           "code": "BAT_UF5000",
           "name": "بطارية ليثيوم بايلونتك 5.12 كيلو",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 750
         },
         {
-          "code": "",
+          "code": "STAND_LITHIUM_6K",
           "name": "استند منظومة ليثيوم 6 كيلو مع لوحة الحماية",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 100
         },
         {
           "code": "cable_cu_1500v_10mm",
           "name": "كابل نحاس مجلفن 1500 فولت مفرد 6 مم",
-          "quantity": 30
+          "quantity": 30,
+          "unit": "حبه",
+          "price": 2.3
         }
       ]
     },
@@ -376,27 +436,37 @@
         {
           "code": "PV_SUNTECH_720",
           "name": "الواح طاقة شمسية سنتك 720 وات",
-          "quantity": 4
+          "quantity": 4,
+          "unit": "حبه",
+          "price": 130
         },
         {
           "code": "INV_LIPOWER_6_2K",
           "name": "إنفرتر هايبرد ليو باور 6.2 كيلو سنجل فاز 48",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 380
         },
         {
           "code": "BAT_UF5000",
           "name": "بطارية ليثيوم بايلونتك 5.12 كيلو",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 750
         },
         {
-          "code": "",
+          "code": "STAND_LITHIUM_6K",
           "name": "استند منظومة ليثيوم 6 كيلو مع لوحة الحماية",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 100
         },
         {
           "code": "cable_cu_1500v_10mm",
           "name": "كابل نحاس مجلفن 1500 فولت مفرد 6 مم",
-          "quantity": 30
+          "quantity": 30,
+          "unit": "حبه",
+          "price": 2.3
         }
       ]
     },
@@ -409,27 +479,37 @@
         {
           "code": "PV_SUNTECH_720",
           "name": "الواح طاقة شمسية سنتك 720 وات",
-          "quantity": 5
+          "quantity": 5,
+          "unit": "حبه",
+          "price": 130
         },
         {
           "code": "INV_LIPOWER_6_2K",
           "name": "إنفرتر هايبرد ليو باور 6.2 كيلو سنجل فاز 48",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 380
         },
         {
           "code": "BAT_UF5000",
           "name": "بطارية ليثيوم بايلونتك 5.12 كيلو",
-          "quantity": 2
+          "quantity": 2,
+          "unit": "حبه",
+          "price": 750
         },
         {
-          "code": "",
+          "code": "STAND_LITHIUM_6K",
           "name": "استند منظومة ليثيوم 6 كيلو مع لوحة الحماية",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 100
         },
         {
           "code": "cable_cu_1500v_10mm",
           "name": "كابل نحاس مجلفن 1500 فولت مفرد 6 مم",
-          "quantity": 30
+          "quantity": 30,
+          "unit": "حبه",
+          "price": 2.3
         }
       ]
     },
@@ -442,27 +522,37 @@
         {
           "code": "PV_SUNTECH_720",
           "name": "الواح طاقة شمسية سنتك 720 وات",
-          "quantity": 6
+          "quantity": 6,
+          "unit": "حبه",
+          "price": 130
         },
         {
           "code": "INV_LIPOWER_6_2K",
           "name": "إنفرتر هايبرد ليو باور 6.2 كيلو سنجل فاز 48",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 380
         },
         {
           "code": "BAT_FIDUS_16K",
           "name": "بطارية ليثيوم بايلونتك 16 كيلو فيدوس IP65",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 1800
         },
         {
-          "code": "",
+          "code": "STAND_LITHIUM_6K",
           "name": "استند منظومة ليثيوم 6 كيلو مع لوحة الحماية",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 100
         },
         {
           "code": "cable_cu_1500v_10mm",
           "name": "كابل نحاس مجلفن 1500 فولت مفرد 6 مم",
-          "quantity": 30
+          "quantity": 30,
+          "unit": "حبه",
+          "price": 2.3
         }
       ]
     },
@@ -475,37 +565,51 @@
         {
           "code": "PV_SUNTECH_720",
           "name": "الواح طاقة شمسية سنتك 720 وات",
-          "quantity": 8
+          "quantity": 8,
+          "unit": "حبه",
+          "price": 130
         },
         {
           "code": "INV_DEYE_8K_1P",
           "name": "إنفرتر دايا متصل غير متصل بالشبكة 8 كيلو سنجل فاز جهد منخفض",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 1080
         },
         {
           "code": "dc:2",
           "name": "صندوق حماية - تيار مستمر DC",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 80
         },
         {
           "code": "ac_01",
           "name": "لوحة حماية كهرباء تيار متردد سنجل فاز",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 35
         },
         {
           "code": "BAT_FIDUS_16K",
           "name": "بطارية ليثيوم بايلونتك 16 كيلو فيدوس IP65",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 1800
         },
         {
           "code": "cable_cu_1500v_10mm",
           "name": "كابل نحاس مجلفن 1500 فولت مفرد 6 مم",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 2.3
         },
         {
           "code": "acc:install",
           "name": "كنشات توصيل MC4 مقاس 10 ملي",
-          "quantity": 3
+          "quantity": 3,
+          "unit": "حبه",
+          "price": 2
         }
       ]
     },
@@ -518,32 +622,44 @@
         {
           "code": "PV_SUNTECH_720",
           "name": "الواح طاقة شمسية سنتك 720 وات",
-          "quantity": 9
+          "quantity": 9,
+          "unit": "حبه",
+          "price": 130
         },
         {
           "code": "INV_DEYE_8K_1P",
           "name": "إنفرتر دايا متصل غير متصل بالشبكة 8 كيلو سنجل فاز جهد منخفض",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 1080
         },
         {
           "code": "dc:2",
           "name": "صندوق حماية - تيار مستمر DC",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 80
         },
         {
           "code": "ac_01",
           "name": "لوحة حماية كهرباء تيار متردد سنجل فاز",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 35
         },
         {
           "code": "BAT_FIDUS_16K",
           "name": "بطارية ليثيوم بايلونتك 16 كيلو فيدوس IP65",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 1800
         },
         {
           "code": "cable_cu_1500v_10mm",
           "name": "كابل نحاس مجلفن 1500 فولت مفرد 6 مم",
-          "quantity": 30
+          "quantity": 30,
+          "unit": "حبه",
+          "price": 2.3
         }
       ]
     },
@@ -556,32 +672,44 @@
         {
           "code": "PV_SUNTECH_720",
           "name": "الواح طاقة شمسية سنتك 720 وات",
-          "quantity": 14
+          "quantity": 14,
+          "unit": "حبه",
+          "price": 130
         },
         {
           "code": "INV_DEYE_8K_1P",
           "name": "إنفرتر دايا متصل غير متصل بالشبكة 8 كيلو سنجل فاز جهد منخفض",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 1080
         },
         {
           "code": "dc:2",
           "name": "صندوق حماية - تيار مستمر DC",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 80
         },
         {
           "code": "ac_01",
           "name": "لوحة حماية كهرباء تيار متردد سنجل فاز",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 35
         },
         {
           "code": "BAT_FIDUS_16K",
           "name": "بطارية ليثيوم بايلونتك 16 كيلو فيدوس IP65",
-          "quantity": 2
+          "quantity": 2,
+          "unit": "حبه",
+          "price": 1800
         },
         {
           "code": "cable_cu_1500v_10mm",
           "name": "كابل نحاس مجلفن 1500 فولت مفرد 6 مم",
-          "quantity": 30
+          "quantity": 30,
+          "unit": "حبه",
+          "price": 2.3
         }
       ]
     },
@@ -594,32 +722,44 @@
         {
           "code": "PV_SUNTECH_720",
           "name": "الواح طاقة شمسية سنتك 720 وات",
-          "quantity": 16
+          "quantity": 16,
+          "unit": "حبه",
+          "price": 130
         },
         {
           "code": "INV_DEYE_8K_1P",
           "name": "إنفرتر دايا متصل غير متصل بالشبكة 8 كيلو سنجل فاز جهد منخفض",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 1080
         },
         {
           "code": "dc:2",
           "name": "صندوق حماية - تيار مستمر DC",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 80
         },
         {
           "code": "ac_01",
           "name": "لوحة حماية كهرباء تيار متردد سنجل فاز",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 35
         },
         {
           "code": "BAT_FIDUS_16K",
           "name": "بطارية ليثيوم بايلونتك 16 كيلو فيدوس IP65",
-          "quantity": 2
+          "quantity": 2,
+          "unit": "حبه",
+          "price": 1800
         },
         {
           "code": "cable_cu_1500v_10mm",
           "name": "كابل نحاس مجلفن 1500 فولت مفرد 6 مم",
-          "quantity": 30
+          "quantity": 30,
+          "unit": "حبه",
+          "price": 2.3
         }
       ]
     },
@@ -632,32 +772,44 @@
         {
           "code": "PV_SUNTECH_720",
           "name": "الواح طاقة شمسية سنتك 720 وات",
-          "quantity": 18
+          "quantity": 18,
+          "unit": "حبه",
+          "price": 130
         },
         {
           "code": "INV_DEYE_8K_1P",
           "name": "إنفرتر دايا متصل غير متصل بالشبكة 8 كيلو سنجل فاز جهد منخفض",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 1080
         },
         {
           "code": "dc:2",
           "name": "صندوق حماية - تيار مستمر DC",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 80
         },
         {
           "code": "ac_01",
           "name": "لوحة حماية كهرباء تيار متردد سنجل فاز",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 35
         },
         {
           "code": "BAT_FIDUS_16K",
           "name": "بطارية ليثيوم بايلونتك 16 كيلو فيدوس IP65",
-          "quantity": 2
+          "quantity": 2,
+          "unit": "حبه",
+          "price": 1800
         },
         {
           "code": "cable_cu_1500v_10mm",
           "name": "كابل نحاس مجلفن 1500 فولت مفرد 6 مم",
-          "quantity": 30
+          "quantity": 30,
+          "unit": "حبه",
+          "price": 2.3
         }
       ]
     },
@@ -670,32 +822,44 @@
         {
           "code": "PV_SUNTECH_720",
           "name": "الواح طاقة شمسية سنتك 720 وات",
-          "quantity": 21
+          "quantity": 21,
+          "unit": "حبه",
+          "price": 130
         },
         {
           "code": "INV_DEYE_12K_1P",
           "name": "إنفرتر دايا متصل غير متصل بالشبكة 12 كيلو سنجل فاز جهد منخفض",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 1600
         },
         {
           "code": "dc:3",
           "name": "صندوق حماية - تيار مستمر DC",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 45
         },
         {
           "code": "ac_01",
           "name": "لوحة حماية كهرباء تيار متردد سنجل فاز",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 35
         },
         {
           "code": "BAT_FIDUS_16K",
           "name": "بطارية ليثيوم بايلونتك 16 كيلو فيدوس IP65",
-          "quantity": 2
+          "quantity": 2,
+          "unit": "حبه",
+          "price": 1800
         },
         {
           "code": "cable_cu_1500v_10mm",
           "name": "كابل نحاس مجلفن 1500 فولت مفرد 6 مم",
-          "quantity": 30
+          "quantity": 30,
+          "unit": "حبه",
+          "price": 2.3
         }
       ]
     },
@@ -708,32 +872,44 @@
         {
           "code": "PV_SUNTECH_720",
           "name": "الواح طاقة شمسية سنتك 720 وات",
-          "quantity": 27
+          "quantity": 27,
+          "unit": "حبه",
+          "price": 130
         },
         {
           "code": "INV_DEYE_12K_1P",
           "name": "إنفرتر دايا متصل غير متصل بالشبكة 12 كيلو سنجل فاز جهد منخفض",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 1600
         },
         {
           "code": "dc:3",
           "name": "صندوق حماية - تيار مستمر DC",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 45
         },
         {
           "code": "ac_01",
           "name": "لوحة حماية كهرباء تيار متردد سنجل فاز",
-          "quantity": 1
+          "quantity": 1,
+          "unit": "حبه",
+          "price": 35
         },
         {
           "code": "BAT_FIDUS_16K",
           "name": "بطارية ليثيوم بايلونتك 16 كيلو فيدوس IP65",
-          "quantity": 3
+          "quantity": 3,
+          "unit": "حبه",
+          "price": 1800
         },
         {
           "code": "cable_cu_1500v_10mm",
           "name": "كابل نحاس مجلفن 1500 فولت مفرد 6 مم",
-          "quantity": 30
+          "quantity": 30,
+          "unit": "حبه",
+          "price": 2.3
         }
       ]
     }
