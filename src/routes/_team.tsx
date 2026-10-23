@@ -32,6 +32,7 @@ const GROUPS: { title: string; items: NavItem[] }[] = [
       { to: "/orders", label: "الطلبات", icon: ShoppingCart, badge: "orders" },
       { to: "/quotes", label: "عروض الأسعار", icon: FileText },
       { to: "/tickets", label: "الدعم الفني", icon: Wrench, badge: "tickets" },
+      { to: "/catalog", label: "الأصناف", icon: Package },
     ],
   },
   {
@@ -39,7 +40,6 @@ const GROUPS: { title: string; items: NavItem[] }[] = [
     items: [
       { to: "/notifications", label: "الإشعارات", icon: Bell },
       { to: "/stats", label: "الإحصائيات", icon: BarChart3 },
-      { to: "/catalog", label: "الأصناف والأسعار", icon: Package },
       { to: "/team", label: "الإعدادات والربط", icon: Settings },
     ],
   },
