@@ -1,10 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { Users, MessageCircle, ShoppingCart, Wrench, FileText, Bell, Headset, UserPlus, ArrowUpLeft, Activity } from "lucide-react";
+import { Users, MessageCircle, ShoppingCart, Wrench, FileText, ArrowUpLeft, Activity } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
-import { Panel, EmptyState, ChannelBadge, Skeleton } from "@/components/admin";
-import { STATUSES, CHANNELS, channelOf, ago, preview } from "@/lib/crm";
+import { Panel, Skeleton } from "@/components/admin";
+import { STATUSES, CHANNELS, channelOf } from "@/lib/crm";
 
 export const Route = createFileRoute("/_team/")({
   head: () => ({
@@ -12,21 +12,13 @@ export const Route = createFileRoute("/_team/")({
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { title: "الرئيسية — تمكين" },
-      { name: "description", content: "ملخص عملاء واتساب وتليجرام والطلبات والإشعارات" },
+      { name: "description", content: "ملخص عملاء واتساب وتليجرام والطلبات" },
       { property: "og:title", content: "الرئيسية — تمكين" },
-      { property: "og:description", content: "ملخص عملاء واتساب وتليجرام والطلبات والإشعارات" },
+      { property: "og:description", content: "ملخص عملاء واتساب وتليجرام والطلبات" },
     ],
   }),
   component: Dashboard,
 });
-
-type Kind = "order" | "ticket" | "human" | "new";
-const KIND: Record<Kind, { icon: typeof Bell; cls: string }> = {
-  order: { icon: ShoppingCart, cls: "bg-success/10 text-success" },
-  ticket: { icon: Wrench, cls: "bg-destructive/10 text-destructive" },
-  human: { icon: Headset, cls: "bg-warning/15 text-warning-foreground" },
-  new: { icon: UserPlus, cls: "bg-info/10 text-info" },
-};
 
 function Dashboard() {
   const { session } = useAuth();
@@ -34,29 +26,20 @@ function Dashboard() {
     queryKey: ["stats"],
     queryFn: async () => {
       const today = new Date(); today.setHours(0, 0, 0, 0);
-      const [c, o, t, q, recentO, recentT] = await Promise.all([
+      const [c, o, t, q] = await Promise.all([
         supabase.from("customers").select("phone,name,status,stage,last_at,last_message,created_at").order("last_at", { ascending: false }).limit(1000),
         supabase.from("orders").select("id", { count: "exact", head: true }).eq("status", "new"),
         supabase.from("tickets").select("id", { count: "exact", head: true }).neq("status", "closed"),
         supabase.from("messages").select("id", { count: "exact", head: true }).eq("kind", "document"),
-        supabase.from("orders").select("*").order("created_at", { ascending: false }).limit(5),
-        supabase.from("tickets").select("*").order("created_at", { ascending: false }).limit(5),
       ]);
       const cs = c.data ?? [];
       const byStatus: Record<string, number> = {};
       const byCh = { whatsapp: 0, telegram: 0 };
       for (const r of cs) { byStatus[r.status] = (byStatus[r.status] ?? 0) + 1; byCh[channelOf(r.phone)]++; }
       const iso = today.toISOString();
-      type N = { key: string; kind: Kind; title: string; sub: string; at: string; phone: string };
-      const notes: N[] = [
-        ...(recentO.data ?? []).map((x): N => ({ key: "o" + x.id, kind: "order", title: `طلب شراء — ${x.name || x.phone}`, sub: `${x.amount || ""} ${x.method || ""}`.trim(), at: x.created_at, phone: x.phone })),
-        ...(recentT.data ?? []).map((x): N => ({ key: "t" + x.id, kind: "ticket", title: `بلاغ صيانة ${x.ticket_no} — ${x.name || x.phone}`, sub: x.issue_type || x.description || "", at: x.created_at, phone: x.phone })),
-        ...cs.filter((x) => x.stage === "human").slice(0, 5).map((x): N => ({ key: "h" + x.phone, kind: "human", title: `يحتاج موظف — ${x.name || x.phone}`, sub: x.last_message || "", at: x.last_at, phone: x.phone })),
-        ...cs.filter((x) => x.created_at >= iso).slice(0, 5).map((x): N => ({ key: "n" + x.phone, kind: "new", title: `عميل جديد — ${x.name || x.phone}`, sub: x.last_message || "", at: x.created_at, phone: x.phone })),
-      ].sort((a, b) => (a.at < b.at ? 1 : -1)).slice(0, 12);
       return {
         total: cs.length, todayN: cs.filter((x) => x.last_at >= iso).length, newToday: cs.filter((x) => x.created_at >= iso).length,
-        byStatus, byCh, orders: o.count ?? 0, tickets: t.count ?? 0, quotes: q.count ?? 0, notes,
+        byStatus, byCh, orders: o.count ?? 0, tickets: t.count ?? 0, quotes: q.count ?? 0,
       };
     },
     refetchInterval: 20000,
@@ -97,9 +80,9 @@ function Dashboard() {
       </div>
 
       <div className="grid grid-cols-3 gap-2 md:gap-3 lg:grid-cols-5">
-        {cards.map((c, i) => (
+        {cards.map((c) => (
           <Link key={c.label} to={c.to}
-            className={`group rounded-xl border bg-card p-2.5 shadow-card transition hover:-translate-y-0.5 hover:shadow-elevated md:p-4 ${i === 3 ? "col-span-1" : ""}`}>
+            className="group rounded-xl border bg-card p-2.5 shadow-card transition hover:-translate-y-0.5 hover:shadow-elevated md:p-4">
             <div className="flex items-center justify-between">
               <span className={`flex h-7 w-7 items-center justify-center rounded-lg md:h-9 md:w-9 ${c.tone}`}><c.icon className="h-3.5 w-3.5 md:h-4 md:w-4" /></span>
               <ArrowUpLeft className="h-4 w-4 text-muted-foreground opacity-0 transition group-hover:opacity-100" />
@@ -110,68 +93,40 @@ function Dashboard() {
         ))}
       </div>
 
-      <div className="grid gap-4 lg:grid-cols-3">
-        <Panel title="آخر الإشعارات" icon={Bell} className="lg:col-span-2"
-          action={<Link to="/chats" className="text-xs font-semibold text-primary hover:underline">عرض الكل</Link>}>
-          {isLoading && <div className="space-y-3 p-4">{[1, 2, 3, 4].map((i) => <Skeleton key={i} className="h-10" />)}</div>}
-          {!isLoading && !data?.notes.length && <EmptyState icon={Bell} title="لا توجد إشعارات بعد" hint="ستظهر هنا الطلبات وبلاغات الصيانة والعملاء الجدد فور وصولها من البوت." />}
-          <ul className="divide-y">
-            {data?.notes.map((n) => {
-              const k = KIND[n.kind];
-              return (
-                <li key={n.key}>
-                  <Link to="/chats" search={{ p: n.phone }} className="flex items-center gap-3 px-4 py-3 transition-colors hover:bg-muted/60">
-                    <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full ${k.cls}`}><k.icon className="h-4 w-4" /></span>
-                    <div className="min-w-0 flex-1">
-                      <div className="flex items-center gap-2">
-                        <span className="truncate text-sm font-semibold">{n.title}</span>
-                        <ChannelBadge phone={n.phone} />
-                      </div>
-                      <div className="truncate text-xs text-muted-foreground">{preview(n.sub) || "—"}</div>
-                    </div>
-                    <span className="shrink-0 text-[11px] tabular-nums text-muted-foreground">{ago(n.at)}</span>
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </Panel>
-
-        <div className="space-y-4">
-          <Panel title="توزيع القنوات" icon={Activity} bodyClass="space-y-4 p-4">
-            <div className="flex h-2.5 overflow-hidden rounded-full bg-muted">
-              {(["whatsapp", "telegram"] as const).map((k) => (
-                <div key={k} className={CHANNELS[k].dot} style={{ width: `${total ? ((data?.byCh[k] ?? 0) / total) * 100 : 0}%` }} />
-              ))}
-            </div>
+      <div className="grid gap-3 md:grid-cols-2 md:gap-4">
+        <Panel title="توزيع القنوات" icon={Activity} bodyClass="space-y-4 p-4">
+          <div className="flex h-2.5 overflow-hidden rounded-full bg-muted">
             {(["whatsapp", "telegram"] as const).map((k) => (
-              <div key={k} className="flex items-center gap-2 text-sm">
-                <span className={`h-2.5 w-2.5 rounded-full ${CHANNELS[k].dot}`} />
-                <span className="flex-1">{CHANNELS[k].label}</span>
-                <b className="tabular-nums">{data?.byCh[k] ?? 0}</b>
-                <span className="w-10 text-end text-xs tabular-nums text-muted-foreground">
-                  {total ? Math.round(((data?.byCh[k] ?? 0) / total) * 100) : 0}%
-                </span>
-              </div>
+              <div key={k} className={CHANNELS[k].dot} style={{ width: `${total ? ((data?.byCh[k] ?? 0) / total) * 100 : 0}%` }} />
             ))}
-          </Panel>
-          <Panel title="مسار العملاء" icon={Users} bodyClass="space-y-3 p-4">
-            {Object.entries(STATUSES).map(([k, s]) => {
-              const n = data?.byStatus[k] ?? 0;
-              return (
-                <div key={k} className="space-y-1.5">
-                  <div className="flex items-center justify-between text-sm">
-                    <span>{s.label}</span>
-                    <b className="tabular-nums">{n}</b>
-                  </div>
-                  <div className="h-1.5 rounded-full bg-muted">
-                    <div className="h-1.5 rounded-full bg-primary transition-all" style={{ width: `${total ? (n / total) * 100 : 0}%` }} />
-                  </div>
+          </div>
+          {(["whatsapp", "telegram"] as const).map((k) => (
+            <div key={k} className="flex items-center gap-2 text-sm">
+              <span className={`h-2.5 w-2.5 rounded-full ${CHANNELS[k].dot}`} />
+              <span className="flex-1">{CHANNELS[k].label}</span>
+              <b className="tabular-nums">{data?.byCh[k] ?? 0}</b>
+              <span className="w-10 text-end text-xs tabular-nums text-muted-foreground">
+                {total ? Math.round(((data?.byCh[k] ?? 0) / total) * 100) : 0}%
+              </span>
+            </div>
+          ))}
+        </Panel>
+        <Panel title="مسار العملاء" icon={Users} bodyClass="space-y-3 p-4">
+          {Object.entries(STATUSES).map(([k, s]) => {
+            const n = data?.byStatus[k] ?? 0;
+            return (
+              <div key={k} className="space-y-1.5">
+                <div className="flex items-center justify-between text-sm">
+                  <span>{s.label}</span>
+                  <b className="tabular-nums">{n}</b>
                 </div>
-              );
-            })}
-          </Panel>
-        </div>
+                <div className="h-1.5 rounded-full bg-muted">
+                  <div className="h-1.5 rounded-full bg-primary transition-all" style={{ width: `${total ? (n / total) * 100 : 0}%` }} />
+                </div>
+              </div>
+            );
+          })}
+        </Panel>
       </div>
     </div>
   );
