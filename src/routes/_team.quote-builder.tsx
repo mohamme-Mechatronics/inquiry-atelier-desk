@@ -166,7 +166,7 @@ function QuoteBuilder() {
         </div>}
       </div>}
 
-      <div className="flex justify-end"><button type="button" onClick={() => setReadyOpen((o) => !o)} className="flex h-11 items-center gap-2 rounded-full bg-muted px-5 text-[15px] font-bold"><History className="h-5 w-5" />العروض الجاهزة ({readyQuotes.length + commercialQuotes.length})</button></div>
+      <div className="flex justify-start"><button type="button" onClick={() => setReadyOpen((o) => !o)} className="flex h-11 items-center gap-2 rounded-full bg-muted px-5 text-[15px] font-bold"><History className="h-5 w-5" />العروض الجاهزة ({readyQuotes.length + commercialQuotes.length})</button></div>
 
       {readyOpen && <div className="rounded-2xl border bg-muted/30 p-2">
         <div className="mb-2 grid grid-cols-2 gap-2">{(["سكني", "تجاري"] as const).map((t) => <button key={t} type="button" onClick={() => setReadyTab(t)} className={`h-11 rounded-xl border text-[16px] font-bold ${readyTab === t ? "border-primary bg-primary text-primary-foreground" : "bg-card"}`}>{t === "سكني" ? "منظومات سكنية" : "منظومات تجارية"}</button>)}</div>

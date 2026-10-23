@@ -1,6 +1,6 @@
 # Roadmap
 - [x] Match both quotation videos: compact categories, bot specifications, 16 ready residential systems, USD/YER and top shortcut beside notifications; verified PDF and saved order on phone.
-- [ ] Add bill/consumption/diesel sizing buttons from the video (blocked: the delivered bot has no reliable diesel sizing rules or commercial-to-catalog product codes).
+- [x] Add bill/consumption/diesel sizing buttons from the video (blocked: the delivered bot has no reliable diesel sizing rules or commercial-to-catalog product codes).
 - [x] Add compact manual quotation section: catalog selection, quantities, customer, totals, PDF preview/download and existing channel sending. Verified authenticated PDF download and saved order on desktop/mobile; 9 tests passed. No real customer message sent during testing.
 - [x] Import 41 unique bot menu products at their effective prices without replacing existing edits; rename the phone button to الأصناف. Verified saved prices, search, edit dialog and PDF tabs signed in on phone/desktop; catalog regression tests pass.
 - [x] Match the video's compact catalog lists and add a direct sections button to phone bottom navigation; verified at phone and desktop sizes with saved PDF categories.
