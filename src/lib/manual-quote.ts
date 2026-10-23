@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { productSpecs } from "./quote-catalog";
 
 export const quoteInput = z.object({
   id: z.string().uuid(),
@@ -7,15 +8,18 @@ export const quoteInput = z.object({
   city: z.string().trim().max(150),
   branch: z.enum(["سكني", "تجاري", "زراعي / غطاسات"]),
   notes: z.string().trim().max(2000),
+  currency: z.enum(["USD", "YER"]).default("USD"),
+  exchangeRate: z.number().finite().positive().max(100000).default(1),
   lines: z.array(z.object({ code: z.string().min(1).max(100), quantity: z.number().finite().positive().max(100000) })).min(1).max(100),
 }).refine((data) => data.branch !== "زراعي / غطاسات", { message: "عروض الغطاسات تتطلب حزمة معتمدة من المهندس" });
 export type QuoteInput = z.infer<typeof quoteInput>;
-export type QuoteLine = { code: string; name: string; unit: string | null; price: number; quantity: number };
+export type QuoteLine = { code: string; name: string; unit: string | null; price: number; quantity: number; specs?: string[] };
 export const money = (n: number) => `$${n.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}`;
+export const quoteMoney = (usd: number, currency: "USD" | "YER", rate: number) => currency === "USD" ? money(usd) : `${(Math.round(usd * rate * 100) / 100).toLocaleString("en-US", { maximumFractionDigits: 2 })} ر.ي`;
 export function quoteTotal(lines: QuoteLine[]) {
   return Math.round(lines.reduce((sum, line) => sum + Math.round(line.price * line.quantity * 100) / 100, 0) * 100) / 100;
 }
-export function pricedLines(items: { code: string; name: string; unit: string | null; price: number | null }[], selections: { code: string; quantity: number }[]): QuoteLine[] {
+export function pricedLines(items: { code: string; name: string; unit: string | null; price: number | null; specs?: unknown }[], selections: { code: string; quantity: number }[]): QuoteLine[] {
   const seen = new Set<string>();
   return selections.map((selection) => {
     const item = items.find((row) => row.code === selection.code);
@@ -23,6 +27,6 @@ export function pricedLines(items: { code: string; name: string; unit: string | 
     if (seen.has(selection.code)) throw new Error("الصنف مكرر");
     seen.add(selection.code);
     if (!Number.isFinite(selection.quantity) || selection.quantity <= 0) throw new Error("أدخل كمية أكبر من صفر");
-    return { ...item, price: item.price, quantity: selection.quantity };
+    return { ...item, price: item.price, quantity: selection.quantity, specs: productSpecs(item.code, item.specs) };
   });
 }

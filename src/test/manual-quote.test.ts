@@ -1,7 +1,15 @@
 import { describe, it, expect } from "vitest";
-import { pricedLines, quoteTotal, quoteInput } from "../lib/manual-quote";
+import { pricedLines, quoteTotal, quoteInput, quoteMoney } from "../lib/manual-quote";
 
 describe("manual quotation calculations", () => {
+  it("uses an explicit exchange rate without changing dollar catalog prices", () => {
+    expect(quoteMoney(110, "YER", 500)).toBe("55,000 ر.ي");
+    expect(quoteMoney(110, "USD", 500)).toBe("$110.00");
+  });
+  it("includes recorded bot specifications and respects catalog overrides", () => {
+    expect(pricedLines([{ code: "PV_SUNTECH_720", name: "لوح 720", price: 130, unit: "حبة" }], [{ code: "PV_SUNTECH_720", quantity: 1 }])[0]?.specs).toContain("جهد نظام التيار المستمر: 1500 VDC.");
+    expect(pricedLines([{ code: "PV_SUNTECH_720", name: "لوح", price: 130, unit: "حبة", specs: ["مواصفة معتمدة", "PDF_URL=https://example.com"] }], [{ code: "PV_SUNTECH_720", quantity: 1 }])[0]?.specs).toEqual(["مواصفة معتمدة"]);
+  });
   const panel = { code: "PV_SUNTECH_595", name: "لوح", unit: "حبه", price: 110 };
   const items = [panel, { code: "INV_LIPOWER_6_2K", name: "إنفرتر", unit: "حبه", price: 380 }];
   it("multiplies actual catalog prices by selected quantities", () => {
