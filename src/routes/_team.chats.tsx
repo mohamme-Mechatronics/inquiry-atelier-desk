@@ -77,9 +77,6 @@ function Chats() {
       <div className={`flex min-h-0 min-w-0 flex-col border-e ${p ? "hidden md:flex" : "flex"}`}>
         <div className="space-y-3 border-b p-3">
           <div className="flex items-center justify-between">
-            <h1 className="font-sans text-base font-bold">صندوق المحادثات</h1>
-            <span className="text-xs tabular-nums text-muted-foreground">{shown.length} محادثة</span>
-          </div>
           <div className="relative">
             <Search className="absolute start-3 top-2.5 h-4 w-4 text-muted-foreground" />
             <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="بحث بالاسم أو الرقم"

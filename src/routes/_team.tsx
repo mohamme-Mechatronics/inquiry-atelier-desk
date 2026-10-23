@@ -30,7 +30,6 @@ const GROUPS: { title: string; items: NavItem[] }[] = [
       { to: "/", label: "الرئيسية", icon: LayoutGrid },
       { to: "/chats", label: "المحادثات", icon: MessageCircle, badge: "human" },
       { to: "/orders", label: "الطلبات", icon: ShoppingCart, badge: "orders" },
-      { to: "/customers", label: "العملاء", icon: Users },
       { to: "/quotes", label: "عروض الأسعار", icon: FileText },
       { to: "/tickets", label: "الدعم الفني", icon: Wrench, badge: "tickets" },
     ],
@@ -45,7 +44,7 @@ const GROUPS: { title: string; items: NavItem[] }[] = [
   },
 ];
 const ALL: NavItem[] = GROUPS.flatMap((g) => g.items);
-const BOTTOM = ["/", "/chats", "/orders", "/customers"] as const;
+const BOTTOM = ["/", "/chats", "/orders", "/tickets"] as const;
 
 function useBadges(enabled: boolean) {
   return useQuery({
