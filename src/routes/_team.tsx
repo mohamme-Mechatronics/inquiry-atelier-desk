@@ -18,7 +18,7 @@ export const Route = createFileRoute("/_team")({ component: AppLayout });
 
 type BadgeKey = "orders" | "tickets" | "human";
 type NavItem = {
-  to: "/" | "/stats" | "/chats" | "/orders" | "/customers" | "/quotes" | "/tickets" | "/catalog" | "/team";
+  to: "/" | "/stats" | "/chats" | "/orders" | "/customers" | "/quotes" | "/tickets" | "/catalog" | "/team" | "/notifications";
   label: string;
   icon: typeof LayoutGrid;
   badge?: BadgeKey;
@@ -37,6 +37,7 @@ const GROUPS: { title: string; items: NavItem[] }[] = [
   {
     title: "الإدارة",
     items: [
+      { to: "/notifications", label: "الإشعارات", icon: Bell },
       { to: "/stats", label: "الإحصائيات", icon: BarChart3 },
       { to: "/catalog", label: "الأصناف والأسعار", icon: Package },
       { to: "/team", label: "الإعدادات والربط", icon: Settings },
@@ -189,7 +190,7 @@ function AppLayout() {
             <div className="truncate text-sm font-bold md:text-base">{current?.label ?? "ملف العميل"}</div>
           </div>
           <span className="hidden text-xs text-muted-foreground lg:block">{today}</span>
-          <Link to="/" aria-label="الإشعارات" className="relative flex h-9 w-9 items-center justify-center rounded-full text-muted-foreground hover:bg-muted hover:text-foreground">
+          <Link to="/notifications" aria-label="الإشعارات" className="relative flex h-9 w-9 items-center justify-center rounded-full text-muted-foreground hover:bg-muted hover:text-foreground">
             <Bell className="h-5 w-5" />
             {total > 0 && <span className="absolute end-1.5 top-1.5 h-2.5 w-2.5 rounded-full border-2 border-card bg-destructive" />}
           </Link>
