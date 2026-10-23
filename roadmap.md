@@ -1,5 +1,5 @@
 # Roadmap
-- [ ] Import the bot's actual catalog products and prices without replacing existing edits; rename the phone catalog button to الأصناف and verify saved rows in the admin.
+- [x] Import 41 unique bot menu products at their effective prices without replacing existing edits; rename the phone button to الأصناف. Verified saved prices, search, edit dialog and PDF tabs signed in on phone/desktop; catalog regression tests pass.
 - [x] Match the video's compact catalog lists and add a direct sections button to phone bottom navigation; verified at phone and desktop sizes with saved PDF categories.
 - [x] Arrange catalog beside operations with grouped prices and PDF catalogs, search, and editing like the supplied reference.
 - [x] Add agricultural pump conversation, approved-package selection, quote editing, and existing payment handoff; deliver combined v46 with regression tests.
