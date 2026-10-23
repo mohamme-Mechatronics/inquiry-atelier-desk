@@ -127,7 +127,7 @@ function Orders() {
                 <div className="truncate text-sm font-bold">{o.name || o.phone}</div>
                 <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground"><ChannelBadge phone={o.phone} /> <span dir="ltr">{o.phone}</span></div>
               </div>
-              <Link to="/chats" search={{ p: o.phone } as never} className="rounded-full p-2 text-muted-foreground hover:bg-muted hover:text-foreground" aria-label="فتح المحادثة"><MessageCircle className="h-5 w-5" /></Link>
+              <Link to="/chats" search={{ p: o.phone }} className="rounded-full p-2 text-muted-foreground hover:bg-muted hover:text-foreground" aria-label="فتح المحادثة"><MessageCircle className="h-5 w-5" /></Link>
             </div>
             <div className="min-h-0 flex-1 space-y-3 overflow-y-auto p-3">
               <dl className="grid grid-cols-2 gap-2 text-sm">

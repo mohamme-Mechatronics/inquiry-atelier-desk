@@ -104,7 +104,7 @@ function Tickets() {
                 <div className="truncate text-sm font-bold">{t.name || t.phone}</div>
                 <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground"><ChannelBadge phone={t.phone} /> <span dir="ltr">{t.ticket_no}</span></div>
               </div>
-              <Link to="/chats" search={{ p: t.phone } as never} className="rounded-full p-2 text-muted-foreground hover:bg-muted hover:text-foreground" aria-label="فتح المحادثة"><MessageCircle className="h-5 w-5" /></Link>
+              <Link to="/chats" search={{ p: t.phone }} className="rounded-full p-2 text-muted-foreground hover:bg-muted hover:text-foreground" aria-label="فتح المحادثة"><MessageCircle className="h-5 w-5" /></Link>
             </div>
             <div className="min-h-0 flex-1 space-y-3 overflow-y-auto p-3 text-sm">
               {/طارئ/.test(t.issue_type ?? "") && <p className="flex items-center gap-1.5 rounded-lg bg-destructive/10 px-3 py-2 text-xs font-bold text-destructive"><AlertTriangle className="h-4 w-4" /> بلاغ طارئ</p>}
