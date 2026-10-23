@@ -166,6 +166,57 @@
       "درجة حرارة التشغيل: من -40 إلى 85 درجة مئوية.",
       "الشهادات المعتمدة: IEC61215 ، IEC61730 ، ISO9001 ، ISO14001 ، ISO45001.",
       "الضمان: ضمان العمر الافتراضي 30 سنة."
+    ],
+    "BOT_5D38A71D2D21": [
+      "قدرة اللوح: 720 وات بوجهين (Bi-facial).",
+      "فئة اللوح: فئة أ (Class A).",
+      "نوع الخلية والتقنية: N-TYPE TOPCON.",
+      "عدد البصبارات: 18 بزبار (18BB).",
+      "تحمل القوة الإيجابية: 0 ~ +5%.",
+      "جهد نظام التيار المستمر: 1500 VDC.",
+      "كفاءة اللوح الشمسي: 23.2%.",
+      "عامل الامتلاء (Fill Factor): 0.80.",
+      "هيكل الإطار: ألومنيوم مؤكسد يتحمل ضغطاً ميكانيكياً حتى 5400 باسكال.",
+      "درجة حرارة التشغيل: من -40 إلى 85 درجة مئوية.",
+      "الشهادات المعتمدة: IEC61215 ، IEC61730 ، ISO9001 ، ISO14001 ، ISO45001.",
+      "الضمان: ضمان العمر الافتراضي 30 سنة."
+    ],
+    "BOT_713E5142DAD6": [
+      "20 كيلو وات 48 فولت ثري فاز - هايبرد جهد منخفض",
+      "الموديل: SUN-20K-SG05LP3-EU-SM2",
+      "قدرة دخل الألواح 30000 واط ذروة | أقصى جهد دائرة مفتوحة 800 VDC | مدى MPPT 160~650 فولت",
+      "عدد MPPT: 2 | تيار دخل الألواح 36+20A | بطارية رصاص/ليثيوم 40~60 VDC | أقصى شحن 350A | الكفاءة 97.6% | IP65 | الضمان سنتان"
+    ],
+    "BOT_04517B2431CD": [
+      "الموديل: DC-1000V",
+      "DC MCB 2P 1000V 32AH",
+      "4 خط دخول 4 خط خروج"
+    ],
+    "BOT_D3DF77A1CC0E": [
+      "موديل: AC-MCB-2P-63AH",
+      "قاطع دخول عدد 1 | قاطع خروج عدد 1 (لكل إنفرتر)"
+    ],
+    "BOT_BD0DD379C272": [
+      "16 كيلو وات 51.2 فولت",
+      "الموديل: HeroEE 16",
+      "السعة 16076.8 Wh | 314 Ah | DOD 90%",
+      "الشحن/التفريغ الموصى به 100A | الحد الأقصى 200A",
+      "جهد الشحن/التفريغ 43.2~58.4V | 11000 دورة",
+      "110 kg | 520×240×781.2 mm | IP30"
+    ],
+    "BOT_F633246601FA": [
+      "1500 فولت مفرد 6 مم"
+    ],
+    "BOT_65D0A0568634": [
+      "فور 10 ملي"
+    ],
+    "BOT_46CAF0308F6F": [
+      "16 كيلو وات 51.2 فولت",
+      "الموديل: Fidus-FB-L-16-PRO"
+    ],
+    "BOT_8B39C09F9AB6": [
+      "موديل: AC-MCB-4P-100AH",
+      "قاطع دخول عدد 1 | قاطع خروج عدد 1 (لكل إنفرتر)"
     ]
   },
   "ready": [
@@ -910,6 +961,1263 @@
           "quantity": 30,
           "unit": "حبه",
           "price": 2.3
+        }
+      ]
+    },
+    {
+      "code": "p8",
+      "name": "منظومة تجاري — p8",
+      "branch": "تجاري",
+      "daily": 0,
+      "lines": [
+        {
+          "code": "BOT_5D38A71D2D21",
+          "name": "الواح طاقة شمسية سنتك 720 وات",
+          "quantity": 8,
+          "unit": "حبه",
+          "price": "130.00"
+        },
+        {
+          "code": "BOT_713E5142DAD6",
+          "name": "إنفرتر دايا هايبرد DEYE",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "1,080.00"
+        },
+        {
+          "code": "BOT_04517B2431CD",
+          "name": "صندوق حماية - تيار مستمر DC",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "80.00"
+        },
+        {
+          "code": "BOT_D3DF77A1CC0E",
+          "name": "لوحة حماية سنجل فاز",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "50.00"
+        },
+        {
+          "code": "BOT_BD0DD379C272",
+          "name": "بطارية ليثيوم هيثيوم HTHIUM",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "1,800.00"
+        },
+        {
+          "code": "BOT_F633246601FA",
+          "name": "كابل نحاس مجلفن",
+          "quantity": 1,
+          "unit": "متر",
+          "price": "3.50"
+        },
+        {
+          "code": "BOT_65D0A0568634",
+          "name": "كنشات توصيل MC4",
+          "quantity": 3,
+          "unit": "حبه",
+          "price": "2.00"
+        }
+      ]
+    },
+    {
+      "code": "p9",
+      "name": "منظومة تجاري — p9",
+      "branch": "تجاري",
+      "daily": 0,
+      "lines": [
+        {
+          "code": "BOT_5D38A71D2D21",
+          "name": "الواح طاقة شمسية سنتك 720 وات",
+          "quantity": 9,
+          "unit": "حبه",
+          "price": "130.00"
+        },
+        {
+          "code": "BOT_713E5142DAD6",
+          "name": "إنفرتر دايا هايبرد DEYE",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "1,080.00"
+        },
+        {
+          "code": "BOT_04517B2431CD",
+          "name": "صندوق حماية - تيار مستمر DC",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "80.00"
+        },
+        {
+          "code": "BOT_D3DF77A1CC0E",
+          "name": "لوحة حماية سنجل فاز",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "50.00"
+        },
+        {
+          "code": "BOT_46CAF0308F6F",
+          "name": "بطارية ليثيوم بايلونتك PYLONTECH",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "1,800.00"
+        },
+        {
+          "code": "BOT_F633246601FA",
+          "name": "كابل نحاس مجلفن",
+          "quantity": 30,
+          "unit": "متر",
+          "price": "2.30"
+        }
+      ]
+    },
+    {
+      "code": "p14",
+      "name": "منظومة تجاري — p14",
+      "branch": "تجاري",
+      "daily": 0,
+      "lines": [
+        {
+          "code": "BOT_5D38A71D2D21",
+          "name": "الواح طاقة شمسية سنتك 720 وات",
+          "quantity": 14,
+          "unit": "حبه",
+          "price": "130.00"
+        },
+        {
+          "code": "BOT_713E5142DAD6",
+          "name": "إنفرتر دايا هايبرد DEYE",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "1,080.00"
+        },
+        {
+          "code": "BOT_04517B2431CD",
+          "name": "صندوق حماية - تيار مستمر DC",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "80.00"
+        },
+        {
+          "code": "BOT_D3DF77A1CC0E",
+          "name": "لوحة حماية سنجل فاز",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "50.00"
+        },
+        {
+          "code": "BOT_46CAF0308F6F",
+          "name": "بطارية ليثيوم بايلونتك PYLONTECH",
+          "quantity": 2,
+          "unit": "حبه",
+          "price": "1,800.00"
+        },
+        {
+          "code": "BOT_F633246601FA",
+          "name": "كابل نحاس مجلفن",
+          "quantity": 30,
+          "unit": "متر",
+          "price": "2.30"
+        }
+      ]
+    },
+    {
+      "code": "p16",
+      "name": "منظومة تجاري — p16",
+      "branch": "تجاري",
+      "daily": 0,
+      "lines": [
+        {
+          "code": "BOT_5D38A71D2D21",
+          "name": "الواح طاقة شمسية سنتك 720 وات",
+          "quantity": 16,
+          "unit": "حبه",
+          "price": "130.00"
+        },
+        {
+          "code": "BOT_713E5142DAD6",
+          "name": "إنفرتر دايا هايبرد DEYE",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "1,080.00"
+        },
+        {
+          "code": "BOT_04517B2431CD",
+          "name": "صندوق حماية - تيار مستمر DC",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "80.00"
+        },
+        {
+          "code": "BOT_D3DF77A1CC0E",
+          "name": "لوحة حماية سنجل فاز",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "50.00"
+        },
+        {
+          "code": "BOT_46CAF0308F6F",
+          "name": "بطارية ليثيوم بايلونتك PYLONTECH",
+          "quantity": 2,
+          "unit": "حبه",
+          "price": "1,800.00"
+        },
+        {
+          "code": "BOT_F633246601FA",
+          "name": "كابل نحاس مجلفن",
+          "quantity": 30,
+          "unit": "متر",
+          "price": "2.30"
+        }
+      ]
+    },
+    {
+      "code": "p18",
+      "name": "منظومة تجاري — p18",
+      "branch": "تجاري",
+      "daily": 0,
+      "lines": [
+        {
+          "code": "BOT_5D38A71D2D21",
+          "name": "الواح طاقة شمسية سنتك 720 وات",
+          "quantity": 18,
+          "unit": "حبه",
+          "price": "130.00"
+        },
+        {
+          "code": "BOT_713E5142DAD6",
+          "name": "إنفرتر دايا هايبرد DEYE",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "1,080.00"
+        },
+        {
+          "code": "BOT_04517B2431CD",
+          "name": "صندوق حماية - تيار مستمر DC",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "80.00"
+        },
+        {
+          "code": "BOT_D3DF77A1CC0E",
+          "name": "لوحة حماية سنجل فاز",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "50.00"
+        },
+        {
+          "code": "BOT_46CAF0308F6F",
+          "name": "بطارية ليثيوم بايلونتك PYLONTECH",
+          "quantity": 2,
+          "unit": "حبه",
+          "price": "1,800.00"
+        },
+        {
+          "code": "BOT_F633246601FA",
+          "name": "كابل نحاس مجلفن",
+          "quantity": 30,
+          "unit": "متر",
+          "price": "2.30"
+        }
+      ]
+    },
+    {
+      "code": "i12p9",
+      "name": "منظومة تجاري — i12p9",
+      "branch": "تجاري",
+      "daily": 0,
+      "lines": [
+        {
+          "code": "BOT_5D38A71D2D21",
+          "name": "الواح طاقة شمسية سنتك 720 وات",
+          "quantity": 9,
+          "unit": "حبه",
+          "price": "130.00"
+        },
+        {
+          "code": "BOT_713E5142DAD6",
+          "name": "إنفرتر دايا هايبرد DEYE",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "1,600.00"
+        },
+        {
+          "code": "BOT_04517B2431CD",
+          "name": "صندوق حماية - تيار مستمر DC",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "80.00"
+        },
+        {
+          "code": "BOT_D3DF77A1CC0E",
+          "name": "لوحة حماية سنجل فاز",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "50.00"
+        },
+        {
+          "code": "BOT_46CAF0308F6F",
+          "name": "بطارية ليثيوم بايلونتك PYLONTECH",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "1,800.00"
+        },
+        {
+          "code": "BOT_F633246601FA",
+          "name": "كابل نحاس مجلفن",
+          "quantity": 30,
+          "unit": "متر",
+          "price": "2.30"
+        }
+      ]
+    },
+    {
+      "code": "i12p18",
+      "name": "منظومة تجاري — i12p18",
+      "branch": "تجاري",
+      "daily": 0,
+      "lines": [
+        {
+          "code": "BOT_5D38A71D2D21",
+          "name": "الواح طاقة شمسية سنتك 720 وات",
+          "quantity": 18,
+          "unit": "حبه",
+          "price": "130.00"
+        },
+        {
+          "code": "BOT_713E5142DAD6",
+          "name": "إنفرتر دايا هايبرد DEYE",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "1,600.00"
+        },
+        {
+          "code": "BOT_04517B2431CD",
+          "name": "صندوق حماية - تيار مستمر DC",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "80.00"
+        },
+        {
+          "code": "BOT_D3DF77A1CC0E",
+          "name": "لوحة حماية سنجل فاز",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "50.00"
+        },
+        {
+          "code": "BOT_46CAF0308F6F",
+          "name": "بطارية ليثيوم بايلونتك PYLONTECH",
+          "quantity": 2,
+          "unit": "حبه",
+          "price": "1,800.00"
+        },
+        {
+          "code": "BOT_F633246601FA",
+          "name": "كابل نحاس مجلفن",
+          "quantity": 30,
+          "unit": "متر",
+          "price": "2.30"
+        }
+      ]
+    },
+    {
+      "code": "i12p21",
+      "name": "منظومة تجاري — i12p21",
+      "branch": "تجاري",
+      "daily": 0,
+      "lines": [
+        {
+          "code": "BOT_5D38A71D2D21",
+          "name": "الواح طاقة شمسية سنتك 720 وات",
+          "quantity": 21,
+          "unit": "حبه",
+          "price": "130.00"
+        },
+        {
+          "code": "BOT_713E5142DAD6",
+          "name": "إنفرتر دايا هايبرد DEYE",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "1,600.00"
+        },
+        {
+          "code": "BOT_04517B2431CD",
+          "name": "صندوق حماية - تيار مستمر DC",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "45.00"
+        },
+        {
+          "code": "BOT_D3DF77A1CC0E",
+          "name": "لوحة حماية سنجل فاز",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "50.00"
+        },
+        {
+          "code": "BOT_46CAF0308F6F",
+          "name": "بطارية ليثيوم بايلونتك PYLONTECH",
+          "quantity": 2,
+          "unit": "حبه",
+          "price": "1,800.00"
+        },
+        {
+          "code": "BOT_F633246601FA",
+          "name": "كابل نحاس مجلفن",
+          "quantity": 30,
+          "unit": "متر",
+          "price": "2.30"
+        }
+      ]
+    },
+    {
+      "code": "i12p27",
+      "name": "منظومة تجاري — i12p27",
+      "branch": "تجاري",
+      "daily": 0,
+      "lines": [
+        {
+          "code": "BOT_5D38A71D2D21",
+          "name": "الواح طاقة شمسية سنتك 720 وات",
+          "quantity": 27,
+          "unit": "حبه",
+          "price": "130.00"
+        },
+        {
+          "code": "BOT_713E5142DAD6",
+          "name": "إنفرتر دايا هايبرد DEYE",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "1,600.00"
+        },
+        {
+          "code": "BOT_04517B2431CD",
+          "name": "صندوق حماية - تيار مستمر DC",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "45.00"
+        },
+        {
+          "code": "BOT_D3DF77A1CC0E",
+          "name": "لوحة حماية سنجل فاز",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "50.00"
+        },
+        {
+          "code": "BOT_46CAF0308F6F",
+          "name": "بطارية ليثيوم بايلونتك PYLONTECH",
+          "quantity": 3,
+          "unit": "حبه",
+          "price": "1,800.00"
+        },
+        {
+          "code": "BOT_F633246601FA",
+          "name": "كابل نحاس مجلفن",
+          "quantity": 30,
+          "unit": "متر",
+          "price": "2.30"
+        }
+      ]
+    },
+    {
+      "code": "i16p18",
+      "name": "منظومة تجاري — i16p18",
+      "branch": "تجاري",
+      "daily": 0,
+      "lines": [
+        {
+          "code": "BOT_713E5142DAD6",
+          "name": "إنفرتر دايا هايبرد DEYE",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "2,050.00"
+        },
+        {
+          "code": "BOT_5D38A71D2D21",
+          "name": "الواح طاقة شمسية سنتك 720 وات",
+          "quantity": 18,
+          "unit": "حبه",
+          "price": "130.00"
+        },
+        {
+          "code": "BOT_46CAF0308F6F",
+          "name": "بطارية ليثيوم بايلونتك PYLONTECH",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "1,800.00"
+        },
+        {
+          "code": "BOT_04517B2431CD",
+          "name": "صندوق حماية - تيار مستمر DC",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "80.00"
+        },
+        {
+          "code": "BOT_D3DF77A1CC0E",
+          "name": "لوحة حماية سنجل فاز",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "50.00"
+        },
+        {
+          "code": "BOT_F633246601FA",
+          "name": "كابل نحاس مجلفن",
+          "quantity": 30,
+          "unit": "متر",
+          "price": "2.30"
+        }
+      ]
+    },
+    {
+      "code": "i16p21",
+      "name": "منظومة تجاري — i16p21",
+      "branch": "تجاري",
+      "daily": 0,
+      "lines": [
+        {
+          "code": "BOT_713E5142DAD6",
+          "name": "إنفرتر دايا هايبرد DEYE",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "2,050.00"
+        },
+        {
+          "code": "BOT_5D38A71D2D21",
+          "name": "الواح طاقة شمسية سنتك 720 وات",
+          "quantity": 21,
+          "unit": "حبه",
+          "price": "130.00"
+        },
+        {
+          "code": "BOT_46CAF0308F6F",
+          "name": "بطارية ليثيوم بايلونتك PYLONTECH",
+          "quantity": 2,
+          "unit": "حبه",
+          "price": "1,800.00"
+        },
+        {
+          "code": "BOT_04517B2431CD",
+          "name": "صندوق حماية - تيار مستمر DC",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "45.00"
+        },
+        {
+          "code": "BOT_D3DF77A1CC0E",
+          "name": "لوحة حماية سنجل فاز",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "50.00"
+        },
+        {
+          "code": "BOT_F633246601FA",
+          "name": "كابل نحاس مجلفن",
+          "quantity": 30,
+          "unit": "متر",
+          "price": "2.30"
+        }
+      ]
+    },
+    {
+      "code": "i16p24",
+      "name": "منظومة تجاري — i16p24",
+      "branch": "تجاري",
+      "daily": 0,
+      "lines": [
+        {
+          "code": "BOT_713E5142DAD6",
+          "name": "إنفرتر دايا هايبرد DEYE",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "2,050.00"
+        },
+        {
+          "code": "BOT_5D38A71D2D21",
+          "name": "الواح طاقة شمسية سنتك 720 وات",
+          "quantity": 24,
+          "unit": "حبه",
+          "price": "130.00"
+        },
+        {
+          "code": "BOT_46CAF0308F6F",
+          "name": "بطارية ليثيوم بايلونتك PYLONTECH",
+          "quantity": 3,
+          "unit": "حبه",
+          "price": "1,800.00"
+        },
+        {
+          "code": "BOT_04517B2431CD",
+          "name": "صندوق حماية - تيار مستمر DC",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "45.00"
+        },
+        {
+          "code": "BOT_D3DF77A1CC0E",
+          "name": "لوحة حماية سنجل فاز",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "50.00"
+        },
+        {
+          "code": "BOT_F633246601FA",
+          "name": "كابل نحاس مجلفن",
+          "quantity": 30,
+          "unit": "متر",
+          "price": "2.30"
+        }
+      ]
+    },
+    {
+      "code": "i16p36",
+      "name": "منظومة تجاري — i16p36",
+      "branch": "تجاري",
+      "daily": 0,
+      "lines": [
+        {
+          "code": "BOT_713E5142DAD6",
+          "name": "إنفرتر دايا هايبرد DEYE",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "2,050.00"
+        },
+        {
+          "code": "BOT_5D38A71D2D21",
+          "name": "الواح طاقة شمسية سنتك 720 وات",
+          "quantity": 36,
+          "unit": "حبه",
+          "price": "130.00"
+        },
+        {
+          "code": "BOT_46CAF0308F6F",
+          "name": "بطارية ليثيوم بايلونتك PYLONTECH",
+          "quantity": 3,
+          "unit": "حبه",
+          "price": "1,800.00"
+        },
+        {
+          "code": "BOT_04517B2431CD",
+          "name": "صندوق حماية - تيار مستمر DC",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "45.00"
+        },
+        {
+          "code": "BOT_D3DF77A1CC0E",
+          "name": "لوحة حماية سنجل فاز",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "50.00"
+        },
+        {
+          "code": "BOT_F633246601FA",
+          "name": "كابل نحاس مجلفن",
+          "quantity": 30,
+          "unit": "متر",
+          "price": "2.30"
+        }
+      ]
+    },
+    {
+      "code": "i12t9",
+      "name": "منظومة تجاري — i12t9",
+      "branch": "تجاري",
+      "daily": 0,
+      "lines": [
+        {
+          "code": "BOT_713E5142DAD6",
+          "name": "إنفرتر دايا هايبرد DEYE",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "1,600.00"
+        },
+        {
+          "code": "BOT_5D38A71D2D21",
+          "name": "الواح طاقة شمسية سنتك 720 وات",
+          "quantity": 9,
+          "unit": "حبه",
+          "price": "130.00"
+        },
+        {
+          "code": "BOT_46CAF0308F6F",
+          "name": "بطارية ليثيوم بايلونتك PYLONTECH",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "1,800.00"
+        },
+        {
+          "code": "BOT_8B39C09F9AB6",
+          "name": "لوحة حماية ثري فاز",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "50.00"
+        },
+        {
+          "code": "BOT_04517B2431CD",
+          "name": "صندوق حماية - تيار مستمر DC",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "80.00"
+        },
+        {
+          "code": "BOT_F633246601FA",
+          "name": "كابل نحاس مجلفن",
+          "quantity": 30,
+          "unit": "متر",
+          "price": "2.30"
+        }
+      ]
+    },
+    {
+      "code": "i12t18",
+      "name": "منظومة تجاري — i12t18",
+      "branch": "تجاري",
+      "daily": 0,
+      "lines": [
+        {
+          "code": "BOT_713E5142DAD6",
+          "name": "إنفرتر دايا هايبرد DEYE",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "1,600.00"
+        },
+        {
+          "code": "BOT_5D38A71D2D21",
+          "name": "الواح طاقة شمسية سنتك 720 وات",
+          "quantity": 18,
+          "unit": "حبه",
+          "price": "130.00"
+        },
+        {
+          "code": "BOT_46CAF0308F6F",
+          "name": "بطارية ليثيوم بايلونتك PYLONTECH",
+          "quantity": 2,
+          "unit": "حبه",
+          "price": "1,800.00"
+        },
+        {
+          "code": "BOT_8B39C09F9AB6",
+          "name": "لوحة حماية ثري فاز",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "50.00"
+        },
+        {
+          "code": "BOT_04517B2431CD",
+          "name": "صندوق حماية - تيار مستمر DC",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "80.00"
+        },
+        {
+          "code": "BOT_F633246601FA",
+          "name": "كابل نحاس مجلفن",
+          "quantity": 30,
+          "unit": "متر",
+          "price": "2.30"
+        }
+      ]
+    },
+    {
+      "code": "i12t21",
+      "name": "منظومة تجاري — i12t21",
+      "branch": "تجاري",
+      "daily": 0,
+      "lines": [
+        {
+          "code": "BOT_713E5142DAD6",
+          "name": "إنفرتر دايا هايبرد DEYE",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "1,600.00"
+        },
+        {
+          "code": "BOT_5D38A71D2D21",
+          "name": "الواح طاقة شمسية سنتك 720 وات",
+          "quantity": 21,
+          "unit": "حبه",
+          "price": "130.00"
+        },
+        {
+          "code": "BOT_46CAF0308F6F",
+          "name": "بطارية ليثيوم بايلونتك PYLONTECH",
+          "quantity": 2,
+          "unit": "حبه",
+          "price": "1,800.00"
+        },
+        {
+          "code": "BOT_8B39C09F9AB6",
+          "name": "لوحة حماية ثري فاز",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "50.00"
+        },
+        {
+          "code": "BOT_04517B2431CD",
+          "name": "صندوق حماية - تيار مستمر DC",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "45.00"
+        },
+        {
+          "code": "BOT_F633246601FA",
+          "name": "كابل نحاس مجلفن",
+          "quantity": 90,
+          "unit": "متر",
+          "price": "2.30"
+        }
+      ]
+    },
+    {
+      "code": "i12t27",
+      "name": "منظومة تجاري — i12t27",
+      "branch": "تجاري",
+      "daily": 0,
+      "lines": [
+        {
+          "code": "BOT_713E5142DAD6",
+          "name": "إنفرتر دايا هايبرد DEYE",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "1,600.00"
+        },
+        {
+          "code": "BOT_5D38A71D2D21",
+          "name": "الواح طاقة شمسية سنتك 720 وات",
+          "quantity": 27,
+          "unit": "حبه",
+          "price": "130.00"
+        },
+        {
+          "code": "BOT_46CAF0308F6F",
+          "name": "بطارية ليثيوم بايلونتك PYLONTECH",
+          "quantity": 3,
+          "unit": "حبه",
+          "price": "1,800.00"
+        },
+        {
+          "code": "BOT_8B39C09F9AB6",
+          "name": "لوحة حماية ثري فاز",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "50.00"
+        },
+        {
+          "code": "BOT_04517B2431CD",
+          "name": "صندوق حماية - تيار مستمر DC",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "45.00"
+        },
+        {
+          "code": "BOT_F633246601FA",
+          "name": "كابل نحاس مجلفن",
+          "quantity": 90,
+          "unit": "متر",
+          "price": "2.30"
+        }
+      ]
+    },
+    {
+      "code": "i16t26",
+      "name": "منظومة تجاري — i16t26",
+      "branch": "تجاري",
+      "daily": 0,
+      "lines": [
+        {
+          "code": "BOT_713E5142DAD6",
+          "name": "إنفرتر دايا هايبرد DEYE",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "2,050.00"
+        },
+        {
+          "code": "BOT_5D38A71D2D21",
+          "name": "الواح طاقة شمسية سنتك 720 وات",
+          "quantity": 26,
+          "unit": "حبه",
+          "price": "130.00"
+        },
+        {
+          "code": "BOT_46CAF0308F6F",
+          "name": "بطارية ليثيوم بايلونتك PYLONTECH",
+          "quantity": 3,
+          "unit": "حبه",
+          "price": "1,800.00"
+        },
+        {
+          "code": "BOT_04517B2431CD",
+          "name": "صندوق حماية - تيار مستمر DC",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "45.00"
+        },
+        {
+          "code": "BOT_8B39C09F9AB6",
+          "name": "لوحة حماية ثري فاز",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "50.00"
+        },
+        {
+          "code": "BOT_F633246601FA",
+          "name": "كابل نحاس مجلفن",
+          "quantity": 90,
+          "unit": "متر",
+          "price": "2.30"
+        }
+      ]
+    },
+    {
+      "code": "i16t30",
+      "name": "منظومة تجاري — i16t30",
+      "branch": "تجاري",
+      "daily": 0,
+      "lines": [
+        {
+          "code": "BOT_713E5142DAD6",
+          "name": "إنفرتر دايا هايبرد DEYE",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "2,050.00"
+        },
+        {
+          "code": "BOT_5D38A71D2D21",
+          "name": "الواح طاقة شمسية سنتك 720 وات",
+          "quantity": 30,
+          "unit": "حبه",
+          "price": "130.00"
+        },
+        {
+          "code": "BOT_46CAF0308F6F",
+          "name": "بطارية ليثيوم بايلونتك PYLONTECH",
+          "quantity": 3,
+          "unit": "حبه",
+          "price": "1,800.00"
+        },
+        {
+          "code": "BOT_04517B2431CD",
+          "name": "صندوق حماية - تيار مستمر DC",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "45.00"
+        },
+        {
+          "code": "BOT_8B39C09F9AB6",
+          "name": "لوحة حماية ثري فاز",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "50.00"
+        },
+        {
+          "code": "BOT_F633246601FA",
+          "name": "كابل نحاس مجلفن",
+          "quantity": 90,
+          "unit": "متر",
+          "price": "2.30"
+        }
+      ]
+    },
+    {
+      "code": "i16t33",
+      "name": "منظومة تجاري — i16t33",
+      "branch": "تجاري",
+      "daily": 0,
+      "lines": [
+        {
+          "code": "BOT_713E5142DAD6",
+          "name": "إنفرتر دايا هايبرد DEYE",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "2,050.00"
+        },
+        {
+          "code": "BOT_5D38A71D2D21",
+          "name": "الواح طاقة شمسية سنتك 720 وات",
+          "quantity": 33,
+          "unit": "حبه",
+          "price": "130.00"
+        },
+        {
+          "code": "BOT_46CAF0308F6F",
+          "name": "بطارية ليثيوم بايلونتك PYLONTECH",
+          "quantity": 3,
+          "unit": "حبه",
+          "price": "1,800.00"
+        },
+        {
+          "code": "BOT_04517B2431CD",
+          "name": "صندوق حماية - تيار مستمر DC",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "45.00"
+        },
+        {
+          "code": "BOT_8B39C09F9AB6",
+          "name": "لوحة حماية ثري فاز",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "50.00"
+        },
+        {
+          "code": "BOT_F633246601FA",
+          "name": "كابل نحاس مجلفن",
+          "quantity": 90,
+          "unit": "متر",
+          "price": "2.30"
+        }
+      ]
+    },
+    {
+      "code": "i16t36",
+      "name": "منظومة تجاري — i16t36",
+      "branch": "تجاري",
+      "daily": 0,
+      "lines": [
+        {
+          "code": "BOT_713E5142DAD6",
+          "name": "إنفرتر دايا هايبرد DEYE",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "2,050.00"
+        },
+        {
+          "code": "BOT_5D38A71D2D21",
+          "name": "الواح طاقة شمسية سنتك 720 وات",
+          "quantity": 36,
+          "unit": "حبه",
+          "price": "130.00"
+        },
+        {
+          "code": "BOT_46CAF0308F6F",
+          "name": "بطارية ليثيوم بايلونتك PYLONTECH",
+          "quantity": 3,
+          "unit": "حبه",
+          "price": "1,800.00"
+        },
+        {
+          "code": "BOT_04517B2431CD",
+          "name": "صندوق حماية - تيار مستمر DC",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "45.00"
+        },
+        {
+          "code": "BOT_8B39C09F9AB6",
+          "name": "لوحة حماية ثري فاز",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "50.00"
+        },
+        {
+          "code": "BOT_F633246601FA",
+          "name": "كابل نحاس مجلفن",
+          "quantity": 90,
+          "unit": "متر",
+          "price": "2.30"
+        }
+      ]
+    },
+    {
+      "code": "i20t30",
+      "name": "منظومة تجاري — i20t30",
+      "branch": "تجاري",
+      "daily": 0,
+      "lines": [
+        {
+          "code": "BOT_713E5142DAD6",
+          "name": "إنفرتر دايا هايبرد DEYE",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "2,550.00"
+        },
+        {
+          "code": "BOT_5D38A71D2D21",
+          "name": "الواح طاقة شمسية سنتك 720 وات",
+          "quantity": 30,
+          "unit": "حبه",
+          "price": "130.00"
+        },
+        {
+          "code": "BOT_46CAF0308F6F",
+          "name": "بطارية ليثيوم بايلونتك PYLONTECH",
+          "quantity": 3,
+          "unit": "حبه",
+          "price": "1,800.00"
+        },
+        {
+          "code": "BOT_04517B2431CD",
+          "name": "صندوق حماية - تيار مستمر DC",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "45.00"
+        },
+        {
+          "code": "BOT_8B39C09F9AB6",
+          "name": "لوحة حماية ثري فاز",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "150.00"
+        },
+        {
+          "code": "BOT_F633246601FA",
+          "name": "كابل نحاس مجلفن",
+          "quantity": 90,
+          "unit": "متر",
+          "price": "2.30"
+        }
+      ]
+    },
+    {
+      "code": "i20t33",
+      "name": "منظومة تجاري — i20t33",
+      "branch": "تجاري",
+      "daily": 0,
+      "lines": [
+        {
+          "code": "BOT_713E5142DAD6",
+          "name": "إنفرتر دايا هايبرد DEYE",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "2,550.00"
+        },
+        {
+          "code": "BOT_5D38A71D2D21",
+          "name": "الواح طاقة شمسية سنتك 720 وات",
+          "quantity": 33,
+          "unit": "حبه",
+          "price": "130.00"
+        },
+        {
+          "code": "BOT_46CAF0308F6F",
+          "name": "بطارية ليثيوم بايلونتك PYLONTECH",
+          "quantity": 3,
+          "unit": "حبه",
+          "price": "1,800.00"
+        },
+        {
+          "code": "BOT_04517B2431CD",
+          "name": "صندوق حماية - تيار مستمر DC",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "45.00"
+        },
+        {
+          "code": "BOT_8B39C09F9AB6",
+          "name": "لوحة حماية ثري فاز",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "150.00"
+        },
+        {
+          "code": "BOT_F633246601FA",
+          "name": "كابل نحاس مجلفن",
+          "quantity": 90,
+          "unit": "متر",
+          "price": "2.30"
+        }
+      ]
+    },
+    {
+      "code": "i20t39",
+      "name": "منظومة تجاري — i20t39",
+      "branch": "تجاري",
+      "daily": 0,
+      "lines": [
+        {
+          "code": "BOT_713E5142DAD6",
+          "name": "إنفرتر دايا هايبرد DEYE",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "2,550.00"
+        },
+        {
+          "code": "BOT_5D38A71D2D21",
+          "name": "الواح طاقة شمسية سنتك 720 وات",
+          "quantity": 39,
+          "unit": "حبه",
+          "price": "130.00"
+        },
+        {
+          "code": "BOT_46CAF0308F6F",
+          "name": "بطارية ليثيوم بايلونتك PYLONTECH",
+          "quantity": 4,
+          "unit": "حبه",
+          "price": "1,800.00"
+        },
+        {
+          "code": "BOT_04517B2431CD",
+          "name": "صندوق حماية - تيار مستمر DC",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "45.00"
+        },
+        {
+          "code": "BOT_8B39C09F9AB6",
+          "name": "لوحة حماية ثري فاز",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "150.00"
+        },
+        {
+          "code": "BOT_F633246601FA",
+          "name": "كابل نحاس مجلفن",
+          "quantity": 90,
+          "unit": "متر",
+          "price": "2.30"
+        }
+      ]
+    },
+    {
+      "code": "i20t52",
+      "name": "منظومة تجاري — i20t52",
+      "branch": "تجاري",
+      "daily": 0,
+      "lines": [
+        {
+          "code": "BOT_713E5142DAD6",
+          "name": "إنفرتر دايا هايبرد DEYE",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "2,550.00"
+        },
+        {
+          "code": "BOT_5D38A71D2D21",
+          "name": "الواح طاقة شمسية سنتك 720 وات",
+          "quantity": 52,
+          "unit": "حبه",
+          "price": "130.00"
+        },
+        {
+          "code": "BOT_46CAF0308F6F",
+          "name": "بطارية ليثيوم بايلونتك PYLONTECH",
+          "quantity": 4,
+          "unit": "حبه",
+          "price": "1,800.00"
+        },
+        {
+          "code": "BOT_04517B2431CD",
+          "name": "صندوق حماية - تيار مستمر DC",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "45.00"
+        },
+        {
+          "code": "BOT_04517B2431CD",
+          "name": "صندوق حماية - تيار مستمر DC",
+          "quantity": 1,
+          "unit": "حبه",
+          "price": "120.00"
+        },
+        {
+          "code": "BOT_F633246601FA",
+          "name": "كابل نحاس مجلفن",
+          "quantity": 120,
+          "unit": "متر",
+          "price": "2.30"
         }
       ]
     }
