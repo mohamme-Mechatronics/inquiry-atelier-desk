@@ -1,4 +1,5 @@
 # Roadmap
+- [ ] Add a compact manual quotation section matching the supplied videos: catalog selection, quantities, customer, totals, PDF preview/download and customer-channel sending.
 - [x] Import 41 unique bot menu products at their effective prices without replacing existing edits; rename the phone button to الأصناف. Verified saved prices, search, edit dialog and PDF tabs signed in on phone/desktop; catalog regression tests pass.
 - [x] Match the video's compact catalog lists and add a direct sections button to phone bottom navigation; verified at phone and desktop sizes with saved PDF categories.
 - [x] Arrange catalog beside operations with grouped prices and PDF catalogs, search, and editing like the supplied reference.
