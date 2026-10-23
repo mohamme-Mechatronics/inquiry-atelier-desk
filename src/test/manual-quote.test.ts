@@ -36,3 +36,20 @@ describe("manual quotation calculations", () => {
     expect(quoteInput.safeParse({ id: "c4bdcf04-a635-4b38-b373-f46d30a4c311", phone: "967777687107", name: "عميل", city: "", branch: "زراعي / غطاسات", notes: "", lines: [{ code: "PV_SUNTECH_595", quantity: 1 }] }).success).toBe(false);
   });
 });
+import { pickResidential, pickCommercial } from "../lib/quote-catalog";
+describe("bot ready-system matching", () => {
+  it("residential bill 15000 YER (2 kWh/day) picks the nearest bot range", () => {
+    const pick = pickResidential(15000);
+    expect(Array.isArray(pick) && pick.map((r) => r.code)).toEqual(["r2", "r3"]);
+  });
+  it("residential bills above the largest system move to commercial", () => {
+    expect(pickResidential(900000)).toBe("commercial");
+  });
+  it("commercial monthly 900 kWh picks the smallest system covering 30 kWh/day", () => {
+    expect(pickCommercial("kwh", 900)?.code).toBe("p8");
+  });
+  it("custom lines keep their entered price while catalog lines use catalog prices", () => {
+    const out = pricedLines([], [{ code: "custom:a", quantity: 2, custom: { name: "خدمة", unit: "حبه", price: 60, specs: [] } }]);
+    expect(quoteTotal(out)).toBe(120);
+  });
+});

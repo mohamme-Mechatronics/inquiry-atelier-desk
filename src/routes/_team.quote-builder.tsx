@@ -166,7 +166,7 @@ function QuoteBuilder() {
         </div>}
       </div>}
 
-      <div className="flex justify-end"><button type="button" onClick={() => setReadyOpen((o) => !o)} className="flex h-11 items-center gap-2 rounded-full bg-muted px-5 text-[15px] font-bold"><History className="h-5 w-5" />العروض الجاهزة ({readyQuotes.length + commercialQuotes.length})</button></div>
+      <div className="flex justify-start"><button type="button" onClick={() => setReadyOpen((o) => !o)} className="flex h-11 items-center gap-2 rounded-full bg-muted px-5 text-[15px] font-bold"><History className="h-5 w-5" />العروض الجاهزة ({readyQuotes.length + commercialQuotes.length})</button></div>
 
       {readyOpen && <div className="rounded-2xl border bg-muted/30 p-2">
         <div className="mb-2 grid grid-cols-2 gap-2">{(["سكني", "تجاري"] as const).map((t) => <button key={t} type="button" onClick={() => setReadyTab(t)} className={`h-11 rounded-xl border text-[16px] font-bold ${readyTab === t ? "border-primary bg-primary text-primary-foreground" : "bg-card"}`}>{t === "سكني" ? "منظومات سكنية" : "منظومات تجارية"}</button>)}</div>
@@ -214,7 +214,7 @@ function QuoteBuilder() {
             <button type="button" className="shrink-0 text-destructive" aria-label={`إزالة ${line.name}`} disabled={busy} onClick={() => remove(line.code)}><Trash2 className="h-5 w-5" /></button>
           </li>)}</ul>}
           <Input aria-label="ملاحظات عرض السعر" placeholder="ملاحظات على العرض (اختياري)" className="h-11 rounded-xl text-[14px]" value={notes} disabled={busy} onChange={(e) => { setNotes(e.target.value); change(); }} />
-          <div className="flex items-center justify-between rounded-xl bg-foreground px-4 py-3 text-background"><span className="text-[15px] font-semibold">الإجمالي</span><b dir="ltr" className="text-[20px] tabular-nums text-primary-glow">{formatMoney(total)}</b></div>
+          <div className="flex items-center justify-between rounded-xl bg-foreground px-4 py-3 text-background"><span className="text-[15px] font-semibold">الإجمالي</span><b dir="ltr" className="text-[20px] tabular-nums text-accent">{formatMoney(total)}</b></div>
           <div className="grid grid-cols-2 gap-2">
             <button type="button" className="flex h-11 items-center justify-center gap-2 rounded-xl bg-primary text-[15px] font-bold text-primary-foreground disabled:opacity-50" disabled={busy || !lines.length} onClick={() => result ? setPreview(true) : make()}><Printer className="h-5 w-5" />{busy ? "جارٍ الإنشاء…" : result ? "عرض PDF" : "إنشاء عرض السعر"}</button>
             <button type="button" className="flex h-11 items-center justify-center gap-2 rounded-xl bg-foreground text-[15px] font-bold text-background disabled:opacity-50" disabled={sending} onClick={share}><Share2 className="h-5 w-5" />{sending ? "جارٍ الإرسال…" : "مشاركة مع عميل"}</button>
