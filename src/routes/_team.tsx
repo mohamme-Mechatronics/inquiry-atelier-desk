@@ -45,7 +45,7 @@ const GROUPS: { title: string; items: NavItem[] }[] = [
   },
 ];
 const ALL: NavItem[] = GROUPS.flatMap((g) => g.items);
-const BOTTOM = ["/", "/chats", "/orders", "/tickets"] as const;
+const BOTTOM = ["/", "/chats", "/orders", "/tickets", "/catalog"] as const;
 
 function useBadges(enabled: boolean) {
   return useQuery({
@@ -204,22 +204,23 @@ function AppLayout() {
       </div>
 
       {/* Mobile bottom navigation */}
-      <nav className="fixed inset-x-0 bottom-0 z-30 grid grid-cols-5 border-t bg-card/95 pb-[env(safe-area-inset-bottom)] backdrop-blur md:hidden">
+      <nav aria-label="الأقسام الرئيسية" className="fixed inset-x-0 bottom-0 z-30 grid grid-cols-6 border-t bg-card/95 pb-[env(safe-area-inset-bottom)] backdrop-blur md:hidden">
         {BOTTOM.map((to) => {
-          const n = ALL.find((x) => x.to === to)!;
+          const n = ALL.find((x) => x.to === to);
+          if (!n) return null;
           return (
             <Link key={to} to={to} activeOptions={{ exact: to === "/" }}
               className="relative flex flex-col items-center gap-0.5 py-2 text-[10px] text-muted-foreground"
               activeProps={{ className: "!text-primary font-bold" }}>
               <n.icon className="h-5 w-5" />
-              {n.label}
+              {to === "/catalog" ? "الأقسام" : n.label}
               {n.badge && <Count n={badges.data?.[n.badge]} className="absolute top-1 start-1/2 ms-2" />}
             </Link>
           );
         })}
-        <button onClick={() => setMore(true)} className="flex flex-col items-center gap-0.5 py-2 text-[10px] text-muted-foreground">
+        <Button variant="ghost" onClick={() => setMore(true)} className="h-auto flex-col gap-0.5 rounded-none px-0 py-2 text-[10px] font-normal text-muted-foreground">
           <Menu className="h-5 w-5" /> المزيد
-        </button>
+        </Button>
       </nav>
 
       <Sheet open={more} onOpenChange={setMore}>
