@@ -36,5 +36,5 @@ export const generateManualQuote = createServerFn({ method: "POST" })
     if (saveError) throw new Error("تعذر حفظ العرض في الطلبات");
     const { data: signed, error: signError } = await context.supabase.storage.from("chat-files").createSignedUrl(path, 3600);
     if (signError || !signed) throw new Error("تعذر فتح PDF");
-    return { url: signed.signedUrl, path, invoice, total, name: `${invoice}.pdf` };
+    return { url: signed.signedUrl, path, invoice, total, name: `${invoice}.pdf`, html };
   });

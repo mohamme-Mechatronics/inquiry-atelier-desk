@@ -50,7 +50,7 @@ function QuoteBuilder() {
   const [busy, setBusy] = useState(false);
   const [sending, setSending] = useState(false);
   const [preview, setPreview] = useState(false);
-  const [result, setResult] = useState<{ url: string; path: string; invoice: string; total: number; name: string } | null>(null);
+  const [result, setResult] = useState<{ url: string; path: string; invoice: string; total: number; name: string; html: string } | null>(null);
   const lines: QuoteLine[] = items.filter((item) => selected[item.code] != null && item.price != null).map((item) => ({ ...item, price: item.price ?? 0, quantity: selected[item.code] ?? 1 }));
   const total = quoteTotal(lines);
   const groups = Array.from(new Set(items.map((item) => catalogGroup(item.code, item.name))));
@@ -109,6 +109,6 @@ function QuoteBuilder() {
         {result && <Button variant="ghost" className="h-8 w-full gap-2 text-xs" onClick={download}><Download className="h-4 w-4" />{result.invoice} — تحميل PDF</Button>}
       </div>
     </div>
-    <Dialog open={preview} onOpenChange={setPreview}><DialogContent dir="rtl" className="flex h-[90dvh] max-w-4xl flex-col gap-2 p-3"><DialogTitle className="pe-8 text-sm">عرض سعر {result?.invoice}</DialogTitle><DialogDescription className="sr-only">معاينة عرض السعر الرسمي</DialogDescription>{result && <><iframe src={result.url} title="معاينة عرض السعر PDF" className="min-h-0 w-full flex-1 rounded-md border" /><div className="flex flex-wrap justify-end gap-2"><Button size="sm" variant="outline" onClick={download}><Download className="h-4 w-4" />تحميل PDF</Button><Button size="sm" variant="outline" onClick={() => window.open(result.url, "_blank", "noopener,noreferrer")}><Printer className="h-4 w-4" />فتح للطباعة</Button><Button size="sm" disabled={sending} onClick={share}><Send className="h-4 w-4" />إرسال</Button></div></>}</DialogContent></Dialog>
+    <Dialog open={preview} onOpenChange={setPreview}><DialogContent dir="rtl" className="flex h-[90dvh] max-w-4xl flex-col gap-2 p-3"><DialogTitle className="pe-8 text-sm">عرض سعر {result?.invoice}</DialogTitle><DialogDescription className="sr-only">معاينة عرض السعر الرسمي</DialogDescription>{result && <><iframe srcDoc={result.html} sandbox="" title="معاينة عرض السعر PDF" className="min-h-0 w-full flex-1 rounded-md border bg-card" /><div className="flex flex-wrap justify-end gap-2"><Button size="sm" variant="outline" onClick={download}><Download className="h-4 w-4" />تحميل PDF</Button><Button size="sm" variant="outline" onClick={() => window.open(result.url, "_blank", "noopener,noreferrer")}><Printer className="h-4 w-4" />فتح للطباعة</Button><Button size="sm" disabled={sending} onClick={share}><Send className="h-4 w-4" />إرسال</Button></div></>}</DialogContent></Dialog>
   </div>;
 }

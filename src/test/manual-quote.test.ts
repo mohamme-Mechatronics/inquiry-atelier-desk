@@ -24,4 +24,7 @@ describe("manual quotation calculations", () => {
   it("requires customer and selected products", () => {
     expect(quoteInput.safeParse({ id: "c4bdcf04-a635-4b38-b373-f46d30a4c311", phone: "", name: "", city: "", branch: "سكني", notes: "", lines: [] }).success).toBe(false);
   });
+  it("does not issue unapproved manual agricultural quotations", () => {
+    expect(quoteInput.safeParse({ id: "c4bdcf04-a635-4b38-b373-f46d30a4c311", phone: "967777687107", name: "عميل", city: "", branch: "زراعي / غطاسات", notes: "", lines: [{ code: "PV_SUNTECH_595", quantity: 1 }] }).success).toBe(false);
+  });
 });

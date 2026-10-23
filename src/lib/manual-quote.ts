@@ -8,7 +8,7 @@ export const quoteInput = z.object({
   branch: z.enum(["سكني", "تجاري", "زراعي / غطاسات"]),
   notes: z.string().trim().max(2000),
   lines: z.array(z.object({ code: z.string().min(1).max(100), quantity: z.number().finite().positive().max(100000) })).min(1).max(100),
-});
+}).refine((data) => data.branch !== "زراعي / غطاسات", { message: "عروض الغطاسات تتطلب حزمة معتمدة من المهندس" });
 export type QuoteInput = z.infer<typeof quoteInput>;
 export type QuoteLine = { code: string; name: string; unit: string | null; price: number; quantity: number };
 export const money = (n: number) => `$${n.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}`;
