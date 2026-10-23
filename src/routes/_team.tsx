@@ -2,7 +2,7 @@ import { createFileRoute, Link, Outlet, useLocation, useNavigate } from "@tansta
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import {
-  LayoutGrid, BarChart3, MessageCircle, ShoppingCart, Users, FileText, Wrench, Package, Settings, LogOut, Bell, Menu, ChevronLeft,
+  LayoutGrid, BarChart3, MessageCircle, ShoppingCart, Users, FileText, FilePlus2, Wrench, Package, Settings, LogOut, Bell, Menu, ChevronLeft,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
@@ -18,7 +18,7 @@ export const Route = createFileRoute("/_team")({ component: AppLayout });
 
 type BadgeKey = "orders" | "tickets" | "human";
 type NavItem = {
-  to: "/" | "/stats" | "/chats" | "/orders" | "/customers" | "/quotes" | "/tickets" | "/catalog" | "/team" | "/notifications";
+  to: "/" | "/stats" | "/chats" | "/orders" | "/customers" | "/quotes" | "/quote-builder" | "/tickets" | "/catalog" | "/team" | "/notifications";
   label: string;
   icon: typeof LayoutGrid;
   badge?: BadgeKey;
@@ -31,6 +31,7 @@ const GROUPS: { title: string; items: NavItem[] }[] = [
       { to: "/chats", label: "المحادثات", icon: MessageCircle, badge: "human" },
       { to: "/orders", label: "الطلبات", icon: ShoppingCart, badge: "orders" },
       { to: "/quotes", label: "عروض الأسعار", icon: FileText },
+      { to: "/quote-builder", label: "إنشاء عرض سعر", icon: FilePlus2 },
       { to: "/tickets", label: "الدعم الفني", icon: Wrench, badge: "tickets" },
       { to: "/catalog", label: "الأصناف", icon: Package },
     ],
