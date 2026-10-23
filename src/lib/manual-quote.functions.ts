@@ -12,7 +12,7 @@ export const generateManualQuote = createServerFn({ method: "POST" })
     if (data.branch === "زراعي / غطاسات") throw new Error("عروض الغطاسات تتطلب حزمة معتمدة من المهندس عبر مسار البوت");
     const { data: customer, error: customerError } = await context.supabase.from("customers").select("phone").eq("phone", data.phone).single();
     if (customerError || !customer) throw new Error("اختر عميلاً مسجلاً");
-    const { data: catalog, error } = await context.supabase.from("catalog_items").select("code,name,unit,price,specs").in("code", data.lines.map((line) => line.code));
+    const { data: catalog, error } = await context.supabase.from("catalog_items").select("code,name,unit,price,specs").in("code", data.lines.filter((line) => !line.code.startsWith("custom:")).map((line) => line.code).concat("__none__"));
     if (error || !catalog) throw new Error("تعذر تحميل الأسعار");
     const lines = pricedLines(catalog, data.lines);
     const total = quoteTotal(lines);
