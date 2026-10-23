@@ -1,5 +1,5 @@
 # Roadmap
-- [ ] Match the video's compact catalog lists and add a direct sections button to phone bottom navigation; verify on phone.
+- [x] Match the video's compact catalog lists and add a direct sections button to phone bottom navigation; verified at phone and desktop sizes with saved PDF categories.
 - [x] Arrange catalog beside operations with grouped prices and PDF catalogs, search, and editing like the supplied reference.
 - [x] Add agricultural pump conversation, approved-package selection, quote editing, and existing payment handoff; deliver combined v46 with regression tests.
 - [ ] Activate real agricultural quotations (blocked: engineer-approved pump/VFD models, prices, and compatibility packages not supplied).
