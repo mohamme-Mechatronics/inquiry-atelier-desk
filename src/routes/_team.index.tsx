@@ -63,7 +63,7 @@ function Dashboard() {
   });
 
   const cards = [
-    { label: "إجمالي العملاء", v: data?.total, to: "/customers", icon: Users, tone: "bg-primary/10 text-primary" },
+    { label: "إجمالي العملاء", v: data?.total, to: "/chats", icon: Users, tone: "bg-primary/10 text-primary" },
     { label: "نشطون اليوم", v: data?.todayN, to: "/chats", icon: MessageCircle, tone: "bg-info/10 text-info" },
     { label: "طلبات جديدة", v: data?.orders, to: "/orders", icon: ShoppingCart, tone: "bg-success/10 text-success" },
     { label: "بلاغات مفتوحة", v: data?.tickets, to: "/tickets", icon: Wrench, tone: "bg-destructive/10 text-destructive" },
