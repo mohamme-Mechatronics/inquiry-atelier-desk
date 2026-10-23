@@ -213,7 +213,7 @@ function AppLayout() {
               className="relative flex flex-col items-center gap-0.5 py-2 text-[10px] text-muted-foreground"
               activeProps={{ className: "!text-primary font-bold" }}>
               <n.icon className="h-5 w-5" />
-              {to === "/catalog" ? "الأقسام" : n.label}
+              {n.label}
               {n.badge && <Count n={badges.data?.[n.badge]} className="absolute top-1 start-1/2 ms-2" />}
             </Link>
           );
