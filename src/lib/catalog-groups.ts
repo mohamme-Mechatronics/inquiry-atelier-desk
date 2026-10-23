@@ -3,13 +3,13 @@ export function catalogGroup(code: string, name: string) {
   if (/pump_package|غطاس|مضخ/.test(text)) return "الغطاسات والمضخات";
   if (/^pv_|panel_|ألواح|الواح|لوح /.test(text)) return "الألواح";
   if (/^inv_|إنفرتر|انفرتر/.test(text)) return "الإنفرترات";
-  if (/^bat_|battery|بطاري/.test(text)) return "البطاريات";
   if (/كبا|كبائ|cabinet/.test(text)) return "الكبائن";
   if (/راك|rack/.test(text)) return "الراكات";
   if (/حماية.*dc|dc.*حماية|^dc_/.test(text)) return "صناديق حماية DC";
   if (/حماية.*ac|ac.*حماية|^ac_/.test(text)) return "لوحات حماية AC";
+  if (/^bat_|battery|بطاري/.test(text)) return "البطاريات";
   if (/كابل|كابل|كيبل|كبل|كشن|cable/.test(text)) return "الكابلات والتوصيلات";
-  if (/استند|ستاند|حامل|mount/.test(text)) return "استندات المنظومات";
+  if (/استند|ستاند|حامل|mount|^labor:panel|^acc:install/.test(text)) return "استندات المنظومات";
   return "أصناف أخرى";
 }
 
