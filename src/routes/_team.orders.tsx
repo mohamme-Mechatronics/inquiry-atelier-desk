@@ -2,9 +2,9 @@ import { useTeam } from "@/lib/team";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { ShoppingCart, MapPin, Receipt, Wallet } from "lucide-react";
+import { ShoppingCart, MapPin, Receipt, Wallet, Search, ArrowRight, MessageCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { Avatar, ChannelBadge, EmptyState, PageHeader, Skeleton, selectCls } from "@/components/admin";
+import { Avatar, ChannelBadge, EmptyState, Skeleton, selectCls } from "@/components/admin";
 import { StatusBadge } from "@/components/StatusBadge";
 import { STATUSES, ago, fmt } from "@/lib/crm";
 import { ExportButtons } from "@/components/ExportButtons";
@@ -43,6 +43,8 @@ const CATS: [string, string, RegExp | null][] = [
 function Orders() {
   const qc = useQueryClient();
   const [cat, setCat] = useState("all");
+  const [q, setQ] = useState("");
+  const [sel, setSel] = useState<string | null>(null);
   const { data = [], isLoading } = useQuery({
     queryKey: ["orders"],
     queryFn: async () => (await supabase.from("orders").select("*").order("created_at", { ascending: false })).data ?? [],
@@ -59,52 +61,95 @@ function Orders() {
     qc.invalidateQueries({ queryKey: ["nav-badges"] });
   };
   const re = CATS.find((c) => c[0] === cat)?.[2];
-  const list = re ? data.filter((o) => re.test(`${o.details ?? ""} ${o.method ?? ""} ${o.invoice_no ?? ""}`)) : data;
+  const s = q.trim();
+  const list = data
+    .filter((o) => !re || re.test(`${o.details ?? ""} ${o.method ?? ""} ${o.invoice_no ?? ""}`))
+    .filter((o) => !s || `${o.name ?? ""} ${o.phone} ${o.invoice_no ?? ""} ${o.city ?? ""}`.includes(s));
+  const o = data.find((x) => x.id === sel);
   const table = () => ({
     title: `تقرير الطلبات — ${CATS.find((c) => c[0] === cat)?.[1]}`, file: "orders",
     headers: ["العميل", "الرقم", "المبلغ", "الفاتورة", "المدينة", "طريقة الدفع", "الحالة", "التفاصيل", "التاريخ"],
     rows: list.map((o) => [o.name, o.phone, o.amount, o.invoice_no, o.city, o.method, STATUSES[o.status]?.label ?? o.status, o.details, fmt(o.created_at)]),
   });
   return (
-    <div className="space-y-4">
-      <PageHeader title="الطلبات" count={list.length} description="طلبات الشراء والدفع الواردة من البوت، صنّفها وحدّث حالتها" actions={<ExportButtons table={table} />} />
-      <div className="scrollbar-none -mx-3 flex gap-1.5 overflow-x-auto px-3 md:mx-0 md:flex-wrap md:px-0">
-        {CATS.map(([k, l]) => (
-          <button key={k} onClick={() => setCat(k)}
-            className={`shrink-0 rounded-md border px-3 py-1.5 text-xs font-medium transition-colors ${cat === k ? "border-primary bg-primary text-primary-foreground" : "bg-card text-muted-foreground hover:text-foreground"}`}>
-            {l}
-          </button>
-        ))}
-      </div>
-      {isLoading && <div className="grid gap-3 md:grid-cols-2">{[1, 2, 3, 4].map((i) => <Skeleton key={i} className="h-40" />)}</div>}
-      {!isLoading && list.length === 0 && (
-        <div className="rounded-xl border bg-card shadow-card"><EmptyState icon={ShoppingCart} title="لا توجد طلبات" hint="ستصل طلبات الشراء هنا عند إتمامها من البوت." /></div>
-      )}
-      <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
-        {list.map((o) => (
-          <article key={o.id} className="flex flex-col rounded-xl border bg-card shadow-card">
-            <div className="flex items-center gap-3 border-b p-4">
-              <Avatar name={o.name} phone={o.phone} size="sm" />
-              <div className="min-w-0 flex-1">
-                <Link to="/customers/$phone" params={{ phone: o.phone }} className="block truncate text-sm font-bold hover:text-primary">{o.name || o.phone}</Link>
-                <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground"><ChannelBadge phone={o.phone} /> {ago(o.created_at)}</div>
-              </div>
-              <StatusBadge status={o.status} />
+    <div className="grid h-[calc(100dvh-9.25rem)] grid-cols-1 overflow-hidden rounded-xl border bg-card shadow-card md:h-[calc(100dvh-7rem)] md:grid-cols-[22rem_1fr]">
+      <div className={`flex min-h-0 min-w-0 flex-col border-e ${o ? "hidden md:flex" : "flex"}`}>
+        <div className="space-y-3 border-b p-3">
+          <div className="flex gap-2">
+            <div className="relative flex-1">
+              <Search className="absolute start-3 top-2.5 h-4 w-4 text-muted-foreground" />
+              <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="بحث بالاسم أو الرقم أو الفاتورة"
+                className="h-9 w-full rounded-lg border bg-background pe-3 ps-9 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring" />
             </div>
-            <dl className="grid grid-cols-2 gap-3 p-4 text-sm">
-              <div><dt className="flex items-center gap-1 text-[11px] text-muted-foreground"><Wallet className="h-3 w-3" /> المبلغ</dt><dd className="font-bold tabular-nums">{o.amount || "—"}</dd></div>
-              <div><dt className="flex items-center gap-1 text-[11px] text-muted-foreground"><Receipt className="h-3 w-3" /> الفاتورة</dt><dd dir="ltr" className="truncate text-end font-medium">{o.invoice_no || "—"}</dd></div>
-              <div><dt className="flex items-center gap-1 text-[11px] text-muted-foreground"><MapPin className="h-3 w-3" /> المدينة</dt><dd>{o.city || "—"}</dd></div>
-              <div><dt className="text-[11px] text-muted-foreground">طريقة الدفع</dt><dd className="truncate">{o.method || "—"}</dd></div>
-            </dl>
-            {o.details && (
-              <details className="mx-4 mb-3 rounded-lg bg-muted/60 px-3 py-2 text-sm">
-                <summary className="cursor-pointer text-xs font-semibold text-muted-foreground">تفاصيل الطلب</summary>
-                <p className="mt-2 whitespace-pre-wrap text-xs leading-relaxed">{o.details}</p>
-              </details>
-            )}
-            <div className="mt-auto flex items-center gap-2 border-t bg-muted/30 px-4 py-2.5">
-              <span className="text-xs text-muted-foreground">تحديث الحالة</span>
+            <ExportButtons table={table} />
+          </div>
+          <div className="scrollbar-none -mx-3 flex gap-1 overflow-x-auto px-3">
+            {CATS.map(([k, l]) => (
+              <button key={k} onClick={() => setCat(k)}
+                className={`shrink-0 rounded-md px-2.5 py-1 text-xs font-medium transition-colors ${cat === k ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground hover:text-foreground"}`}>
+                {l}
+              </button>
+            ))}
+          </div>
+        </div>
+        <div className="min-h-0 flex-1 overflow-y-auto">
+          {isLoading && <div className="space-y-3 p-3">{[1, 2, 3, 4, 5].map((i) => <Skeleton key={i} className="h-14" />)}</div>}
+          {!isLoading && list.length === 0 && <EmptyState icon={ShoppingCart} title="لا توجد طلبات" hint="ستصل طلبات الشراء هنا عند إتمامها من البوت." />}
+          {list.map((x) => (
+            <button key={x.id} onClick={() => setSel(x.id)}
+              className={`relative flex w-full items-center gap-3 border-b px-3 py-3 text-start transition-colors hover:bg-muted/60 ${sel === x.id ? "bg-secondary before:absolute before:inset-y-0 before:start-0 before:w-0.5 before:bg-accent" : ""}`}>
+              <Avatar name={x.name} phone={x.phone} size="sm" />
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center gap-1.5">
+                  <span className="truncate text-sm font-semibold">{x.name || x.phone}</span>
+                  <span className="ms-auto shrink-0 text-[10px] tabular-nums text-muted-foreground">{ago(x.created_at)}</span>
+                </div>
+                <div className="mt-0.5 flex items-center gap-1.5 text-xs text-muted-foreground">
+                  <span dir="ltr" className="truncate">{x.invoice_no || "—"}</span>
+                  {x.amount && <span className="font-semibold tabular-nums text-foreground">{x.amount}</span>}
+                  <span className="ms-auto shrink-0"><StatusBadge status={x.status} /></span>
+                </div>
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className={`min-h-0 min-w-0 flex-col ${o ? "flex" : "hidden md:flex"}`}>
+        {!o ? (
+          <div className="m-auto"><EmptyState icon={ShoppingCart} title="اختر طلبًا لعرضه" hint="اختر طلبًا من القائمة لعرض تفاصيله وتحديث حالته." /></div>
+        ) : (
+          <>
+            <div className="flex items-center gap-3 border-b px-3 py-2.5">
+              <button onClick={() => setSel(null)} className="rounded-full p-1.5 hover:bg-muted md:hidden" aria-label="رجوع"><ArrowRight className="h-5 w-5" /></button>
+              <Avatar name={o.name} phone={o.phone} size="sm" />
+              <div className="min-w-0 flex-1 leading-tight">
+                <div className="truncate text-sm font-bold">{o.name || o.phone}</div>
+                <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground"><ChannelBadge phone={o.phone} /> <span dir="ltr">{o.phone}</span></div>
+              </div>
+              <Link to="/chats" search={{ p: o.phone } as never} className="rounded-full p-2 text-muted-foreground hover:bg-muted hover:text-foreground" aria-label="فتح المحادثة"><MessageCircle className="h-5 w-5" /></Link>
+            </div>
+            <div className="min-h-0 flex-1 space-y-3 overflow-y-auto p-3">
+              <dl className="grid grid-cols-2 gap-2 text-sm">
+                {[
+                  [Wallet, "المبلغ", o.amount],
+                  [Receipt, "الفاتورة", o.invoice_no],
+                  [MapPin, "المدينة", o.city],
+                  [Wallet, "طريقة الدفع", o.method],
+                ].map(([I, l, v], i) => {
+                  const Icon = I as typeof Wallet;
+                  return (
+                    <div key={i} className="rounded-lg bg-muted/50 px-2.5 py-1.5">
+                      <dt className="flex items-center gap-1 text-[11px] text-muted-foreground"><Icon className="h-3 w-3" /> {l as string}</dt>
+                      <dd className="truncate font-semibold">{(v as string) || "—"}</dd>
+                    </div>
+                  );
+                })}
+              </dl>
+              {o.details && <p className="whitespace-pre-wrap rounded-lg bg-muted/50 p-3 text-xs leading-relaxed">{o.details}</p>}
+              <p className="text-[11px] text-muted-foreground">{fmt(o.created_at)}</p>
+            </div>
+            <div className="flex items-center gap-2 border-t bg-muted/30 px-3 py-2.5">
               <select value={o.assigned_to ?? ""} onChange={(e) => assign(o.id, e.target.value)} className={selectCls} aria-label="الموظف المسؤول">
                 <option value="">غير مسند</option>
                 {team.data?.map((t) => <option key={t.user_id} value={t.user_id}>{t.email?.split("@")[0]}</option>)}
@@ -113,8 +158,8 @@ function Orders() {
                 {Object.entries(STATUSES).map(([k, s]) => <option key={k} value={k}>{s.label}</option>)}
               </select>
             </div>
-          </article>
-        ))}
+          </>
+        )}
       </div>
     </div>
   );
