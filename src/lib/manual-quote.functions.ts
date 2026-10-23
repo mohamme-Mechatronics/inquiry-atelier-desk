@@ -1,6 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
-import { quoteInput, pricedLines, quoteTotal, money, quoteMoney } from "@/lib/manual-quote";
+import { quoteInput, pricedLines, quoteTotal, quoteMoney } from "@/lib/manual-quote";
 
 export const generateManualQuote = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
