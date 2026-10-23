@@ -3,7 +3,7 @@ export function catalogGroup(code: string, name: string) {
   if (/pump_package|غطاس|مضخ/.test(text)) return "الغطاسات والمضخات";
   if (/^pv_|panel_|ألواح|الواح|لوح /.test(text)) return "الألواح";
   if (/^inv_|إنفرتر|انفرتر/.test(text)) return "الإنفرترات";
-  if (/كبا|كبائ|cabinet/.test(text)) return "الكبائن";
+  if (/كبا|كبائ|كبين|^ess:cab|cabinet/.test(text)) return "الكبائن";
   if (/راك|rack/.test(text)) return "الراكات";
   if (/حماية.*dc|dc.*حماية|^dc_/.test(text)) return "صناديق حماية DC";
   if (/حماية.*ac|ac.*حماية|^ac_/.test(text)) return "لوحات حماية AC";
