@@ -1,0 +1,11 @@
+name: publish-windows-zip
+on: { push: { branches: [windows-zip-upload] } }
+permissions: { contents: write }
+jobs:
+  up:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: cat parts/Tamkeen-Windows.zip.part* > Tamkeen-Windows.zip && ls -l Tamkeen-Windows.zip
+      - run: gh release upload windows-v1.1.0 Tamkeen-Windows.zip --clobber -R ${{ github.repository }}
+        env: { GH_TOKEN: "${{ github.token }}" }
