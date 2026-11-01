@@ -1,0 +1,15 @@
+name: publish-windows-1.2
+on:
+  push:
+    branches: [windows-1.2-upload]
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: cat windows-1.2/part.* > Tamkeen-Windows-1.2.zip && unzip -t Tamkeen-Windows-1.2.zip
+      - env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create windows-v1.2.0 Tamkeen-Windows-1.2.zip --title "Tamkeen Windows 1.2.0" --notes "تطبيق تمكين لويندوز 10/11. فك الضغط وشغّل Tamkeen_Admin_Setup.exe للتثبيت. التحديث يدوي من زر تحديث التطبيق في الإعدادات." --target windows-1.2-upload
